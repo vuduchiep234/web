@@ -130,14 +130,14 @@ class AppServiceProvider extends ServiceProvider
 
 
 
-//       $producer['listProducer'] = Producer::all();
-//       $cate['listCate'] = Category::all();
-//       $image['listImage'] = Image::all();
-//       $role['listRole'] = Role::all();
-//       View::share($image);
-//       View::share($cate);
-//       View::share($producer);
-//       View::share($role);
+      $producer['listProducer'] = Producer::all();
+      $cate['listCate'] = Category::all();
+      $image['listImage'] = Image::all();
+      $role['listRole'] = Role::all();
+      View::share($image);
+      View::share($cate);
+      View::share($producer);
+      View::share($role);
     }
 
     /**

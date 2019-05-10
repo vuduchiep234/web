@@ -1,50 +1,10 @@
 
 jQuery(function($) {
 
-    // $.ajax({
-                
-    //         url: '/api/v1/roles/'+'all',
-    //         type: 'get',
-    //         dataType: 'json',
-    //         success: function(data) {
-    //             var output = "";
-    //             for(var i = 0; i < data.length; i++){
-
-    //                 output +=   "<tr>"
-    //                                 +"<td>"+data[i].id+"</td>"
-    //                                 +"<td>"+data[i].type+"</td>"
-    //                                 +"<td class='center'>"
-    //                                     +"<a href='#' class='green edit-role' id="+data[i].id+" data-type="+data[i].type+" data-role='update-role' data-toggle='modal'>"
-    //                                         +"<i class='ace-icon fa fa-pencil bigger-130'></i>"
-    //                                     +"</a>"
-    //                                 +"</td>"
-    //                                 +"<td class='center'>"
-    //                                     +"<a class='red' href='#' id='<?php echo $role->id; ?>' data-role='delete-role' data-toggle='modal'>"
-    //                                         +"<i class='ace-icon fa fa-trash-o bigger-130'></i>"
-    //                                     +"</a>"
-    //                                 +"</td>"
-    //                             +"</tr>"
-
-    //                 // $('#cellIDRole').text(data[i].id);
-    //                 // $('#cellTypeRole').text(data[i].type);
-    //                 // $('#cellEditRole').html("<a href='#' class='green edit-role' id='<?php echo $role->id; ?>' data-type='{{$role->type}}' data-role='update-role' data-toggle='modal'>"
-    //                 //                         + "<i class='ace-icon fa fa-pencil bigger-130'></i>"
-    //                 //                     +"</a>");
-    //                 // $('#cellDeleteRole').html("<a class='red' href='#' id='<?php echo $role->id; ?>' data-role='delete-role' data-toggle='modal'>"
-    //                 //                         +"<i class='ace-icon fa fa-trash-o bigger-130'></i>"
-    //                 //                     +"</a>");
-    //             }
-    //             $('#bodyRole').html(output);
-    //         },
-    //         error: function(err){
-    //             alert(1);
-    //         }
-    // });
-
 	$('#addRole').click(function(){
 
         $('#myModal-role').modal('show');
-        $('#form-role')[0].reset();
+        $('#type-role').val('');
         
     });
 
@@ -72,7 +32,10 @@ jQuery(function($) {
                 }
             },
             success: function (response) {
-            	
+                alert('Success');
+                $('#myModal-role').modal('hide');
+                load_data_role();
+                
             }
         });
 	});
@@ -106,7 +69,9 @@ jQuery(function($) {
                 type: 'patch',
                 data: {type: data, _method: "patch"},
                 success: function(res) {
-
+                    alert('Success');
+                    $('#editModal-role').modal('hide');
+                    load_data_role();
                 }
         });
     });
@@ -139,7 +104,9 @@ jQuery(function($) {
                 type: 'delete',
                 data: {id: id, _method: "delete"},
                 success: function(res) {
-
+                    alert('Success');
+                    $('#deleteModal-role').modal('hide');
+                    load_data_role();
                 }
         });
     	
@@ -152,106 +119,83 @@ jQuery(function($) {
         $('#myModal-searchRole').modal('show');
     });
 
-    
-
-        // searchRoleFunction();
-        // function searchRoleFunction(query = ''){
-
-        //     $.ajax({
-        //         url: "{{route('listRole/search')}}",
-        //         method: "get",
-        //         data: {query: query},
-        //         dataType: 'json',
-        //         success: function(data){
-        //             $('#bodyRole').html(data.table_data)
-        //         }
-        //     });
-        // }
-
-        // $('#form_search_role #search').on('click', function(){
-        //     var query = $('#data_search').val();
-        //     alert(query);
-        //     $.ajax({
-        //         url: "{{route('listRole/search')}}",
-        //         method: "get",
-        //         data: {query: query},
-        //         dataType: 'json',
-        //         success: function(data){
-        //             $('#bodyRole').html(data.table_data);
-        //             console.log(data);
-        //             console.log(1);
-        //         },
-        //         error:function(err){
-        //             console.log(err);
-        //         }
-        //     });
-        // });
-
-    // $('#search-role #search').on('click', function(){
-
-    //     var id = $('#data-search').val();
-    //     // alert(id);
-
-    //     // $.ajaxSetup({
-    //     //     headers: {
-    //     //         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-    //     //     }
-
-    //     // });
-
-    //     $.ajax({
-                
-    //             url: '/api/v1/roles/'+id,
-    //             type: 'get',
-    //             // data: {id:id},
-    //             dataType: 'json',
-    //             success: function(data) {
+    function load_data_role(){
+        $.ajax({
                     
-    //                 // var data = JSON.stringify(data);
-    //                 // alert(data[0].type);
-    //                 console.log(data);
-    //                 var output = "";
-    //                 for(var i = 0; i < data.length; i++){
+            url: '/api/v1/roles/'+'all',
+            type: 'get',
+            dataType: 'json',
+            success: function(data) {
+                var output = "";
+                for(var i = 0; i < data.length; i++){
 
-    //                     output +=   "<tr>"
-    //                                     +"<td>"+data[i].id+"</td>"
-    //                                     +"<td>"+data[i].type+"</td>"
-    //                                     +"<td class='center'>"
-    //                                         +"<a href='#' class='green edit-role' id='<?php echo $role->id; ?>' data-type='{{$role->type}}' data-role='update-role' data-toggle='modal'>"
-    //                                             +"<i class='ace-icon fa fa-pencil bigger-130'></i>"
-    //                                         +"</a>"
-    //                                     +"</td>"
-    //                                     +"<td class='center'>"
-    //                                         +"<a class='red' href='#' id='<?php echo $role->id; ?>' data-role='delete-role' data-toggle='modal'>"
-    //                                             +"<i class='ace-icon fa fa-trash-o bigger-130'></i>"
-    //                                         +"</a>"
-    //                                     +"</td>"
-    //                                 +"</tr>"
+                    output +=   "<tr>"
+                                    +"<td class='text-center'>"+data[i].id+"</td>"
+                                    +"<td class='text-center'>"+data[i].type+"</td>"
+                                    
+                                    +"<td class='text-center'>"
+                                        +"<a href='#' class='blue' data-toggle='modal' id_edit_role="+data[i].id+" data-type='update-role' name="+data[i].name+">"
+                                            +"<i class='ace-icon fa fa-pencil bigger-130'></i>"
+                                        +"</a>"
+                                    +"</td>"
+                                    +"<td class='text-center'>"
+                                        +"<a href='#' class='red delete_role' id_delete_role="+data[i].id+" data-type='delete-role' data-toggle='modal'>"
+                                            +"<i class='ace-icon fa fa-trash-o bigger-130'></i>"
+                                        +"</a>"
+                                    +"</td>"
+                                    
+                                +"</tr>";
 
-    //                     // $('#cellIDRole').text(data[i].id);
-    //                     // $('#cellTypeRole').text(data[i].type);
-    //                     // $('#cellEditRole').html("<a href='#' class='green edit-role' id='<?php echo $role->id; ?>' data-type='{{$role->type}}' data-role='update-role' data-toggle='modal'>"
-    //                     //                         + "<i class='ace-icon fa fa-pencil bigger-130'></i>"
-    //                     //                     +"</a>");
-    //                     // $('#cellDeleteRole').html("<a class='red' href='#' id='<?php echo $role->id; ?>' data-role='delete-role' data-toggle='modal'>"
-    //                     //                         +"<i class='ace-icon fa fa-trash-o bigger-130'></i>"
-    //                     //                     +"</a>");
-    //                 }
-    //                 $('#bodyRole').html(output);
-    //             },
-    //             error: function(err){
-    //                 alert(1);
-    //             }
-    //     });
-        
-        
-    // });
+                }
+                $('#body_list_role').html(output);
+                $('a[data-type=update-role]').on('click', function(){
 
-    // $('#sidebarRole').on('click', function(){
-    //     alert(1);
-        
-        
-        
-    // });
 
+                    var id = $(this).attr("id_edit_role");
+                    // var name = $(this).attr("name");
+                    // alert(id);
+
+                    $.ajax({
+            
+                        url: '/api/v1/roles?id='+id,
+                        type: 'get',
+                        dataType: 'json',
+                        success: function(data) {
+                            // console.log(data.data.type);
+                            // name = data.type;
+                            // alert(data.data.type);
+                            $('#role-type').val(data.data.type);
+                            
+                        },
+                        error: function(mess){
+                            alert("Loi gi nay");
+                            // console.log(mess);
+                        }
+                    });
+
+                    // alert(name);
+
+                    
+                    $('#role-id').val(id);
+                    $('#editModal-role').modal('show');
+                });
+
+                $('a[data-type=delete-role]').on('click', function(){
+
+                    var id = $(this).attr("id_delete_role");
+
+                    $('#role-delete').val(id);
+                    $('#deleteModal-role').modal('show');
+                    
+                });
+
+
+
+                // alert('success');
+            },
+            error: function(err){
+                alert("Error load data");
+            }
+        });
+    }
 });
