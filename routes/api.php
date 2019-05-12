@@ -462,5 +462,31 @@ Route::prefix('v1')->group(function () {
             'as' => 'api/v1/auctions/auction'
         ]);
 
+        Route::prefix('cards')->group(function () {
+
+
+            Route::get('{id?}', [
+                'uses' => 'API\CardController@get',
+                'as' => 'api/v1/cards/get'
+            ])->where('id', '[0-9]+');
+
+
+            Route::post('', [
+                'uses' => 'API\CardController@post',
+                'as' => 'api/v1/cards/post'
+            ]);
+
+            Route::patch('{id?}', [
+                'uses' => 'API\CardController@patch',
+                'as' => 'api/v1/cards/patch'
+            ])->where('id', '[0-9]+');
+
+            Route::delete('{id}', [
+                'uses' => 'API\CardController@delete',
+                'as' => 'api/v1/cards/delete'
+            ])->where('id', '[0-9]+');
+
+        });
+
     });
 });
