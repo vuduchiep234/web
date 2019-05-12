@@ -10,7 +10,9 @@ namespace App\Http\Controllers\API;
 
 
 use App\Decorators\Auction\CreateAuctionDecorator;
-use App\Decorators\Auction\GetAuctionWinnerDecorator;
+use App\Decorators\Auction\GetAuctionDecorator;
+use App\Decorators\Message;
+use App\Http\Controllers\Requests\API\Auction\AuctionAuctionRequest;
 use App\Http\Controllers\Requests\API\Auction\AuctionGetRequest;
 use App\Http\Controllers\Requests\API\Auction\AuctionPatchRequest;
 use App\Http\Controllers\Requests\API\Auction\AuctionPostRequest;
@@ -31,9 +33,23 @@ class AuctionController extends APIController
 
     public function post(AuctionPostRequest $request)
     {
+        return parent::_post($request);
+    }
+
+    public function auction(AuctionAuctionRequest $request, int $id = null)
+    {
         $enhancedService = new CreateAuctionDecorator($this->getService());
         $this->setService($enhancedService);
-        return parent::_post($request);
+        $checker =  $enhancedService->updateModel($request->all(), $id);
+        if ($checker == false)
+        {
+            /**
+             * @var Message $enhancedService
+             */
+            return response(['Error Message' => $enhancedService->getMessage()]);
+        } else {
+            return response(['Message' => 'Auction successful']);
+        }
     }
 
     public function patch(AuctionPatchRequest $request, $id)
@@ -55,15 +71,14 @@ class AuctionController extends APIController
     {
         $service = $this->getService();
         $attributes['product_id'] = $request->getProductId();
+        $attributes['auction_id'] = $request->getAuctionId();
         $attributes['relations'] =  $request->getRelations();
-        $winner = $service->getWinner($attributes);
-        $productAuction = $service->getProductAuctions($attributes);
+        $enhancedService = new GetAuctionDecorator($service);
+        $auction = $enhancedService->productAll($attributes, $attributes['auction_id']);
         return response([
-            'auctions' => $productAuction,
-            'winner' => $winner
-        ]);
+            $auction
+        ], 200);
     }
-
 
     public function getService(): AuctionService
     {

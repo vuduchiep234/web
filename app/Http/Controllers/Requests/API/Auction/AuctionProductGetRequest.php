@@ -17,11 +17,17 @@ class AuctionProductGetRequest extends AuctionGetRequest
     protected function filterRules(): array
     {
         return array_merge(parent::filterRules(), [
-            'productId' => 'int|required|exists:products,id'
+            'productId' => 'int|required|exists:products,id',
+            'auction_id' => 'int|required|exists:auctions,id',
         ]);
     }
 
     public function getProductId(): int
+    {
+        return Input::get('productId');
+    }
+
+    public function getAuctionId(): int
     {
         return Input::get('productId');
     }

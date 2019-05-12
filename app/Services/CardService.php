@@ -2,14 +2,14 @@
 /**
  * Created by PhpStorm.
  * User: admin
- * Date: 5/6/2019
- * Time: 3:09 PM
+ * Date: 5/12/2019
+ * Time: 3:45 PM
  */
 
 namespace App\Services;
 
 
-
-interface AuctionService extends Service
+interface CardService extends Service
 {
+
 }

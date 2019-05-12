@@ -8,7 +8,11 @@ class Product extends Model
 {
     //
     protected $fillable = [
-        'name', 'price', 'detail', 'producer_id', 'category_id', 'image_id', 'state'
+        'name', 'price', 'detail', 'producer_id', 'category_id', 'state', 'image_url'
+    ];
+
+    protected $attributes = [
+        'image_url' => 'http://saicrc.in/images/noimage.png'
     ];
 
     public function producer()
@@ -19,16 +23,6 @@ class Product extends Model
     public function category()
     {
         return $this->belongsTo(Category::class);
-    }
-
-    public function image()
-    {
-        return $this->belongsTo(Image::class);
-    }
-
-    public function comments()
-    {
-        return $this->hasMany(Comment::class);
     }
 
     public function billDetails()
@@ -48,6 +42,12 @@ class Product extends Model
 
     public function auctions()
     {
-        return $this->hasMany(Auction::class);
+        return $this->belongsToMany(Auction::class, 'auction_product',
+            'product_id', 'auction_id');
+    }
+
+    public function auctionProducts()
+    {
+        return $this->hasMany(AuctionProduct::class);
     }
 }

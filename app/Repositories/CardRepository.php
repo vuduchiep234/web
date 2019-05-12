@@ -2,14 +2,14 @@
 /**
  * Created by PhpStorm.
  * User: admin
- * Date: 5/6/2019
- * Time: 3:08 PM
+ * Date: 5/12/2019
+ * Time: 3:44 PM
  */
 
 namespace App\Repositories;
 
 
-interface AuctionRepository extends Repository
+interface CardRepository extends Repository
 {
 
 }

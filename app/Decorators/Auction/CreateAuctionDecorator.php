@@ -8,21 +8,29 @@
 
 namespace App\Decorators\Auction;
 
-use App\Handlers\ProductHandlers\CheckProductTimeHandler;
-use Illuminate\Database\Eloquent\Model;
+use App\Handlers\AuctionHandlers\CheckAuctionDurationHandler;
+use App\Handlers\AuctionProductHandler\CreateAuctionProductHandler;
+use App\Handlers\UserHandler\CheckUserSessionHandler;
 
 
 class CreateAuctionDecorator extends EloquentAuctionDecorator
 {
-    public function createNewModel(array $attributes): ?Model
+    public function updateModel(array $attributes, $id): bool
     {
-        $timeHandler = new CheckProductTimeHandler();
-        $response = $timeHandler->handle($attributes);
+        $userHandler = new CheckUserSessionHandler();
+        $timeHandler = new CheckAuctionDurationHandler();
+        $auctionProductHandler = new CreateAuctionProductHandler();
+
+        $userHandler->setNextHandler($timeHandler);
+        $timeHandler->setNextHandler($auctionProductHandler);
+
+        $response = $userHandler->handle($attributes);
 
         if ($response->getResponseStatus() == true) {
-            return parent::createNewModel($attributes);
+            return true;
         } else {
             $this->setMessage($response->getResponseMessage());
-            return null;
+            return false;
         }
-    }}
+    }
+}

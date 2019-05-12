@@ -17,24 +17,14 @@ class UserPatchRequest extends PatchRequest
     {
         if($this->route('id')){
             return [
-                'first_name' => 'string',
-                'last_name' => 'string',
                 'email' => 'email|unique:users,email',
                 'phone' => 'string|unique:users,phone',
-                'password'=>'string|min:6',
-                'role' => 'int|exists:roles,id',
-                'image' => 'int|exists:images,id'
             ];
         }
         return [
             '*.id' => 'int|exists:users,id',
-            '*.first_name' => 'string',
-            '*.last_name' => 'string',
             '*.email'=> 'email|unique:users,email|distinct',
-            '*.phone'=> 'string|unique:users,phone|distinct',
             '*.password'=>'string|min:6',
-            '*.role' => 'int|exists:roles,id',
-            '*.image' => 'int|exists:images,id'
         ];
     }
 }

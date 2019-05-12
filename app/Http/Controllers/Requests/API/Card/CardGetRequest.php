@@ -2,26 +2,26 @@
 /**
  * Created by PhpStorm.
  * User: admin
- * Date: 10/7/2018
- * Time: 6:33 PM
+ * Date: 5/12/2019
+ * Time: 3:48 PM
  */
 
-namespace App\Http\Controllers\Requests\API\User;
+namespace App\Http\Controllers\Requests\API\Card;
 
 
 use App\Http\Controllers\Requests\API\GetRequest;
 
-class UserGetRequest extends GetRequest
+class CardGetRequest extends GetRequest
 {
 
     protected function relations(): array
     {
-        return ['role', 'image', 'comments', 'bill', 'exportBills', 'importBills', 'card'];
+        return ['user'];
     }
 
     protected function sort(): array
     {
-        return ['id', 'first_name', 'last_name', 'role_id'];
+        return ['id'];
     }
 
     protected function filterRules(): array

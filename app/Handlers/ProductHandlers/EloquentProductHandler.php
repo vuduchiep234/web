@@ -10,8 +10,8 @@ namespace App\Handlers\ProductHandlers;
 
 
 use App\Handlers\BaseEloquentHandler;
-use App\Repositories\Eloquent\EloquentProducerRepository;
-use App\Services\Eloquent\EloquentProducerService;
+use App\Repositories\Eloquent\EloquentProductRepository;
+use App\Services\Eloquent\EloquentProductService;
 use App\Services\Service;
 
 class EloquentProductHandler extends BaseEloquentHandler
@@ -19,6 +19,6 @@ class EloquentProductHandler extends BaseEloquentHandler
 
     public function createHandlerService(): Service
     {
-        return new EloquentProducerService(new EloquentProducerRepository());
+        return new EloquentProductService(new EloquentProductRepository());
     }
 }

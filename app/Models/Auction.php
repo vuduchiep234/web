@@ -8,11 +8,7 @@ class Auction extends Model
 {
     //
     protected $fillable = [
-        'user_id', 'product_id', 'offer',
-    ];
-
-    protected $attributes = [
-        'offer' => 0,
+        'creator_id', 'duration'
     ];
 
     public function user()
@@ -20,8 +16,14 @@ class Auction extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function product()
+    public function products()
     {
-        return $this->belongsTo(Product::class);
+        return $this->belongsToMany(Product::class, 'auction_product',
+            'auction_id', 'product_id');
+    }
+
+    public function auctionProducts()
+    {
+        return $this->hasMany(AuctionProduct::class);
     }
 }

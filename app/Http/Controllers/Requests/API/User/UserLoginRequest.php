@@ -2,8 +2,8 @@
 /**
  * Created by PhpStorm.
  * User: admin
- * Date: 10/7/2018
- * Time: 6:35 PM
+ * Date: 5/12/2019
+ * Time: 12:21 PM
  */
 
 namespace App\Http\Controllers\Requests\API\User;
@@ -11,13 +11,13 @@ namespace App\Http\Controllers\Requests\API\User;
 
 use App\Http\Controllers\Requests\API\PostRequest;
 
-class UserPostRequest extends PostRequest
+class UserLoginRequest extends PostRequest
 {
     public function rules(): array
     {
         return [
-            'email' => 'email|required|unique:users,email|distinct',
-            'password' => 'string|required|min:6',
+            'username' => 'email|required|exists:users,email',
+            'password' => 'string|min:0'
         ];
     }
 }

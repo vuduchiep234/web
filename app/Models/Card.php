@@ -4,22 +4,15 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Comment extends Model
+class Card extends Model
 {
     //
-    // protected $table = 'comments';
-
     protected $fillable = [
-        'user_id', 'product_id', 'content'
+        'user_id', 'address', 'phone_number', 'first_name', 'last_name', 'avatar_url',
     ];
 
     public function user()
     {
         return $this->belongsTo(User::class);
-    }
-
-    public function product()
-    {
-        return $this->belongsTo(Product::class);
     }
 }

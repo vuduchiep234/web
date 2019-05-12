@@ -21,13 +21,30 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::prefix('v1')->group(function () {
     Route::prefix('users')->group(function () {
 
-        Route::post('login', 'Admin\UserController@login');
-        Route::post('register', 'Admin\UserController@register');
-
         Route::get('{id?}', [
             'uses' => 'API\UserController@get',
             'as' => 'api/v1/users/get'
         ])->where('id', '[0-9]+');
+
+        Route::post('login', [
+            'uses' => 'API\UserController@login',
+            'as' => 'api/v1/users/login'
+        ]);
+
+        Route::post('register', [
+            'uses' => 'API\UserController@register',
+            'as' => 'api/v1/users/register'
+        ]);
+
+        Route::post('logout', [
+            'uses' => 'API\UserController@logout',
+            'as' => 'api/v1/users/logout'
+        ]);
+
+        Route::get('session', [
+            'uses' => 'API\UserController@getSessionData',
+            'as' => 'api/v1/users/session'
+        ]);
 
         Route::get('all', [
             'uses' => 'API\UserController@getAll',
@@ -48,6 +65,11 @@ Route::prefix('v1')->group(function () {
             'uses' => 'API\UserController@delete',
             'as' => 'api/v1/users/delete'
         ])->where('id', '[0-9]+');
+
+        Route::patch('changePassword', [
+            'uses' => 'API\UserController@changePassword',
+            'as' => 'api/v1/users/changePassword'
+        ]);
 
     });
 
@@ -433,6 +455,11 @@ Route::prefix('v1')->group(function () {
         Route::post('', [
             'uses' => 'API\AuctionController@post',
             'as' => 'api/v1/auctions/post'
+        ]);
+
+        Route::post('auction', [
+            'uses' => 'API\AuctionController@auction',
+            'as' => 'api/v1/auctions/auction'
         ]);
 
     });
