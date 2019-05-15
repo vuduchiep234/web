@@ -8,12 +8,9 @@ class Product extends Model
 {
     //
     protected $fillable = [
-        'name', 'price', 'detail', 'producer_id', 'category_id', 'state', 'image_url'
+        'name', 'price', 'detail', 'producer_id', 'category_id', 'state', 'image_id'
     ];
 
-    protected $attributes = [
-        'image_url' => 'http://saicrc.in/images/noimage.png'
-    ];
 
     public function producer()
     {
@@ -49,5 +46,10 @@ class Product extends Model
     public function auctionProducts()
     {
         return $this->hasMany(AuctionProduct::class);
+    }
+
+    public function image()
+    {
+        return $this->belongsTo(Image::class);
     }
 }

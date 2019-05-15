@@ -14,6 +14,7 @@ use App\Http\Controllers\Requests\API\GetRequest;
 use App\Http\Controllers\Requests\API\Product\ProductGetRequest;
 use App\Http\Controllers\Requests\API\Product\ProductPatchRequest;
 use App\Http\Controllers\Requests\API\Product\ProductPostRequest;
+use App\Services\ProductService;
 
 class ProductController extends APIController
 {
@@ -29,7 +30,8 @@ class ProductController extends APIController
 
     public function post(ProductPostRequest $request)
     {
-        return parent::_post($request);
+        $service = $this->getService();
+        return $service->createNewModel($request->all());
     }
 
     public function patch(ProductPatchRequest $request, ?int $id = null)
@@ -45,5 +47,10 @@ class ProductController extends APIController
     public function getAll(ProductGetRequest $request)
     {
         return parent::_getAll($request);
+    }
+
+    public function getService(): ProductService
+    {
+        return parent::getService();
     }
 }

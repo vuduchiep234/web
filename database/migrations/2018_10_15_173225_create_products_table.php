@@ -21,11 +21,12 @@ class CreateProductsTable extends Migration
             $table->unsignedInteger('producer_id')->nullable();
             $table->unsignedInteger('category_id')->nullable();
             $table->boolean('state');
-            $table->string('image_url');
+            $table->unsignedInteger('image_id');
             $table->timestamps();
 
             $table->foreign('producer_id')->references('id')->on('producers')->onDelete('cascade');
             $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
+            $table->foreign('image_id')->references('id')->on('images')->onDelete('cascade');
         });
     }
 

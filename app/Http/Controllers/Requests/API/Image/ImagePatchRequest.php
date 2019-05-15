@@ -17,14 +17,14 @@ class ImagePatchRequest extends PatchRequest
     {
         if ($this->route('id')) {
             return [
-                'name' => 'string',
-                'content' => 'string'
+                'image_name' => 'string',
+                'image_url' => 'string'
             ];
         }
         return [
             '*.id' => 'int|required|exists:images,id',
-            '*.name' => 'string',
-            '*.content' => 'string'
+            '*.image_name' => 'string',
+            '*.image_url' => 'string'
         ];
     }
 }

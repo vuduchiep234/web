@@ -16,13 +16,14 @@ class ProductPostRequest extends PostRequest
     public function rules(): array
     {
         return [
-            '*.name' => 'string|required',
-            '*.price' => 'int|required',
-            '*.detail' => 'string|required',
-            '*.producer_id' => 'int|required|exists:producers,id',
-            '*.category_id' => 'int|required|exists:categories,id',
-            '*.image_id' => 'int|required|exists:images,id',
-            '*.state' => 'boolean|required'
+            'name' => 'string|required',
+            'price' => 'int|required',
+            'detail' => 'string|required',
+            'producer_id' => 'int|required|exists:producers,id',
+            'category_id' => 'int|required|exists:categories,id',
+            'image_id' => 'int|required_without:file|exists:images,id',
+            'file' => 'file',
+            'state' => 'boolean|required'
         ];
     }
 }

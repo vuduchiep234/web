@@ -11,6 +11,8 @@ namespace App\Decorators\CreateProduct\Eloquent;
 
 use App\Decorators\CreateProduct\CreateProductDecorator;
 use App\Decorators\EloquentDecorator;
+use App\Handlers\ImageHandler\Eloquent\CreateImageHandler;
+use App\Handlers\ImageHandler\File\UploadImageHandler;
 use App\Repositories\ProductRepository;
 use App\Services\Eloquent\EloquentService;
 use App\Services\ProductService;
@@ -30,6 +32,14 @@ class EloquentCreateProductDecorator extends EloquentDecorator implements Create
 
     public function createNewModel(array $attributes): ?Model
     {
+        if (!array_key_exists('image_id', $attributes)) {
+            $uploadImageHandler = new UploadImageHandler();
+            $createImageHandler = new CreateImageHandler();
+
+            $uploadImageHandler->setNextHandler($createImageHandler);
+            $uploadImageHandler->handle($attributes);
+        }
+
         return parent::createNewModel($attributes);
     }
 }

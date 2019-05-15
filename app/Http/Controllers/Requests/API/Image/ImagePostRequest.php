@@ -16,8 +16,8 @@ class ImagePostRequest extends PostRequest
     public function rules(): array
     {
         return [
-            '*.name' => 'string|required',
-            '*.content' => 'string|required'
+            '*.image_name' => 'string|required',
+            '*.image_url' => 'string|required'
         ];
     }
 }
