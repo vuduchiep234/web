@@ -17,19 +17,15 @@ class CardPatchRequest extends PatchRequest
     {
         if($this->route('id')){
             return [
-                'name' => 'string',
                 'phone' => 'string|unique:cards,phone',
                 'role' => 'int|exists:roles,id',
                 'address' => 'string|required',
-                'avatar_id' => 'url',
             ];
         }
         return [
             '*.id' => 'int|exists:users,id',
-            '*.name' => 'string',
             '*.phone'=> 'string|unique:cards,phone|distinct',
             '*.address' => 'string|required',
-            '*.avatar_id' => 'url',
         ];
     }
 }

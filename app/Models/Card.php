@@ -8,7 +8,7 @@ class Card extends Model
 {
     //
     protected $fillable = [
-        'user_id', 'address', 'phone_number', 'first_name', 'last_name', 'avatar_url',
+        'user_id', 'address', 'phone_number',
     ];
 
     public function user()

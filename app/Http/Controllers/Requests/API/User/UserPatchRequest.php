@@ -19,12 +19,14 @@ class UserPatchRequest extends PatchRequest
             return [
                 'email' => 'email|unique:users,email',
                 'phone' => 'string|unique:users,phone',
+                'name' => 'string|required'
             ];
         }
         return [
             '*.id' => 'int|exists:users,id',
             '*.email'=> 'email|unique:users,email|distinct',
             '*.password'=>'string|min:6',
+            '*.name' => 'string|required'
         ];
     }
 }

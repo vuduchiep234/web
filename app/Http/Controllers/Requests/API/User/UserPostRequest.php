@@ -18,6 +18,7 @@ class UserPostRequest extends PostRequest
         return [
             'email' => 'email|required|unique:users,email|distinct',
             'password' => 'string|required|min:6',
+            'name' => 'string|required'
         ];
     }
 }
