@@ -17,8 +17,7 @@ class CardPostRequest extends PostRequest
     {
         return [
             '*.user_id' => 'int|required|exists:users,id',
-            '*.first_name' => 'string|required',
-            '*.last_name' => 'string|required',
+            '*.name' => 'string|required',
             '*.phone' => 'string|required|unique:cards,phone',
             '*.address' => 'string|required',
             '*.avatar_id' => 'url',

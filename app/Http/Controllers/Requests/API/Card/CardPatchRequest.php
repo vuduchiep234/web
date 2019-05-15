@@ -17,8 +17,7 @@ class CardPatchRequest extends PatchRequest
     {
         if($this->route('id')){
             return [
-                'first_name' => 'string',
-                'last_name' => 'string',
+                'name' => 'string',
                 'phone' => 'string|unique:cards,phone',
                 'role' => 'int|exists:roles,id',
                 'address' => 'string|required',
@@ -27,8 +26,7 @@ class CardPatchRequest extends PatchRequest
         }
         return [
             '*.id' => 'int|exists:users,id',
-            '*.first_name' => 'string',
-            '*.last_name' => 'string',
+            '*.name' => 'string',
             '*.phone'=> 'string|unique:cards,phone|distinct',
             '*.address' => 'string|required',
             '*.avatar_id' => 'url',
