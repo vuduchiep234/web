@@ -30,10 +30,6 @@ class User extends Authenticatable
         'password', 'remember_token'
     ];
 
-    protected $attributes = [
-      'avatar_url' => 'http://saicrc.in/images/noimage.png'
-    ];
-
     public function role()
     {
         return $this->belongsTo(Role::class);
