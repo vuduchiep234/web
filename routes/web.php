@@ -24,89 +24,93 @@ Route::get('homeAdmin',
 
 
 Route::get('listProduct', 
-	['as'=>'listProduct', 'uses'=>'ProductController@getListProduct']
+	['as'=>'listProduct', 'uses'=>'AdminController@getListProduct']
 );
 
 Route::get('listProduct/search', 
-	['as'=>'listProduct/search', 'uses'=>'ProductController@search']
+	['as'=>'listProduct/search', 'uses'=>'AdminController@search']
 );
 
 
 Route::get('listImportBill', 
-	['as'=>'listImportBill', 'uses'=>'ImportBillController@getListImportBill']
+	['as'=>'listImportBill', 'uses'=>'AdminController@getListImportBill']
 );
 
 Route::get('listImportBill/search', 
-	['as'=>'listImportBill/search', 'uses'=>'ImportBillController@search']
+	['as'=>'listImportBill/search', 'uses'=>'AdminController@search']
 );
 
 Route::get('listImportBill/between', 
-	['as'=>'listImportBill/between', 'uses'=>'ImportBillController@between']
+	['as'=>'listImportBill/between', 'uses'=>'AdminController@between']
 );
 
 Route::get('listExportBill', 
-	['as'=>'listExportBill', 'uses'=>'ExportBillController@getListExportBill']
+	['as'=>'listExportBill', 'uses'=>'AdminController@getListExportBill']
 );
 
 Route::get('listExportBill/search', 
-	['as'=>'listExportBill/search', 'uses'=>'ExportBillController@search']
+	['as'=>'listExportBill/search', 'uses'=>'AdminController@search']
 );
 
 Route::get('listExportBill/between', 
-	['as'=>'listExportBill/between', 'uses'=>'ExportBillController@between']
+	['as'=>'listExportBill/between', 'uses'=>'AdminController@between']
 );
 
 Route::get('listOrder', 
-	['as'=>'listOrder', 'uses'=>'OrderController@getListOrder']
+	['as'=>'listOrder', 'uses'=>'AdminController@getListOrder']
 );
 
 Route::get('listOrder/search', 
-	['as'=>'listOrder/search', 'uses'=>'OrderController@search']
+	['as'=>'listOrder/search', 'uses'=>'AdminController@search']
 );
 
 Route::get('orderProcessing', 
-	['as'=>'orderProcessing', 'uses'=>'OrderController@getOrderProcessing']
+	['as'=>'orderProcessing', 'uses'=>'AdminController@getOrderProcessing']
 );
 
 Route::get('orderProcessing/search', 
-	['as'=>'orderProcessing/search', 'uses'=>'OrderController@search']
+	['as'=>'orderProcessing/search', 'uses'=>'AdminController@search']
 );
 
 
 ##########################################################################################
 
-Route::get('listTypeProduct', 
-	['as' => 'listTypeProduct', 'uses' => 'CategoryController@getCategory']
+Route::get('listCategory', 
+	['as' => 'listCategory', 'uses' => 'AdminController@getListCategory']
 );
 
 
 ##########################################################################################
 
 Route::get('listProducer', 
-	['as'=>'listProducer', 'uses'=>'ProducerController@getListProducer']
+	['as'=>'listProducer', 'uses'=>'AdminController@getListProducer']
 );
 
 ##########################################################################################
 
 Route::get('listRole', 
-	['as'=>'listRole', 'uses'=>'RoleController@getListRole']
+	['as'=>'listRole', 'uses'=>'AdminController@getListRole']
+);
+
+Route::get('listRolePagination', 
+	['as'=>'listRolePagination', 'uses'=>'AdminController@getListRolePagination']
 );
 
 ##########################################################################################
 
-Route::get('listMember', 
-	['as'=>'listMember', 'uses'=>'MemberController@getListMember']
+Route::get('listUser', 
+	['as'=>'listUser', 'uses'=>'AdminController@getListUser']
 );
 
 
 ##########################################################################################
 
 Route::get('listShipper', 
-	['as'=>'listShipper', 'uses'=>'ShipperController@getListShipper']
+	['as'=>'listShipper', 'uses'=>'AdminController@getListShipper']
 );
 
 Route::get('listShipper/search', 
-	['as'=>'listShipper/search', 'uses'=>'ShipperController@search']
+	['as'=>'listShipper/search', 'uses'=>'AdminController@search']
 );
 
 

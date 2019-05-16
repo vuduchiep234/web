@@ -12,9 +12,9 @@
                 </li>
 
                 <li>
-                    <a href="{{route('listProduct')}}">Quan ly kho</a>
+                    <a href="{{route('listProduct')}}">Manage Warehouse</a>
                 </li>
-                <li class="active">Xuat hang</li>
+                <li class="active">Export</li>
 
             </ul><!-- /.breadcrumb -->
 
@@ -34,12 +34,12 @@
 
                 	<div class="row">
                         <div class="col-xs-12">
-                            <h4 >Danh sach don xuat hang</h4> 
-                            <button class="btn btn-sm btn-success" data-toggle="modal" id="addExportBill">
-                                <i class=" "></i>
-                                Them moi
-                                
-                            </button>
+                            <h4 >List Export Bill</h4> 
+                            <button class="btn btn-sm btn-success" data-toggle="modal" id="addExportBill" style="float: right; margin-top: -40px;">
+                        <i class="ace-icon fa fa-plus bigger-110 white"></i>
+                            <b>Add</b>
+
+                        </button>
 
                            
 

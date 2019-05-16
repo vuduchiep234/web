@@ -124,7 +124,7 @@
 		<script type="text/javascript" src="js/Category.js"></script>
 		<script type="text/javascript" src="js/Producer.js"></script>
 		<script type="text/javascript" src="js/Role.js"></script>
-		<script type="text/javascript" src="js/Member.js"></script>
+		<script type="text/javascript" src="js/User.js"></script>
 		<script type="text/javascript" src="js/Shipper.js"></script>
 		<script type="text/javascript" src="js/Product.js"></script>
 		<script type="text/javascript" src="js/Image.js"></script>

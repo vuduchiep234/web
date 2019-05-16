@@ -92,97 +92,33 @@ jQuery(function($) {
 
         });
         
-        // if(name !== _name){
-        //     $.ajax({
-                
-        //         url: '/api/v1/producers/'+id,
-        //         type: 'patch',
-        //         data: {name: name},
-        //         success: function(data) {
-        //             $('#flag_producer').val('true');
-        //             // $('#editModal-producer').modal('hide');
-        //             // load_data_producer();
-        //         },
-        //         error: function(err){
-        //             console.log(err);
-        //             $('#flag_producer').val('false');
-        //         }
-        //     });
-        // }
-        // if(phone !== _phone){
-        //     $.ajax({
-                
-        //         url: '/api/v1/producers/'+id,
-        //         type: 'patch',
-        //         data: {phone: phone},
-        //         success: function(data) {
-        //             $('#flag_producer').val('true');
-        //             // $('#editModal-producer').modal('hide');
-        //             // load_data_producer();
-        //         },
-        //         error: function(err){
-        //             console.log(err);
-        //             $('#flag_producer').val('false');
-        //         }
-        //     });
-        // }
+        var data = {};
+        data.id = parseInt(id);
+        if(name !== _name){
+            data.name = name;
+        }
 
-        // if(email !== _email){
-        //     $.ajax({
-                
-        //         url: '/api/v1/producers/'+id,
-        //         type: 'patch',
-        //         data: {email: email},
-        //         success: function(data) {
-        //             $('#flag_producer').val('true');
-        //             // $('#editModal-producer').modal('hide');
-        //             // load_data_producer();
-        //         },
-        //         error: function(err){
-        //             console.log(err);
-        //             $('#flag_producer').val('false');
-        //         }
-        //     });
-        // }
+        if(phone !== _phone){
+            data.phone = phone;
+        }
 
-        // if(address !== _address){
-        //     $.ajax({
-                
-        //         url: '/api/v1/producers/'+id,
-        //         type: 'patch',
-        //         data: {address: address},
-        //         success: function(data) {
-        //             $('#flag_producer').val('true');
-        //             // $('#editModal-producer').modal('hide');
-        //             // load_data_producer();
-        //         },
-        //         error: function(err){
-        //             console.log(err);
-        //             $('#flag_producer').val('false');
-        //         }
-        //     });
-        // }
+        if(email !== _email){
+            data.email = email;
+        }
 
-        // var flag = $('#flag_producer').val();
-        // alert(flag);
-        // if(flag == 'true'){
-        //     alert("Success !");
-        //     $('#editModal-producer').modal('hide');
-        //     load_data_producer();
-        // }
-        // else{
-        //     alert("Fail !");
-        //     $('#editModal-producer').modal('hide');
-        //     load_data_producer();
-        // }
-        // $('#flag_producer').val("");
-
+        if(address !== _address){
+            data.address = address;
+        }
+        console.log(data);
         $.ajax({
                 
                 url: '/api/v1/producers/'+id,
                 type: 'patch',
-                data: {name: name, phone: phone, email: email, address: address},
+                data: data,
                 success: function(res) {
+                    alert("Success !");
+                    $('#editModal-producer').modal('hide');
+                    loaddata_producer(id);
 
                 }
         });
@@ -218,7 +154,7 @@ jQuery(function($) {
                 success: function(res) {
                     alert("Success !");
                     $('#deleteModal-producer').modal('hide');
-                    load_data_producer();
+                    $("tr[row_id_producer="+id+"]").remove();
                 }
         });
     	
@@ -234,7 +170,7 @@ jQuery(function($) {
                 var output = "";
                 for(var i = 0; i < data.length; i++){
 
-                    output +=   "<tr>"
+                    output +=   "<tr row_id_producer="+data[i].id+">"
                                     +"<td class='text-center'>"+data[i].id+"</td>"
                                     +"<td class='text-center'>"+data[i].name+"</td>"
                                     +"<td class='text-center'>"+data[i].address+"</td>"
@@ -254,7 +190,90 @@ jQuery(function($) {
                                 +"</tr>";
 
                 }
-                $('#body_list_producer').html(output);
+                $("tr[row_id_producer="+data[i-2].id+"]").after(output);
+                $('a[data-type=update-producer]').on('click', function(){
+
+
+                    var id = $(this).attr("id_edit_producer");
+                    // var name = $(this).attr("name");
+                    // alert(id);
+
+                    $.ajax({
+            
+                        url: '/api/v1/producers?id='+id,
+                        type: 'get',
+                        dataType: 'json',
+                        success: function(data) {
+                            // console.log(data.data.type);
+                            // name = data.type;
+                            // alert(data.data.type);
+                            $('#name-producer').val(data.data.name);
+                            $('#address-producer').val(data.data.address);
+                            $('#email-producer').val(data.data.email);
+                            $('#phone-producer').val(data.data.phone);
+                        },
+                        error: function(mess){
+                            alert("Loi gi nay");
+                            // console.log(mess);
+                        }
+                    });
+
+                    // alert(name);
+
+                    
+                    $('#producer-id').val(id);
+                    $('#editModal-producer').modal('show');
+                });
+
+                $('a[data-type=delete-producer]').on('click', function(){
+
+                    var id = $(this).attr("id_delete_producer");
+
+                    $('#producer-delete').val(id);
+                    $('#deleteModal-producer').modal('show');
+                    
+                });
+
+
+
+                // alert('success');
+            },
+            error: function(err){
+                alert("Error load data");
+            }
+        });
+    }
+
+    function loaddata_producer(id){
+        $.ajax({
+                    
+            url: '/api/v1/producers?id='+id,
+            type: 'get',
+            dataType: 'json',
+            success: function(data) {
+                var output = "";
+                
+                    output +=   
+                                    "<td class='text-center'>"+data.data.id+"</td>"
+                                    +"<td class='text-center'>"+data.data.name+"</td>"
+                                    +"<td class='text-center'>"+data.data.address+"</td>"
+                                    +"<td class='text-center'>"+data.data.email+"</td>"
+                                    +"<td class='text-center'>"+data.data.phone+"</td>"
+                                    +"<td class='text-center'>"
+                                        +"<a href='#' class='blue' data-toggle='modal' id_edit_producer="+data.data.id+" data-type='update-producer'>"
+                                            +"<i class='ace-icon fa fa-pencil bigger-130'></i>"
+                                        +"</a>"
+                                    +"</td>"
+                                    +"<td class='text-center'>"
+                                        +"<a href='#' class='red delete_producer' id_delete_producer="+data.data.id+" data-type='delete-producer' data-toggle='modal'>"
+                                            +"<i class='ace-icon fa fa-trash-o bigger-130'></i>"
+                                        +"</a>"
+                                    +"</td>"
+                                    
+                                ;
+
+                
+                $("tr[row_id_producer="+data.data.id+"]").html(output);
                 $('a[data-type=update-producer]').on('click', function(){
 
 

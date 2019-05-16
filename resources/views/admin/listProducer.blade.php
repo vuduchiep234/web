@@ -20,15 +20,6 @@
 
         </div>
         <div class="page-content">
-            <!-- <c:if test="${ != null}">
-                <h4 class="pink">
-                    <i class="ace-icon fa fa-hand-o-right icon-animated-hand-pointer blue"></i>
-
-                    <a class="green" data-toggle="modal">Chua co nha san xuat</a>
-                </h4>
-                <div class="hr hr-18 dotted hr-double"></div>
-            </c:if> -->
-
             <div class="row" >
                 <div class="col-xs-12">
 
@@ -41,27 +32,16 @@
                         </button>
                     </div>
 
-                    <!-- <div class="row">
-                        <div class="col-xs-12">
-                            <h4 >Danh sach nha san xuat</h4> 
-                            <button class="btn btn-sm btn-success" data-toggle="modal" id="addProducer">
-                                <i class=" "></i>
-                                Them moi
-                                
-                            </button>
-
-                           
-
-                        </div>
+                    <div class="row">
                         <div style="margin-left: 700px; margin-top: -46px; margin-right: 10px;">    
-                                <form method="get" action="{{route('listProducer/search')}}" id="form_search_producer">
-                                    {{csrf_field()}}
-                                    @include('admin.search')
-                                    
-                                </form>
-                            </div>
+                            <form method="get" action="" id="form_search_producer">
+                                {{csrf_field()}}
+                                @include('admin.search')
+                                
+                            </form>
+                        </div>
 
-                    </div> -->
+                    </div>
                     <br>
                     <div class="row">
                         <div class="col-xs-12">
@@ -94,7 +74,7 @@
                                 <tbody id="body_list_producer">
 
                                     @foreach($list as $producer)
-                                    <tr id="<?php echo $producer->id; ?>">
+                                    <tr row_id_producer="<?php echo $producer->id; ?>">
                                         <td class="center" data-target="idProducer">{{ $producer->id }}</td>
                                         <td class="center" data-target="nameProducer">{{ $producer->name }}</td>
                                         <td class="center" data-target="addressProducer">{{ $producer->address }}</td>
@@ -140,7 +120,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h3 class="modal-title" style="text-align: center;">Add Producer</h3>
+                    <h3 class="modal-title" style="text-align: center;"><b>Add Producer</b></h3>
                 </div>
                 <div class="modal-body">
                     <div class="row">
@@ -148,7 +128,7 @@
                             
                             <div class="col-sm-9" style="margin-top: 5px;">
                                 <div class="form-group">
-                                    <label class="col-sm-3 control-label no-padding-right" for="form-field-1" style="margin-top: 7px;">Name: </label>
+                                    <label class="col-sm-3 control-label no-padding-right" for="form-field-1" style="margin-top: 7px;"><b>Name: </b></label>
 
                                     <div class="col-sm-9">
                                         <input type="text" id="producer-name" placeholder="Enter producer name ..." class="form-control" name="producer-name" style="width: 400px; margin-top: 0px;"/>
@@ -159,7 +139,7 @@
 
                             <div class="col-sm-9" style="margin-top: 5px;">
                                 <div class="form-group">
-                                    <label class="col-sm-3 control-label no-padding-right" for="form-field-1" style="margin-top: 7px;">Address: </label>
+                                    <label class="col-sm-3 control-label no-padding-right" for="form-field-1" style="margin-top: 7px;"><b>Address: </b></label>
 
                                     <div class="col-sm-9">
                                         <input type="text" id="producer-address" placeholder="Enter address ..." class="form-control" name="producer-address" style="width: 400px; margin-top: 0px;"/>
@@ -170,7 +150,7 @@
 
                             <div class="col-sm-9" style="margin-top: 5px;">
                                 <div class="form-group">
-                                    <label class="col-sm-3 control-label no-padding-right" for="form-field-1" style="margin-top: 7px;">Email: </label>
+                                    <label class="col-sm-3 control-label no-padding-right" for="form-field-1" style="margin-top: 7px;"><b>Email: </b></label>
 
                                     <div class="col-sm-9">
                                         <input type="text" id="producer-email" placeholder="Enter email ..." class="form-control" name="producer-email" style="width: 400px; margin-top: 0px;"/>
@@ -181,7 +161,7 @@
 
                             <div class="col-sm-9" style="margin-top: 5px;">
                                 <div class="form-group">
-                                    <label class="col-sm-3 control-label no-padding-right" for="form-field-1" style="margin-top: 7px;">Phone: </label>
+                                    <label class="col-sm-3 control-label no-padding-right" for="form-field-1" style="margin-top: 7px;"><b>Phone: </b></label>
 
                                     <div class="col-sm-9">
                                         <input type="text" id="producer-phone" placeholder="Enter phone number ..." class="form-control" name="producer-phone" style="width: 400px; margin-top: 0px;"/>
@@ -218,7 +198,7 @@
             
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h3 class="modal-title" style="text-align: center;">Edit Producer</h3>
+                    <h3 class="modal-title" style="text-align: center;"><b>Edit Producer</b></h3>
                 </div>
                 <div class="modal-body">
                     <div class="row">
@@ -226,7 +206,7 @@
                             
                             <div class="col-sm-9" style="margin-top: 5px;">
                                 <div class="form-group">
-                                    <label class="col-sm-3 control-label no-padding-right" for="form-field-1" style="margin-top: 7px;">Name: </label>
+                                    <label class="col-sm-3 control-label no-padding-right" for="form-field-1" style="margin-top: 7px;"><b>Name: </b></label>
 
                                     <div class="col-sm-9">
                                         <input type="text" id="name-producer" placeholder="Enter producer name ..." class="form-control" name="name-producer" style="width: 400px; margin-top: 0px;"/>
@@ -237,7 +217,7 @@
 
                             <div class="col-sm-9" style="margin-top: 5px;">
                                 <div class="form-group">
-                                    <label class="col-sm-3 control-label no-padding-right" for="form-field-1" style="margin-top: 7px;">Address: </label>
+                                    <label class="col-sm-3 control-label no-padding-right" for="form-field-1" style="margin-top: 7px;"><b>Address: </b></label>
 
                                     <div class="col-sm-9">
                                         <input type="text" id="address-producer" placeholder="Enter address ..." class="form-control" name="address-producer" style="width: 400px; margin-top: 0px;"/>
@@ -248,7 +228,7 @@
 
                             <div class="col-sm-9" style="margin-top: 5px;">
                                 <div class="form-group">
-                                    <label class="col-sm-3 control-label no-padding-right" for="form-field-1" style="margin-top: 7px;">Email: </label>
+                                    <label class="col-sm-3 control-label no-padding-right" for="form-field-1" style="margin-top: 7px;"><b>Email: </b></label>
 
                                     <div class="col-sm-9">
                                         <input type="text" id="email-producer" placeholder="Enter email ..." class="form-control" name="email-producer" style="width: 400px; margin-top: 0px;"/>
@@ -259,7 +239,7 @@
 
                             <div class="col-sm-9" style="margin-top: 5px;">
                                 <div class="form-group">
-                                    <label class="col-sm-3 control-label no-padding-right" for="form-field-1" style="margin-top: 7px;">Phone: </label>
+                                    <label class="col-sm-3 control-label no-padding-right" for="form-field-1" style="margin-top: 7px;"><b>Phone: </b></label>
 
                                     <div class="col-sm-9">
                                         <input type="text" id="phone-producer" placeholder="Enter phone number ..." class="form-control" name="phone-producer" style="width: 400px; margin-top: 0px;"/>
@@ -308,7 +288,7 @@
                 
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal">&times;</button>
-                            <h3 class="modal-title" style=" text-align: center;">Confirm</h3>
+                            <h3 class="modal-title" style=" text-align: center;"><b>Confirm</b></h3>
                         </div>
                         <div class="modal-body">
                             

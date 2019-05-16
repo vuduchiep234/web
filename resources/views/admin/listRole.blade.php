@@ -12,7 +12,7 @@
                 </li>
 
                 <li>
-                    <a href="{{route('listProduct')}}">Manage User</a>
+                    <a href="{{route('listUser')}}">Manage User</a>
                 </li>
                 <li class="active">List Role</li>
 
@@ -20,14 +20,6 @@
 
         </div>
         <div class="page-content">
-            <!-- <c:if test="${ != null}">
-                <h4 class="pink">
-                    <i class="ace-icon fa fa-hand-o-right icon-animated-hand-pointer blue"></i>
-
-                    <a class="green" data-toggle="modal">Chua co phan quyen</a>
-                </h4>
-                <div class="hr hr-18 dotted hr-double"></div>
-            </c:if> -->
 
             <div class="row" >
 
@@ -40,23 +32,14 @@
                     </button>
                 </div>
 
-                <!-- <div class="col-xs-12" >
-                    <h4>List Role</h4> 
-                    
-                    <button class="btn btn-sm btn-success" data-toggle="modal" id="addRole">
-                        <i class=" "></i>
-                        Add
-                          
-                    </button>
-                </div> -->
-                <!-- <div style="margin-left: 700px; margin-top: -46px; margin-right: 10px;">
+                <div style="margin-left: 700px; margin-top: -46px; margin-right: 10px;">
 
-                    <form method="get" action="{{route('listRole/searchRole')}}" id="form_search_role">
+                    <form method="get" action="" id="form_search_role">
                         {{csrf_field()}}
                         @include('admin.search')
                         
                     </form>
-                </div> -->
+                </div>
                 
             </div>
             <br>
@@ -86,7 +69,7 @@
                                 <tbody id="body_list_role">
 
                                 @foreach($list as $role)
-                                <tr id="<?php echo $role->id; ?>">
+                                <tr row_id_role="<?php echo $role->id; ?>">
                                     <td class="text-center" data-target="idRole">{{ $role->id }}</td>
                                     <td class="text-center" data-target="typeRole">{{ $role->type }}</td>
                                     <td class="text-center">
@@ -111,6 +94,31 @@
 
                         </div>
                         <div style="margin-left: 12px;">{!! $list->links() !!}</div>
+                        <!-- <script src="//code.jquery.com/jquery-2.1.3.min.js"></script>
+                        <script>
+                        
+                            // Ajax pagination
+
+                           
+                                $(document).on('click', '.pagination a', function (e) {
+                                    e.preventDefault();
+                                    getPosts($(this).attr('href').split('page=')[1]);
+                                    
+                                    console.log($(this).attr('href').split('page=')[1]);
+                                });
+
+                            function getPosts(page) {
+                                $.ajax({
+                                    url : '/listRolePagination?page=' + page
+                                }).done(function (data) {
+                                    // console.log(data)
+                                    $('#body_list_role').html(data);
+                                    // location.hash = page;
+                                }).fail(function () {
+                                    alert('Posts could not be loaded.');
+                                });
+                            }
+                        </script> -->
                     </div>
                 </div>
             </div>
@@ -120,7 +128,6 @@
     </div>
 </div><!-- /.main-content -->
 <!-- End Content -->
-
 
 <!-- Modal -->
 <div class="modal fade" id="myModal-role" role="dialog">
@@ -132,7 +139,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title" style="text-align: center;"> Add Role </h4>
+                    <h3 class="modal-title" style="text-align: center;"><b> Add Role </b></h3>
                 </div>
                 <div class="modal-body">
                     <div class="row">
@@ -140,7 +147,7 @@
                             <!-- PAGE CONTENT BEGINS -->
                             <div class="col-sm-9" >
                                 <div class="form-group" >
-                                    <label class="col-sm-3 control-label no-padding-right" for="form-field-1" style="margin-top: 22px;">Role Type:</label>
+                                    <label class="col-sm-3 control-label no-padding-right" for="form-field-1" style="margin-top: 22px;"><b>Role Type:</b></label>
 
                                     <div class="col-sm-9">
                                         <input type="text" placeholder="Input role type ..." class="form-control"  name="type-role" id="type-role" style="width: 400px; margin-top: 15px;"/>
@@ -180,7 +187,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title" style="text-align: center;"> Edit Role</h4>
+                    <h3 class="modal-title" style="text-align: center;"><b> Edit Role </b></h3>
                 </div>
                 <div class="modal-body">
                     <div class="row">
@@ -202,7 +209,7 @@
 
                             <div class="col-sm-9">
                                 <div class="form-group">
-                                    <label class="col-sm-3 control-label no-padding-right" for="form-field-1" style="margin-top:  12px;">Role Type:</label>
+                                    <label class="col-sm-3 control-label no-padding-right" for="form-field-1" style="margin-top:  12px;"><b>Role Type:</b></label>
 
                                     <div class="col-sm-9">
                                         <input type="text" placeholder="Nhập phân quyền" class="form-control" name="role-type" id="role-type" style="width: 400px; margin-top: 5px;" />
@@ -244,7 +251,7 @@
                 
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal">&times;</button>
-                            <h4 class="modal-title" style="text-align: center;">Confirm</h4>
+                            <h3 class="modal-title" style="text-align: center;"><b>Confirm</b></h3>
                         </div>
                         <div class="modal-body">
                             

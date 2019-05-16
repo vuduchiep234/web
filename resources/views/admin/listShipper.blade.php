@@ -11,7 +11,7 @@
                                 <a href="{{route('homeAdmin')}}">Home</a>
                             </li>
 
-                            <li class="active">Sale</li>
+                            <li class="active">Manage Sale</li>
                             <li class="active">Shipper</li>
                             
                         </ul><!-- /.breadcrumb -->
@@ -37,22 +37,13 @@
 
                                 </button>
                             </div>
-
-                            <!-- <div class="col-xs-12">
-                                <h4>Danh sach Shipper</h4> 
-                                <button class="btn btn-sm btn-success" data-toggle="modal" id="addShipper">
-                                    <i class=" "></i>
-                                    Them moi
-                                    
-                                </button>
-                            </div>
                             <div style="margin-left: 700px; margin-top: -46px; margin-right: 10px;">    
-                                <form method="get" action="{{route('listShipper/search')}}" id="form_search_shipper">
+                                <form method="get" action="" id="form_search_shipper">
                                     {{csrf_field()}}
                                     @include('admin.search')
                                     
                                 </form>
-                            </div> -->
+                            </div>
                         </div>
                         <br>
                         <div class="row" >
@@ -86,7 +77,7 @@
                                             <tbody>
 
                                                 @foreach($list as $shipper)
-                                                <tr id="<?php echo $shipper->id; ?>">
+                                                <tr row_id_shipper="<?php echo $shipper->id; ?>">
                                                     <td class="center" data-target="idShipper">{{ $shipper->id }}</td>
                                                     <td class="center" data-target="nameShipper">{{ $shipper->name }}</td>
                                                     <td class="center" data-target="phoneShipper">{{ $shipper->phone }}</td>
@@ -126,7 +117,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title"><b>Add Shipper</b></h4>
+                    <h3 class="modal-title center"><b>Add Shipper</b></h3>
                 </div>
                 <div class="modal-body">
                     <div class="row">
@@ -194,7 +185,7 @@
         <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title"><b>Edit Shipper</b></h4>
+                    <h3 class="modal-title center"><b>Edit Shipper</b></h3>
                 </div>
                 <div class="modal-body">
                     <div class="row">
@@ -250,7 +241,7 @@
                         Close
                     </button>
                     <button class="btn btn-white btn-bold" type="submit" id="edit-shipper">
-                        <i class="ace-icon fa fa-check bigger-110 green"></i>
+                        <i class="ace-icon fa fa-check bigger-110 blue"></i>
                         Edit
                     </button>
                 </div>
@@ -267,7 +258,7 @@
                 
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal">&times;</button>
-                            <h4 class="modal-title"><b>Confirm</b></h4>
+                            <h3 class="modal-title center"><b>Confirm</b></h3>
                         </div>
                         <div class="modal-body">
                             
@@ -275,7 +266,7 @@
                             <div class="row">
                                 <div class="col-xs-12">
                                     <!-- PAGE CONTENT BEGINS -->
-                                    <h4>You may want to delete ?</h4>
+                                    <h4 class="center">You may want to delete ?</h4>
 
                                 </div>
                             </div>

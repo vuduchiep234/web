@@ -3,6 +3,17 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Role;
+use App\Models\User;
+use App\Models\Producer;
+use App\Models\Product;
+use App\Models\Shipper;
+use App\Models\Category;
+use App\Models\Bill;
+use App\Models\BillDetail;
+use App\Models\ImportBill;
+use App\Models\ExportBill;
+use DB;
 
 class AdminController extends Controller
 {
@@ -11,51 +22,77 @@ class AdminController extends Controller
     }
 
     public function getListRole(){
-        return view('admin.listRole');
+
+        $data['list'] = Role::paginate(10);
+        return view('admin.listRole', $data);
+        
     }
 
-    public function getListMember(){
-    	return view('admin.listMember');
+    public function getListRolePagination(){
+
+        $data['list'] = Role::paginate(10);
+        return view('admin.listRolePagination', $data)->render();
+        
     }
 
-    public function getInsertMember(){
-    	return view('admin.insertMember');
+    public function getListUser(){
+
+        $data['list'] = User::paginate(10);
+        $data['listR'] = Role::all();
+        return view('admin.listUser', $data);
+        
     }
+
 
     public function getListProducer(){
-        return view('admin.listProducer');
+
+        $data['list'] = Producer::paginate(10);
+        return view('admin.listProducer', $data);
     }
 
-    public function getListTypeProduct(){
-        return view('admin.listTypeProduct');
+    public function getListCategory(){
+
+        $data['list'] = Category::paginate(10);
+        return view('admin.listCategory', $data);
     }
 
     public function getListProduct(){
-    	return view('admin.listProduct');
+
+        $data['listProducer'] = Producer::all();
+        $data['listCate'] = Category::all();
+        // $data['list'] = DB::select("Select products.*, producers.name as nameProducer, categories.type, inventories.quantity, images.image_url From products, producers, categories, inventories, images Where products.producer_id = producers.id And products.category_id = categories.id And products.id = inventories.product_id and products.image_id = images.id");
+
+        $data['list'] = DB::table('products')->join('producers', 'products.producer_id', 'producers.id')->join('categories', 'products.category_id', 'categories.id')->join('inventories', 'products.id', 'inventories.product_id')->join('images', 'products.image_id', 'images.id')->select('products.*', 'producers.name as nameProducer', 'categories.type', 'images.image_url', 'inventories.quantity')->paginate(10);
+        return view('admin.listProduct', $data);
     }
 
-    public function getInsertProduct(){
-    	return view('admin.insertProduct');
+    public function getListImportBill(){
+    	return view('admin.listImportBill');
     }
 
-    public function getImportOfWarehouse(){
-    	return view('admin.importOfWarehouse');
+    public function getListExportBill(){
+
+        $data['list'] = ExportBill::paginate(10);
+        return view('admin.listExportBill', $data);
     }
 
     public function getListShipper(){
-        return view('admin.listShipper');
+
+        $data['list'] = Shipper::paginate(10);
+        return view('admin.listShipper', $data);
     }
 
-    public function getInsertShipper(){
-        return view('admin.insertShipper');
-    }
 
     public function getListOrder(){
-        return view('admin.listOrder');
+
+        $data['list'] = Bill::paginate(10);
+        return view('admin.listOrder', $data);
     }
 
     public function getOrderProcessing(){
-        return view('admin.orderProcessing');
+
+        $data['list'] = Bill::paginate(10);
+        return view('admin.orderProcessing', $data);
     }
 
 

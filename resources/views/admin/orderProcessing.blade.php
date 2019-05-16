@@ -12,9 +12,9 @@
                             </li>
 
                             <li>
-                                <a href="{{route('listOrder')}}">Quan ly ban hang</a>
+                                <a href="{{route('listOrder')}}">Manage Sale</a>
                             </li>
-                            <li class="active">Xu ly don hang</li>
+                            <li class="active">Order</li>
 
                         </ul><!-- /.breadcrumb -->
 
@@ -34,7 +34,7 @@
 
                                 <div class="row" >
                                     <div class="col-xs-12" >
-                                        <h4>Danh sach Don hang</h4> 
+                                        <h4>List Order</h4> 
                                         
                                     </div>
                                     <div style="margin-left: 700px; margin-top: -46px; margin-right: 10px;">
@@ -55,25 +55,25 @@
                                                         ID
                                                     </th>
                                                     <th class="center">
-                                                        ID chi tiet don hang
+                                                        ID Bill Detail
                                                     </th>
                                                     <th class="center">
-                                                        ID khach hang
+                                                        ID User
                                                     </th>
                                                     <th class="center">
                                                         ID Shipper
                                                     </th>
                                                     <th class="center">
-                                                        Trang thai
+                                                        State
                                                     </th>
                                                     <th class="center">
-                                                        Chi tiet
+                                                        Detail
                                                     </th>
                                                     <th class="center">
-                                                        Xu ly
+                                                        Processing
                                                     </th>
                                                     <th class="center">
-                                                        Xoa
+                                                        Delete
                                                     </th>
                                                 </tr>
                                             </thead>
@@ -143,21 +143,21 @@
 <div class="modal fade" id="myModal-findShipper" role="dialog">
     <div class="modal-dialog">
 
-        <form action="" method="get">
+        <!-- <form action="" method="get">
             <input type="hidden" name="_method" value="patch">
-            {{csrf_field()}}
+            {{csrf_field()}} -->
             <!-- Modal content-->
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title">Tim kiem Shipper</h4>
+                    <h3 class="modal-title center"><b>Find Shipper</b></h3>
                     <button type="button" id="random" class="btn btn-purple btn-sm btn-primary" style="margin-left: 200px; margin-top: -45px;">Random</button>
                 </div>
                 <div class="modal-body">
                     <div class="row">
                         <div class="col-xs-12">
                             <!-- PAGE CONTENT BEGINS -->
-                            <h4>Thong tin shipper duoc chon</h4>
+                            <h4>Infomation shipper</h4>
                             <div id="bodyModal-findShipper"></div>
                                 
 
@@ -176,7 +176,7 @@
                     </button>
                 </div>
             </div>
-        </form>
+        <!-- </form> -->
     </div>
 </div>
 
@@ -192,7 +192,7 @@
                 
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal">&times;</button>
-                            <h4 class="modal-title">Xac nhan yeu cau</h4>
+                            <h3 class="modal-title center"><b>Confirm</b></h3>
                         </div>
                         <div class="modal-body">
                             
@@ -200,7 +200,7 @@
                             <div class="row">
                                 <div class="col-xs-12">
                                     <!-- PAGE CONTENT BEGINS -->
-                                    <h4>Ban co muon huy don hang nay khong ?</h4>
+                                    <h4 class="center">You may want to cancel ?</h4>
 
                                 </div>
                             </div>
@@ -211,11 +211,11 @@
                             <input type="hidden" id="button-cancel" value="" />
                             <button class="btn btn-white btn-round pull-left" data-dismiss="modal">
                                 <i class="ace-icon fa fa-times red2"></i>
-                                Khong
+                                No
                             </button>
                             <button class="btn btn-white btn-warning btn-bold" id="cancel-bill">
                                 <i class="ace-icon fa fa-trash-o bigger-120 orange"></i>
-                                Co
+                                Yes
                             </button>
                             
                         </div>

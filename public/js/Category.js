@@ -73,7 +73,7 @@ jQuery(function($) {
                 success: function(res) {
                     alert("Success !");
                     $('#editModal-category').modal('hide');
-                    load_data_category();
+                    loaddata_category(id);
                 }
         });
     });
@@ -106,7 +106,7 @@ jQuery(function($) {
                 success: function(res) {
                     alert("Success !");
                     $('#deleteModal-category').modal('hide');
-                    load_data_category();
+                    $("tr[row_id_category="+id+"]").remove();
                 }
         });
 
@@ -122,7 +122,7 @@ jQuery(function($) {
                 var output = "";
                 for(var i = 0; i < data.length; i++){
 
-                    output +=   "<tr>"
+                    output +=   "<tr row_id_category="+data[i].id+">"
                                     +"<td class='text-center'>"+data[i].id+"</td>"
                                     +"<td class='text-center'>"+data[i].type+"</td>"
                                     
@@ -140,7 +140,90 @@ jQuery(function($) {
                                 +"</tr>";
 
                 }
-                $('#body_list_category').html(output);
+                 $("tr[row_id_category="+data[i-2].id+"]").after(output);
+                // $('#body_list_category').html(output);
+                $('a[data-role=update-category]').on('click', function(){
+
+
+                    var id = $(this).attr("id_edit_category");
+                    // var name = $(this).attr("name");
+                    // alert(id);
+
+                    $.ajax({
+            
+                        url: '/api/v1/categories/'+id,
+                        type: 'get',
+                        dataType: 'json',
+                        success: function(data) {
+                            // console.log(data.data.type);
+                            // name = data.type;
+                            // alert(data.data.type);
+                            $('#_type-cate').val(data.data.type);
+                            
+                        },
+                        error: function(mess){
+                            alert("Loi gi nay");
+                            // console.log(mess);
+                        }
+                    });
+
+                    // alert(name);
+
+                    
+                    $('#cate-id').val(id);
+                    $('#editModal-category').modal('show');
+                });
+
+                $('a[data-role=delete-category]').on('click', function(){
+
+                    var id = $(this).attr("id_delete_category");
+
+                    $('#delete_cate_id').val(id);
+                    $('#deleteModal-category').modal('show');
+                    
+                });
+
+
+
+                // alert('success');
+            },
+            error: function(err){
+                alert("Error load data");
+            }
+        });
+    }
+
+    function loaddata_category(id){
+        $.ajax({
+                    
+            url: '/api/v1/categories?id='+id,
+            type: 'get',
+            dataType: 'json',
+            success: function(data) {
+                var output = "";
+                // for(var i = 0; i < data.length; i++){
+
+                    output +=   
+                                    "<td class='text-center'>"+data.data.id+"</td>"
+                                    +"<td class='text-center'>"+data.data.type+"</td>"
+                                    
+                                    +"<td class='text-center'>"
+                                        +"<a href='#' class='blue' data-toggle='modal' id_edit_category="+data.data.id+" data-role='update-category' type="+data.data.type+">"
+                                            +"<i class='ace-icon fa fa-pencil bigger-130'></i>"
+                                        +"</a>"
+                                    +"</td>"
+                                    +"<td class='text-center'>"
+                                        +"<a href='#' class='red delete_category' id_delete_category="+data.data.id+" data-role='delete-category' data-toggle='modal'>"
+                                            +"<i class='ace-icon fa fa-trash-o bigger-130'></i>"
+                                        +"</a>"
+                                    +"</td>"
+                                    
+                                ;
+
+                // }
+                $("tr[row_id_category="+data.data.id+"]").html(output);
+                // $("tr[row_id_category="+data[i-2].id+"]").after(output);
+                // $('#body_list_category').html(output);
                 $('a[data-role=update-category]').on('click', function(){
 
 

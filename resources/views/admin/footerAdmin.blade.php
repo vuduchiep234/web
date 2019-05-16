@@ -3,7 +3,7 @@
 					<div class="footer-content">
 						<span class="bigger-120">
 							<span class="blue bolder">Vu Duc Hiep</span>
-							Web Mobile &copy; 2018
+							Web Auction &copy; 2019
 						</span>
 
 						&nbsp; &nbsp;

@@ -30,7 +30,7 @@
 <body class="hold-transition register-page">
 <div class="register-box">
     <div class="register-logo">
-        <a href="backend/index2.html"><b>Library</b></a>
+        <a href="backend/index2.html"><b>Auction</b> Register</a>
     </div>
 
     <div class="register-box-body">
@@ -100,5 +100,6 @@
         });
     });
 </script>
+<script type="text/javascript" src="../js/Home.js"></script>
 </body>
 </html>

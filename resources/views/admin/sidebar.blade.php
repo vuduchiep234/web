@@ -44,9 +44,9 @@
 					</li>
 
 					<li class="">
-						<a href="{{route('listMember')}}" class="dropdown-toggle">
+						<a href="{{route('listUser')}}" class="dropdown-toggle">
 							<i class="menu-icon fa fa-users"></i>
-							<span class="menu-text"> Quan ly thanh vien </span>
+							<span class="menu-text"> Manage User </span>
 
 							<b class="arrow fa fa-angle-down"></b>
 						</a>
@@ -58,16 +58,16 @@
 							<li class="">
 								<a href="{{route('listRole')}}" id="sidebarRole">
 									<i class="menu-icon fa fa-caret-right"></i>
-									Phan quyen
+									List Role
 								</a>
 
 								<b class="arrow"></b>
 							</li>
 
 							<li class="">
-								<a href="{{route('listMember')}}">
+								<a href="{{route('listUser')}}">
 									<i class="menu-icon fa fa-caret-right"></i>
-									Danh sach thanh vien
+									List User
 								</a>
 
 								<b class="arrow"></b>
@@ -79,7 +79,7 @@
 					<li class="">
 						<a href="{{route('listProduct')}}" class="dropdown-toggle">
 							<i class="menu-icon fa fa-desktop"></i>
-							<span class="menu-text"> Quan ly san pham </span>
+							<span class="menu-text"> Manage Product </span>
 
 							<b class="arrow fa fa-angle-down"></b>
 						</a>
@@ -91,16 +91,16 @@
 							<li class="">
 								<a href="{{route('listProducer')}}">
 									<i class="menu-icon fa fa-caret-right"></i>
-									Nha san xuat
+									Producer
 								</a>
 
 								<b class="arrow"></b>
 							</li>
 							
 							<li class="">
-			                    <a href="{{route('listTypeProduct')}}">
+			                    <a href="{{route('listCategory')}}">
 			                        <i class="menu-icon fa fa-caret-right"></i>
-			                        Loai san pham
+			                        Category
 			                    </a>
 
 			                    <b class="arrow"></b>
@@ -109,7 +109,7 @@
 							<li class="">
 								<a href="{{route('listProduct')}}">
 									<i class="menu-icon fa fa-caret-right"></i>
-									Danh sach san pham
+									List Product
 								</a>
 
 								<b class="arrow"></b>
@@ -121,7 +121,7 @@
 					<li class="">
 						<a href="{{route('listOrder')}}"  class="dropdown-toggle">
 							<i class="menu-icon fa fa-pencil-square-o"></i>
-							<span class="menu-text"> Quan ly ban hang </span>
+							<span class="menu-text"> Manage Sale </span>
 
 							<b class="arrow fa fa-angle-down"></b>
 						</a>
@@ -134,7 +134,7 @@
 							<li class="">
 								<a href="{{route('orderProcessing')}}">
 									<i class="menu-icon fa fa-caret-right"></i>
-									Danh sach don hang 
+									List Order 
 								</a>
 
 								<b class="arrow"></b>
@@ -142,7 +142,7 @@
 							<li class="">
 								<a href="{{route('listShipper')}}">
 									<i class="menu-icon fa fa-caret-right"></i>
-									Danh sach Shipper 
+									List Shipper 
 								</a>
 
 								<b class="arrow"></b>
@@ -153,38 +153,13 @@
 
 					</li>
 
-					<li class="">
-						<a href="#" class="dropdown-toggle">
-							<i class="menu-icon fa  fa-tachometer "></i>
-							<span class="menu-text"> Quan ly tai nguyen </span>
-
-							<b class="arrow fa fa-angle-down"></b>
-						</a>
-
-						<b class="arrow"></b>
-
-						<ul class="submenu">
-							<li class="">
-								<a href="{{ route('listImage') }}"  >
-									<i class="menu-icon fa fa-caret-right"></i>
-									Tai nguyen anh
-									<b class="arrow fa fa-angle-down"></b>
-								</a>
-
-								<b class="arrow"></b>
-
-								
-
-							</li>
-
-						</ul>
-					</li>
+					<!--  -->
 
 
 					<li class="">
 						<a href="#" class="dropdown-toggle">
 							<i class="menu-icon fa fa-calendar"></i>
-							<span class="menu-text"> Quan ly kho </span>
+							<span class="menu-text"> Manage Warehouse </span>
 
 							<b class="arrow fa fa-angle-down"></b>
 						</a>
@@ -192,19 +167,19 @@
 						<b class="arrow"></b>
 
 						<ul class="submenu">
-							<li class="">
+							<!-- <li class="">
 								<a href="{{route('listImportBill')}}">
 									<i class="menu-icon fa fa-caret-right"></i>
-									Nhap hang
+									Import
 								</a>
 
 								<b class="arrow"></b>
-							</li>
+							</li> -->
 
 							<li class="">
 								<a href="{{route('listExportBill')}}">
 									<i class="menu-icon fa fa-caret-right"></i>
-									Xuat hang
+									Export
 								</a>
 
 								<b class="arrow"></b>

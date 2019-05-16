@@ -4,22 +4,13 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 Use DB;
-Use App\Models\Author;
-Use App\Models\Genre;
-Use App\Models\Publisher;
-Use App\Models\Book;
-Use App\Models\BookGenre;
-Use App\Models\BookImage;
-Use App\Models\Image;
-Use App\Models\AuthorBook;
-
 
 class UserController extends Controller
 {
     //
     public function getHome(){
     	
-        $data['list'] = DB::table('publishers')->join('books', 'publishers.id', '=', 'books.publisher_id')->join('book_images', 'book_images.book_id', '=', 'books.id')->join('images', 'book_images.image_id', '=', 'images.id')->select('books.*', 'images.imageURL', 'publishers.publisherName')->get();
+        $data['list'] = DB::table('products')->join('producers', 'producers.id', '=', 'products.producer_id')->join('categories', 'categories.id', '=', 'products.category_id')->select('products.*', 'categories.type', 'producers.name')->get();
     	return view('user.home', $data);
     	
     }
