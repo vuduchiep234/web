@@ -1,86 +1,56 @@
 
 jQuery(function($) {
 
-    // $('.dropdown_user li').click(function(){
+    $('#search').on('click',function(){
+        // alert(1);
+        var value=$('#data_search').val();
+        // alert(value);
+        $.ajax({
+            type : 'get',
+            url : '/searchUser',
+            data: {'data_search':value},
+            success:function(data){
+                // console.log(data);
+                $('#body_list_user').html(data);
 
-    //     // $('#publisher_id').val($(this).text());
-    //     // $('#edit_publisher_id').val($(this).text());
-    //     $('#user_role_id').val($(this).attr('id'));
-    //     $('#user_role').val($(this).text());
+                $('a[data-type=update-user]').on('click', function(){
 
-    // });
+                    var id = $(this).attr("id_edit_user");
+                    
+                    var role_id = $(this).attr("role_id");
+                    var role = $(this).attr("role");
 
-    // $('#add_user').click(function(){
+                    $('#user_id_').val(id);
+                    $("#role_user option[value="+role_id+"]").attr('selected', 'selected');
+                    $('#editModal-user').modal('show');
+                });
 
-    //     $('#name_user').val("");
-    //     $('#email_user').val("");
-    //     $('#password_user').val("");
-    //     $('#role_id_user').val("");
-    //     $('#myModal-user').modal('show');
+                $('a[data-type=delete-user]').on('click', function(){
 
-    // });
+                    var id = $(this).attr("id_delete_user");
 
-    // $('#add-user').on('click', function(){
+                    $('#user-delete').val(id);
+                    $('#deleteModal-user').modal('show');
 
-    //     $.ajaxSetup({
-    //         headers: {
-    //             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-    //         }
-
-    //     });
-
-    //     var name = $('#name').val();
-
-    //     var email = $('#_email').val();
-
-    //     var password = $('#password').val();
-
-    //     var role_id = $('#user_role_id').val();
-
-    //     $.ajax({
-
-    //         url: "/api/v1/users",
-    //         type: 'post',
-    //         dataType: 'json',
-    //         data: {
-    //             0:{
-    //                 name: name,
-    //                 email: email,
-    //                 password: password,
-    //                 role_id: role_id
-    //             }
-    //         },
-    //         success: function () {
-    //             alert("success!");
-    //             $('#myModal-user').modal('hide');
-    //             loaddata_user();
-    //         },
-    //         error: function(mess){
-    //             alert("error! Please, try again.");
-    //             console.log(mess);
-    //         }
-    //     });
-    // });
-
+                });
+                
+            },
+            error: function(err){
+                alert("fail");
+                console.log(err);
+            }
+        });
+    });
 
     $('a[data-type=update-user]').on('click', function(){
 
         var id = $(this).attr("id_edit_user");
-        var name = $(this).attr("name");
-        var email = $(this).attr("email");
-        var password = $(this).attr("password");
+        
         var role_id = $(this).attr("role_id");
         var role = $(this).attr("role");
 
-        // alert(id);
-       
-
         $('#user_id_').val(id);
-        $('#user_name').val(name);
-        $('#user_email').val(email);
-        $('#user_password').val(password);
-        $('#user_role_id').val(id);
-        $('#user_role').val(role);
+        $("#role_user option[value="+role_id+"]").attr('selected', 'selected');
         $('#editModal-user').modal('show');
     });
 
@@ -94,89 +64,7 @@ jQuery(function($) {
     });
 
 
-    // $.ajax({
-
-    //     url: 'api/v1/users/'+'all?relations[]=role',
-    //     type: 'get',
-    //     dataType: 'json',
-    //     success: function(data) {
-    //         var output = "";
-
-    //         for(var i = 0; i < data.length; i++){
-               
-    //             output +=   "<tr>"
-    //                             +"<td class='text-center'>"+data[i].id+"</td>"
-    //                             +"<td class='text-center'>"+data[i].name+"</td>"
-    //                             +"<td class='text-center'>"+data[i].email+"</td>"
-    //                             // +"<td class='text-center'>"+data[i].password+"</td>"
-    //                             +"<td class='text-center'>"+data[i].role.roleType+"</td>"
-    //                             // +"<td class='text-center'>"
-    //                             //     +"<a href='#' class='text-yellow' data-toggle='modal' id_edit_user="+data[i].id+" data-type='import-user' name="+data[i].name+" email="+data[i].email+" password="+data[i].password+">"
-    //                             //         +"<i class='ace-icon fa fa-pencil-square-o bigger-130'></i>"
-    //                             //     +"</a>"
-    //                             // +"</td>"
-    //                             +"<td class='text-center'>"
-    //                                 +"<a href='#' class='text-blue' data-toggle='modal' id_edit_user="+data[i].id+" data-type='update-user' name="+data[i].name+" email="+data[i].email+" password="+data[i].password+" role_id="+data[i].role_id+" role="+data[i].role.roleType+">"
-    //                                     +"<i class='ace-icon fa fa-pencil bigger-130'></i>"
-    //                                 +"</a>"
-    //                             +"</td>"
-    //                             +"<td class='text-center'>"
-    //                                 +"<a href='#' class='text-red delete_user' id_delete_user="+data[i].id+" data-type='delete-user'>"
-    //                                     +"<i class='ace-icon fa fa-trash-o bigger-130'></i>"
-    //                                 +"</a>"
-    //                             +"</td>"
-
-    //                         +"</tr>";
-
-    //         }
-    //         $('#body_list_user').html(output);
-    //         // $('#addUser').click(function(){
-
-
-    //         //     $('#name_user').val("");
-    //         //     $('#email_user').val("");
-    //         //     $('#password_user').val("");
-    //         //     $('#role_user').val("");
-                
-    //         //     $('#myModal-user').modal('show');
-
-    //         // });
-    //         $('a[data-type=update-user]').on('click', function(){
-
-    //             var id = $(this).attr("id_edit_user");
-    //             var name = $(this).attr("name");
-    //             var email = $(this).attr("email");
-    //             var password = $(this).attr("password");
-    //             var role_id = $(this).attr("role_id");
-    //             var role = $(this).attr("role");
-
-    //             // alert(id);
-               
-
-    //             $('#user_id_').val(id);
-    //             $('#user_name').val(name);
-    //             $('#user_email').val(email);
-    //             $('#user_password').val(password);
-    //             $('#user_role_id').val(id);
-    //             $('#user_role').val(role);
-    //             $('#editModal-user').modal('show');
-    //         });
-
-    //         $('a[data-type=delete-user]').on('click', function(){
-
-    //             var id = $(this).attr("id_delete_user");
-
-    //             $('#user-delete').val(id);
-    //             $('#deleteModal-user').modal('show');
-
-    //         });
-    //     },
-    //     error: function(err){
-    //         alert("Fail !");
-    //     }
-    // });
-
-    $('#_edit-user').on('click', function () {
+    $('#edit-user').on('click', function () {
 
         $.ajaxSetup({
             headers: {
@@ -186,20 +74,19 @@ jQuery(function($) {
         });
 
         var id = $('#user_id_').val();
-        var name = $('#user_name').val();
-        var email = $('#user_email').val();
-        var password = $('#user_password').val();
-        var role_id = $('#user_role_id').val();
+        
+        var role_id = $("#role_user option:selected").attr('value');
         // var name = $('#user_name').val();
-        // alert(id);
+        // alert(role_id);
 
         $.ajax({
 
-            url: '/api/v1/users/patch?id='+id,
+            url: '/api/v1/users/'+id,
             type: 'patch',
             dataType: "json",
             data: {
-                role_id: role_id,
+                id: id,
+                role_id: role_id
             },
             success: function () {
                 alert('Success !');
@@ -232,16 +119,16 @@ jQuery(function($) {
 
         $.ajax({
 
-            url: '/api/v1/users/delete/'+id,
+            url: '/api/v1/users/'+id,
             type: 'delete',
-            data: {id: id},
+            
             success: function () {
                 alert('Success !');
                 $('#deleteModal-user').modal('hide');
                 $("tr[row_id_user="+id+"]").remove();
             },
             error: function(mess){
-                alert("error! Please, try again.");
+                alert("Error! Please, try again.");
                 console.log(mess);
             }
         });
@@ -264,19 +151,19 @@ jQuery(function($) {
                         +"<td class='text-center'>"+data.data.name+"</td>"
                         +"<td class='text-center'>"+data.data.email+"</td>"
                         // +"<td class='text-center'>"+data[i].password+"</td>"
-                        +"<td class='text-center'>"+data.data.role.roleType+"</td>"
+                        +"<td class='text-center'>"+data.data.role.type+"</td>"
                         // +"<td class='text-center'>"
                         //     +"<a href='#' class='text-yellow' data-toggle='modal' id_edit_user="+data[i].id+" data-type='import-user' name="+data[i].name+" email="+data[i].email+" password="+data[i].password+">"
                         //         +"<i class='ace-icon fa fa-pencil-square-o bigger-130'></i>"
                         //     +"</a>"
                         // +"</td>"
                         +"<td class='text-center'>"
-                        +"<a href='#' class='text-blue' data-toggle='modal' id_edit_user="+data.data.id+" data-type='update-user' name="+data.data.name+" email="+data.data.email+" password="+data.data.password+" role_id="+data.data.role_id+" role="+data.data.role.roleType+">"
+                        +"<a href='#' class='blue' data-toggle='modal' id_edit_user="+data.data.id+" data-type='update-user' name="+data.data.name+" email="+data.data.email+" password="+data.data.password+" role_id="+data.data.role_id+" role="+data.data.role.roleType+">"
                         +"<i class='ace-icon fa fa-pencil bigger-130'></i>"
                         +"</a>"
                         +"</td>"
                         +"<td class='text-center'>"
-                        +"<a href='#' class='text-red delete_user' id_delete_user="+data.data.id+" data-type='delete-user'>"
+                        +"<a href='#' class='red delete_user' id_delete_user="+data.data.id+" data-type='delete-user'>"
                         +"<i class='ace-icon fa fa-trash-o bigger-130'></i>"
                         +"</a>"
                         +"</td>"

@@ -88,6 +88,9 @@ class UserController extends APIController
             ],200);
         }
         $request->session()->put('user_id', $user['id']);
+        
+        $request->session()->put('name', $user['name']);
+        $request->session()->put('role_id', $user['role_id']);
         return response([
             'Message' => 'Login successfully',
             'User' => $user

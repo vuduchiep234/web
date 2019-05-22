@@ -281,7 +281,7 @@
 								<img class="nav-user-photo" src="backend/assets/images/avatars/user.jpg" alt="Jason's Photo" />
 								<span class="user-info">
 									<small>Welcome,</small>
-									{{Session::get('first_name').' '.Session::get('last_name')}}
+									{{Session::get('name')}}
 								</span>
 
 								<i class="ace-icon fa fa-caret-down"></i>
@@ -305,7 +305,7 @@
 								<li class="divider"></li>
 
 								<li>
-									<a href="#">
+									<a href="#" class="logout" data-id="{{Session::get('user_id')}}">
 										<i class="ace-icon fa fa-power-off"></i>
 										Logout
 									</a>

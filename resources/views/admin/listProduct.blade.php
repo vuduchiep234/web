@@ -45,11 +45,9 @@
 
                                     </div>
                                     <div style="margin-left: 700px; margin-top: -46px; margin-right: 10px;">    
-                                <form method="get" action=" id="form_search_product">
-                                    {{csrf_field()}}
+                                
                                     @include('admin.search')
-                                    
-                                </form>
+                        
                             </div>
 
                                 </div>
@@ -380,7 +378,7 @@
 
                             <div class="col-sm-9" style="margin-top: 5px;">
                                 <div class="form-group">
-                                    <label class="col-sm-3 control-label no-padding-right" for="form-field-1" style="margin-top: 5px;">Chọn ảnh: </label>
+                                    <label class="col-sm-3 control-label no-padding-right" for="form-field-1" style="margin-top: 5px;"><b>Image: </b></label>
 
                                     <div class="col-sm-9" style="margin-left: 0px; width: 300px; margin-top: 7px;">
 

@@ -34,6 +34,8 @@
 
 		<script src="backend/assets/js/ace-extra.min.js"></script>
 
+				<link rel="stylesheet" href="backend/assets/css/bootstrap-timepicker.min.css" />
+
 	</head>
 
 	<body class="no-skin">
@@ -57,6 +59,127 @@
 				<i class="ace-icon fa fa-angle-double-up icon-only bigger-110"></i>
 			</a>
 		</div><!-- /.main-container -->
+
+
+<div class="modal fade" id="confirm_logout" role="dialog">
+    <div class="modal-dialog">
+
+        <div class="modal-content">
+            <!-- <form method="get" class="form-delete">
+                <input type="hidden" name="_method" value="delete">
+                {{csrf_field()}} -->
+
+        <!-- Modal content-->
+
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title" style="text-align: center;"><b>Confirm</b></h4>
+                </div>
+                <div class="modal-body">
+
+                    <span id="form_output"></span>
+                    <div class="row">
+                        <div class="col-xs-12" style="text-align: center;">
+                            <!-- PAGE CONTENT BEGINS -->
+                            <h4>You may want to logout ?</h4>
+
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="modal-footer">
+                    <input type="hidden" id="user-delete" value="" />
+                    <button class="btn btn-white btn-round pull-left" data-dismiss="modal">
+                        <!-- <i class="ace-icon fa fa-times red2"></i> -->
+                        No
+                    </button>
+                    <button class="btn btn-white btn-warning " id="logout_user">
+                        <!-- <i class="ace-icon fa fa-trash-o bigger-120 orange"></i> -->
+                        Yes
+                    </button>
+
+                </div>
+            <!-- </form> -->
+
+
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="changePassword-user" role="dialog">
+    <div class="modal-dialog">
+<!-- 
+        <form method="get" action="">
+            <input type="hidden" name="_method" value="patch">
+            {{csrf_field()}} -->
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title" style="text-align: center;"><b>Change Password</b></h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <!-- PAGE CONTENT BEGINS -->
+
+                            <div class="col-sm-11">
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label no-padding-right" for="form-field-1" style="margin-top: 10px;">Current Password: </label>
+
+                                    <div class="col-sm-9" style="margin-top: 15px; margin-left: -15px; width: 380px;">
+                                        <input type="password" id="current" placeholder="Enter current password ..." class="form-control" name="email-user"/>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="col-sm-11" style="margin-top: 10px;">
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label no-padding-right" for="form-field-1" style="margin-top: 5px;">New Password: </label>
+
+                                    <div class="col-sm-9" style="margin-top: 10px; margin-left: -15px; width: 380px;">
+                                        <input type="password" id="new" placeholder="Enter new password ..." class="form-control" name="password-user"/>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="col-sm-11" style="margin-top: 10px;">
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label no-padding-right" for="form-field-1" style="margin-top: 5px;">Confirm Password: </label>
+
+                                    <div class="col-sm-9" style="margin-top: 10px; margin-left: -15px; width: 380px;">
+                                        <input type="password" id="confirm" placeholder="Enter confirm password ..." class="form-control" name="first-name"/>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            
+                        </div>
+                    </div>
+
+                </div>
+                <br/>
+                <div class="modal-footer">
+                    <input type="hidden" id="change_user_id" name="user-id" value="{{Session::get('user_id')}}" />
+                    <input type="hidden" id="current_pass" value="" />
+                    <input type="hidden" id="new_pass" value="" />
+                    <input type="hidden" id="confirm_pass" value="" />
+                    <!-- <input type="hidden" id="role_id" value="" /> -->
+
+                    <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+                    <input class="btn btn-info" type="submit" value="Edit" id="change_password" >
+
+                </div>
+            </div>
+        <!-- </form> -->
+    </div>
+</div>
+
+
 
 		<!-- basic scripts -->
 
@@ -127,12 +250,12 @@
 		<script type="text/javascript" src="js/User.js"></script>
 		<script type="text/javascript" src="js/Shipper.js"></script>
 		<script type="text/javascript" src="js/Product.js"></script>
-		<script type="text/javascript" src="js/Image.js"></script>
+		<script type="text/javascript" src="js/Auction.js"></script>
 		<script type="text/javascript" src="js/ImportBill.js"></script>
 		<script type="text/javascript" src="js/ExportBill.js"></script>
 		<script type="text/javascript" src="js/Order.js"></script>
-
-		
+		<script type="text/javascript" src="js/AuctionProduct.js"></script>
+		<script type="text/javascript" src="js/Home.js"></script>
 		
 
 		<!-- inline scripts related to this page -->
@@ -140,6 +263,24 @@
 
 
 			jQuery(function($) {
+
+				$('#timepicker1').timepicker({
+					
+					minuteStep: 1,
+					showSeconds: true,
+					showMeridian: false,
+					disableFocus: true,
+					timeFormat: 'HH:mm:ss',
+					icons: {
+						up: 'fa fa-chevron-up',
+						down: 'fa fa-chevron-down'
+					}
+				}).on('focus', function() {
+					$('#timepicker1').timepicker('showWidget');
+				}).next().on(ace.click_event, function(){
+					$(this).prev().focus();
+				});
+
 
 				$( "#datepicker" ).datepicker({
 					showOtherMonths: true,

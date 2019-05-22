@@ -12,9 +12,9 @@
                 </li>
 
                 <li>
-                    <a href="{{route('listUser')}}">Manage User</a>
+                    <a href="{{route('listAuction')}}">Manage Auction</a>
                 </li>
-                <li class="active">List Role</li>
+                <li class="active">Auction</li>
 
             </ul><!-- /.breadcrumb -->
 
@@ -24,8 +24,8 @@
             <div class="row" >
 
                 <div class="col-xs-12">
-                    <h3 class="box-title"><b>List Role</b></h3>
-                    <button class="btn btn-sm btn-success" data-toggle="modal" id="addRole" style="float: right; margin-top: -40px;">
+                    <h3 class="box-title"><b>List Auction</b></h3>
+                    <button class="btn btn-sm btn-success" data-toggle="modal" id="addAuction" style="float: right; margin-top: -40px;">
                     <i class="ace-icon fa fa-plus bigger-110 white"></i>
                         <b>Add</b>
 
@@ -34,7 +34,7 @@
 
                 <div style="margin-left: 700px; margin-top: -46px; margin-right: 10px;">
 
-                    <!-- <form method="get" action="" id="form_search_role"> -->
+                    <!-- <form method="get" action="" id="form_search_auction"> -->
                         <!-- {{csrf_field()}} -->
                         @include('admin.search')
                         
@@ -49,41 +49,41 @@
 
                     <div class="row">
                         <div class="col-xs-12">
-                            <table id="simple-table" class="table table-role table-bordered table-hover">
+                            <table id="simple-table" class="table table-auction table-bordered table-hover">
                                 <thead>
                                     <tr>
                                         <th class="text-center">
                                             ID
                                         </th>
                                         <th class="text-center">
-                                            Role Type
+                                            Duration
                                         </th>
                                         
-                                        <th class="text-center">
+                                        <!-- <th class="text-center">
                                             Edit
                                         </th><th class="text-center">
                                             Delete
-                                        </th>
+                                        </th> -->
                                     </tr>
                                 </thead>
-                                <tbody id="body_list_role">
+                                <tbody id="body_list_auction">
 
-                                @foreach($list as $role)
-                                <tr row_id_role="<?php echo $role->id; ?>">
-                                    <td class="text-center" data-target="idRole">{{ $role->id }}</td>
-                                    <td class="text-center" data-target="typeRole">{{ $role->type }}</td>
-                                    <td class="text-center">
-                                        <a href="#" class="blue edit-role" id="<?php echo $role->id; ?>" data-type="{{$role->type}}" data-role="update-role" data-toggle="modal">
+                                @foreach($list as $auction)
+                                <tr row_id_auction="<?php echo $auction->id; ?>">
+                                    <td class="text-center" data-target="idauction">{{ $auction->id }}</td>
+                                    <td class="text-center" data-target="typeauction">{{ $auction->duration }}</td>
+                                    <!-- <td class="text-center">
+                                        <a href="#" class="blue edit-auction" id="<?php echo $auction->id; ?>" data-type="{{$auction->type}}" data-type="update-auction" data-toggle="modal">
                                             <i class="ace-icon fa fa-pencil bigger-130"></i>
                                         </a>
                                     </td>
                                     
                                     <td class="text-center">
-                                        <a class="red" href="#" id="<?php echo $role->id; ?>" data-role="delete-role" data-toggle="modal">
+                                        <a class="red" href="#" id="<?php echo $auction->id; ?>" data-type="delete-auction" data-toggle="modal">
                                             <i class="ace-icon fa fa-trash-o bigger-130"></i>
                                         </a>
 
-                                    </td>
+                                    </td> -->
                                 </tr>
 
                                 @endforeach
@@ -94,31 +94,7 @@
 
                         </div>
                         <div style="margin-left: 12px;">{!! $list->links() !!}</div>
-                        <!-- <script src="//code.jquery.com/jquery-2.1.3.min.js"></script>
-                        <script>
                         
-                            // Ajax pagination
-
-                           
-                                $(document).on('click', '.pagination a', function (e) {
-                                    e.preventDefault();
-                                    getPosts($(this).attr('href').split('page=')[1]);
-                                    
-                                    console.log($(this).attr('href').split('page=')[1]);
-                                });
-
-                            function getPosts(page) {
-                                $.ajax({
-                                    url : '/listRolePagination?page=' + page
-                                }).done(function (data) {
-                                    // console.log(data)
-                                    $('#body_list_role').html(data);
-                                    // location.hash = page;
-                                }).fail(function () {
-                                    alert('Posts could not be loaded.');
-                                });
-                            }
-                        </script> -->
                     </div>
                 </div>
             </div>
@@ -129,35 +105,17 @@
 </div><!-- /.main-content -->
 <!-- End Content -->
 
-<!-- <script type="text/javascript">
-    jQuery(function($) {
-        $('#search').on('click',function(){
-            alert(1);
-            var value=$(this).val();
-            alert(value);
-            $.ajax({
-                type : 'get',
-                url : '{{URL::to('search')}}',
-                data:{'search':$value},
-                success:function(data){
-                    $('#body_list_role').html(data);
-                }
-            });
-        });
-    })
-</script> -->
-
 <!-- Modal -->
-<div class="modal fade" id="myModal-role" role="dialog">
+<div class="modal fade" id="myModal-auction" role="dialog">
     <div class="modal-dialog">
 
-        <!-- <form method="get" id="form-role">
+        <!-- <form method="get" id="form-auction">
             {{csrf_field()}} -->
             <!-- Modal content-->
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h3 class="modal-title" style="text-align: center;"><b> Add Role </b></h3>
+                    <h3 class="modal-title" style="text-align: center;"><b> Add Auction </b></h3>
                 </div>
                 <div class="modal-body">
                     <div class="row">
@@ -165,11 +123,18 @@
                             <!-- PAGE CONTENT BEGINS -->
                             <div class="col-sm-9" >
                                 <div class="form-group" >
-                                    <label class="col-sm-3 control-label no-padding-right" for="form-field-1" style="margin-top: 22px;"><b>Role Type:</b></label>
+                                    <label class="col-sm-3 control-label no-padding-right" for="form-field-1" style="margin-top: 5px;"><b>Duration:</b></label>
 
-                                    <div class="col-sm-9">
-                                        <input type="text" placeholder="Input role type ..." class="form-control"  name="type-role" id="type-role" style="width: 400px; margin-top: 15px;"/>
+                                    <div class="input-group bootstrap-timepicker " style=" margin-top: 15px;">
+                                        <input id="timepicker1" type="text" class="form-control">
+                                        <span class="input-group-addon">
+                                            <i class="fa fa-clock-o bigger-110"></i>
+                                        </span>
                                     </div>
+
+                                    <!-- <div class="col-sm-9">
+                                        <input type="text" placeholder="Input duration ..." class="form-control"  name="duration" id="duration" style="width: 400px; margin-top: 15px;"/>
+                                    </div> -->
                                 </div>
 
                             </div>
@@ -180,11 +145,12 @@
                 </div>  
                 <br/>
                 <div class="modal-footer">
+                    <input type="hidden" name="creator_id" id="creator_id" value="{{Session::get('user_id')}}">
                     <button class="btn btn-white btn-round pull-left" data-dismiss="modal">
                         <i class="ace-icon fa fa-times red2"></i>
                         Close
                     </button>
-                    <button class="btn btn-white btn-bold" type="submit" id="add-role">
+                    <button class="btn btn-white btn-bold" type="submit" id="add-auction">
                         <i class="ace-icon fa fa-check bigger-110 green"></i>
                         Add
                     </button>
@@ -194,7 +160,7 @@
     </div>
 </div>
 
-<div class="modal fade" id="editModal-role" role="dialog">
+<div class="modal fade" id="editModal-auction" auction="dialog">
     <div class="modal-dialog">
 
         <!-- <form action="" method="get">
@@ -205,7 +171,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h3 class="modal-title" style="text-align: center;"><b> Edit Role </b></h3>
+                    <h3 class="modal-title" style="text-align: center;"><b> Edit Auction </b></h3>
                 </div>
                 <div class="modal-body">
                     <div class="row">
@@ -227,10 +193,10 @@
 
                             <div class="col-sm-9">
                                 <div class="form-group">
-                                    <label class="col-sm-3 control-label no-padding-right" for="form-field-1" style="margin-top:  12px;"><b>Role Type:</b></label>
+                                    <label class="col-sm-3 control-label no-padding-right" for="form-field-1" style="margin-top:  12px;"><b>Duration:</b></label>
 
                                     <div class="col-sm-9">
-                                        <input type="text" placeholder="Nhập phân quyền" class="form-control" name="role-type" id="role-type" style="width: 400px; margin-top: 5px;" />
+                                        <input type="text" placeholder="" class="form-control" name="_duration" id="_duration" style="width: 400px; margin-top: 5px;" />
                                     </div>
                                 </div>
 
@@ -242,12 +208,13 @@
                 </div>  
                 <br/>
                 <div class="modal-footer">
-                    <input type="hidden" id="role-id" name="role-id" value="" />
+                    <input type="hidden" id="creator_id_" name="creator_id_" value="{{Session::get('user_id')}}" />
+                    <input type="hidden" name="duration_" id="duration_" value="">
                     <button class="btn btn-white btn-round pull-left" data-dismiss="modal">
                         <i class="ace-icon fa fa-times red2"></i>
                         Close
                     </button>
-                    <button class="btn btn-white btn-bold blue" type="submit" id="edit-role">
+                    <button class="btn btn-white btn-bold blue" type="submit" id="edit-auction">
                         <i class="ace-icon fa fa-check bigger-110 blue"></i>
                         Edit
                     </button>
@@ -257,7 +224,7 @@
     </div>
 </div>
 
-<div class="modal fade" id="deleteModal-role" role="dialog">
+<div class="modal fade" id="deleteModal-auction" auction="dialog">
             <div class="modal-dialog">
                 
                 <div class="modal-content">
@@ -285,12 +252,12 @@
                         </div>  
                         
                         <div class="modal-footer">
-                            <input type="hidden" id="role-delete" value="" />
+                            <input type="hidden" id="auction-delete" value="" />
                             <button class="btn btn-white btn-round pull-left" data-dismiss="modal">
                                 <i class="ace-icon fa fa-times red2"></i>
                                 Close
                             </button>
-                            <button class="btn btn-white btn-warning btn-bold" id="_delete-role">
+                            <button class="btn btn-white btn-warning btn-bold" id="_delete-auction">
                                 <i class="ace-icon fa fa-trash-o bigger-120 orange"></i>
                                 Delete
                             </button>

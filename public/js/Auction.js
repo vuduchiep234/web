@@ -1,16 +1,16 @@
 
 jQuery(function($) {
 
-	$('#addRole').click(function(){
+	$('#addAuction').click(function(){
 
-        $('#myModal-role').modal('show');
-        $('#type-role').val('');
+        $('#myModal-auction').modal('show');
+        $('#type-auction').val('');
         
     });
 
     
 
-	$('#add-role').on('click', function(){
+	$('#add-auction').on('click', function(){
 
 		$.ajaxSetup({
 	        headers: {
@@ -19,46 +19,53 @@ jQuery(function($) {
 
         });
 		
-		var data = $('#type-role').val();
+		var data = $('#timepicker1').val();
+        var creator_id = $('#creator_id').val();
+        // alert(creator_id);
+        if(data.indexOf(':') == 1){
+            data = '0'+data;
+        }
         // alert(data);
 		
 		$.ajax({
             type: 'post',
-            url: "/api/v1/roles",
+            url: "/api/v1/auctions",
             dataType: "json",
             data: {
                 0: {
-                    type: data
+                    creator_id: creator_id,
+                    duration: data
                 }
             },
             success: function (response) {
-                alert('Success');
-                $('#myModal-role').modal('hide');
-                load_data_role();
+                alert('Success !');
+                $('#myModal-auction').modal('hide');
+                load_data_auction();
                 
             },
             error: function(err){
                 alert('Error! Please, try again.');
-                $('#myModal-role').modal('hide');
+                $('#myModal-auction').modal('hide');
+                console.log(err);
             }
         });
 	});
 
-    $('a[data-role=update-role]').on('click', function(){
+    $('a[data-auction=update-auction]').on('click', function(){
 
 
     	var id = $(this).attr("id");
     	var type = $(this).attr("data-type");
     	// alert(type);
 
-    	$('#role-type').val(type);
-    	$('#role-id').val(id);
-    	$('#editModal-role').modal('show');
+    	$('#auction-type').val(type);
+    	$('#auction-id').val(id);
+    	$('#editModal-auction').modal('show');
     });
 
-    $('#edit-role').on('click', function () {
-        var id=$('#role-id').val();
-        var data = $('#role-type').val();
+    $('#edit-auction').on('click', function () {
+        var id=$('#auction-id').val();
+        var data = $('#auction-type').val();
         
         $.ajaxSetup({
             headers: {
@@ -69,35 +76,35 @@ jQuery(function($) {
 
         $.ajax({
                 
-                url: '/api/v1/roles/'+id,
+                url: '/api/v1/auctions/'+id,
                 type: 'patch',
                 data: {type: data},
                 success: function(data) {
                     alert('Success');
                     // console.log(data)
-                    $('#editModal-role').modal('hide');
-                    loaddata_role(id);
+                    $('#editModal-auction').modal('hide');
+                    loaddata_auction(id);
                 },
                 error: function(err){
                     alert('Error! Please, try again.');
-                    $('#editModal-role').modal('hide');
+                    $('#editModal-auction').modal('hide');
                 }
         });
     });
 
-    $('a[data-role=delete-role]').on('click', function(){
+    $('a[data-auction=delete-auction]').on('click', function(){
 
     	var id = $(this).attr("id");
 
-        $('#role-delete').val(id);
-		$('#deleteModal-role').modal('show');
+        $('#auction-delete').val(id);
+		$('#deleteModal-auction').modal('show');
 		
 
 
     });
-    $('#_delete-role').on('click', function(){
+    $('#_delete-auction').on('click', function(){
 
-    	var id = $('#role-delete').val();
+    	var id = $('#auction-delete').val();
         // alert(id);
 
         $.ajaxSetup({
@@ -109,17 +116,17 @@ jQuery(function($) {
 
         $.ajax({
                 
-                url: '/api/v1/roles/'+id,
+                url: '/api/v1/auctions/'+id,
                 type: 'delete',
                 data: {id: id, _method: "delete"},
                 success: function(data) {
                     alert('Success');
-                    $('#deleteModal-role').modal('hide');
-                    $("tr[row_id_role="+id+"]").remove();
+                    $('#deleteModal-auction').modal('hide');
+                    $("tr[row_id_auction="+id+"]").remove();
                 },
                 error: function(err){
                     alert('Error! Please, try again.');
-                    $('#deleteModal-role').modal('hide');
+                    $('#deleteModal-auction').modal('hide');
                 }
         });
     	
@@ -136,24 +143,24 @@ jQuery(function($) {
             data: {'data_search':value},
             success:function(data){
                 // console.log(data);
-                $('#body_list_role').html(data);
-                $('a[data-type=update-role]').on('click', function(){
+                $('#body_list_auction').html(data);
+                $('a[data-type=update-auction]').on('click', function(){
 
 
-                    var id = $(this).attr("id_edit_role");
+                    var id = $(this).attr("id_edit_auction");
                     // var name = $(this).attr("name");
                     // alert(id);
 
                     $.ajax({
             
-                        url: '/api/v1/roles?id='+id,
+                        url: '/api/v1/auctions?id='+id,
                         type: 'get',
                         dataType: 'json',
                         success: function(data) {
                             // console.log(data.data.type);
                             // name = data.type;
                             // alert(data.data.type);
-                            $('#role-type').val(data.data.type);
+                            $('#auction-type').val(data.data.type);
                             
                         },
                         error: function(mess){
@@ -165,16 +172,16 @@ jQuery(function($) {
                     // alert(name);
 
                     
-                    $('#role-id').val(id);
-                    $('#editModal-role').modal('show');
+                    $('#auction-id').val(id);
+                    $('#editModal-auction').modal('show');
                 });
 
-                $('a[data-type=delete-role]').on('click', function(){
+                $('a[data-type=delete-auction]').on('click', function(){
 
-                    var id = $(this).attr("id_delete_role");
+                    var id = $(this).attr("id_delete_auction");
 
-                    $('#role-delete').val(id);
-                    $('#deleteModal-role').modal('show');
+                    $('#auction-delete').val(id);
+                    $('#deleteModal-auction').modal('show');
                     
                 });
             },
@@ -185,58 +192,58 @@ jQuery(function($) {
         });
     });
 
-    function load_data_role(){
+    function load_data_auction(){
         $.ajax({
                     
-            url: '/api/v1/roles/'+'all',
+            url: '/api/v1/auctions/'+'all',
             type: 'get',
             dataType: 'json',
             success: function(data) {
                 var output = "";
                 for(var i = 0; i < data.length; i++){
 
-                    output =   "<tr row_id_role="+data[i].id+">"
+                    output =   "<tr row_id_auction="+data[i].id+">"
                                     +"<td class='text-center'>"+data[i].id+"</td>"
-                                    +"<td class='text-center'>"+data[i].type+"</td>"
+                                    +"<td class='text-center'>"+data[i].duration+"</td>"
                                     
-                                    +"<td class='text-center'>"
-                                        +"<a href='#' class='blue' data-toggle='modal' id_edit_role="+data[i].id+" data-type='update-role' name="+data[i].name+">"
-                                            +"<i class='ace-icon fa fa-pencil bigger-130'></i>"
-                                        +"</a>"
-                                    +"</td>"
-                                    +"<td class='text-center'>"
-                                        +"<a href='#' class='red delete_role' id_delete_role="+data[i].id+" data-type='delete-role' data-toggle='modal'>"
-                                            +"<i class='ace-icon fa fa-trash-o bigger-130'></i>"
-                                        +"</a>"
-                                    +"</td>"
+                                    // +"<td class='text-center'>"
+                                    //     +"<a href='#' class='blue' data-toggle='modal' id_edit_auction="+data[i].id+" data-type='update-auction' name="+data[i].name+">"
+                                    //         +"<i class='ace-icon fa fa-pencil bigger-130'></i>"
+                                    //     +"</a>"
+                                    // +"</td>"
+                                    // +"<td class='text-center'>"
+                                    //     +"<a href='#' class='red delete_auction' id_delete_auction="+data[i].id+" data-type='delete-auction' data-toggle='modal'>"
+                                    //         +"<i class='ace-icon fa fa-trash-o bigger-130'></i>"
+                                    //     +"</a>"
+                                    // +"</td>"
                                     
                                 +"</tr>";
 
                 }
-                // alert(data[i-2].id);
                 if(i >= 2){
-                    $("tr[row_id_role="+data[i-2].id+"]").after(output);
+                    $("tr[row_id_auction="+data[i-2].id+"]").after(output);
                 }
                 else{
-                    $("#body_list_role").html(output);
+                    $("#body_list_auction").html(output);
                 }
-                $('a[data-type=update-role]').on('click', function(){
+                
+                $('a[data-type=update-auction]').on('click', function(){
 
 
-                    var id = $(this).attr("id_edit_role");
+                    var id = $(this).attr("id_edit_auction");
                     // var name = $(this).attr("name");
                     // alert(id);
 
                     $.ajax({
             
-                        url: '/api/v1/roles?id='+id,
+                        url: '/api/v1/auctions?id='+id,
                         type: 'get',
                         dataType: 'json',
                         success: function(data) {
                             // console.log(data.data.type);
                             // name = data.type;
                             // alert(data.data.type);
-                            $('#role-type').val(data.data.type);
+                            $('#auction-type').val(data.data.type);
                             
                         },
                         error: function(mess){
@@ -248,16 +255,16 @@ jQuery(function($) {
                     // alert(name);
 
                     
-                    $('#role-id').val(id);
-                    $('#editModal-role').modal('show');
+                    $('#auction-id').val(id);
+                    $('#editModal-auction').modal('show');
                 });
 
-                $('a[data-type=delete-role]').on('click', function(){
+                $('a[data-type=delete-auction]').on('click', function(){
 
-                    var id = $(this).attr("id_delete_role");
+                    var id = $(this).attr("id_delete_auction");
 
-                    $('#role-delete').val(id);
-                    $('#deleteModal-role').modal('show');
+                    $('#auction-delete').val(id);
+                    $('#deleteModal-auction').modal('show');
                     
                 });
 
@@ -271,10 +278,10 @@ jQuery(function($) {
         });
     }
 
-    function loaddata_role(id){
+    function loaddata_auction(id){
         $.ajax({
                     
-            url: '/api/v1/roles?id='+id,
+            url: '/api/v1/auctions?id='+id,
             type: 'get',
             dataType: 'json',
             success: function(data) {
@@ -287,12 +294,12 @@ jQuery(function($) {
                                     +"<td class='text-center'>"+data.data.type+"</td>"
                                     
                                     +"<td class='text-center'>"
-                                        +"<a href='#' class='blue' data-toggle='modal' id_edit_role="+data.data.id+" data-type='update-role' name="+data.data.type+">"
+                                        +"<a href='#' class='blue' data-toggle='modal' id_edit_auction="+data.data.id+" data-type='update-auction' name="+data.data.type+">"
                                             +"<i class='ace-icon fa fa-pencil bigger-130'></i>"
                                         +"</a>"
                                     +"</td>"
                                     +"<td class='text-center'>"
-                                        +"<a href='#' class='red delete_role' id_delete_role="+data.data.id+" data-type='delete-role' data-toggle='modal'>"
+                                        +"<a href='#' class='red delete_auction' id_delete_auction="+data.data.id+" data-type='delete-auction' data-toggle='modal'>"
                                             +"<i class='ace-icon fa fa-trash-o bigger-130'></i>"
                                         +"</a>"
                                     +"</td>"
@@ -302,26 +309,26 @@ jQuery(function($) {
 
                 // }
 
-                $("tr[row_id_role="+data.data.id+"]").html(output);
+                $("tr[row_id_auction="+data.data.id+"]").html(output);
 
 
-                $('a[data-type=update-role]').on('click', function(){
+                $('a[data-type=update-auction]').on('click', function(){
 
 
-                    var id = $(this).attr("id_edit_role");
+                    var id = $(this).attr("id_edit_auction");
                     // var name = $(this).attr("name");
                     // alert(id);
 
                     $.ajax({
             
-                        url: '/api/v1/roles?id='+id,
+                        url: '/api/v1/auctions?id='+id,
                         type: 'get',
                         dataType: 'json',
                         success: function(data) {
                             // console.log(data.data.type);
                             // name = data.type;
                             // alert(data.data.type);
-                            $('#role-type').val(data.data.type);
+                            $('#auction-type').val(data.data.type);
                             
                         },
                         error: function(mess){
@@ -333,16 +340,16 @@ jQuery(function($) {
                     // alert(name);
 
                     
-                    $('#role-id').val(id);
-                    $('#editModal-role').modal('show');
+                    $('#auction-id').val(id);
+                    $('#editModal-auction').modal('show');
                 });
 
-                $('a[data-type=delete-role]').on('click', function(){
+                $('a[data-type=delete-auction]').on('click', function(){
 
-                    var id = $(this).attr("id_delete_role");
+                    var id = $(this).attr("id_delete_auction");
 
-                    $('#role-delete').val(id);
-                    $('#deleteModal-role').modal('show');
+                    $('#auction-delete').val(id);
+                    $('#deleteModal-auction').modal('show');
                     
                 });
 

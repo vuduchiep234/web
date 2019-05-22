@@ -133,14 +133,30 @@ Route::get('product/{id}',
  	['as'=>'product', 'uses'=>'UserController@getListProduct']
 );
 
-// Route::get('listProductOfAuthor/{id}',
-//  	['as'=>'listProductOfAuthor', 'uses'=>'UserController@getListAuthorProduct']
-// );
-
-// Route::get('listProductOfGenre/{id}',
-//  	['as'=>'listProductOfGenre', 'uses'=>'UserController@getListProductGenre']
-// );
 
 Route::get('detailProduct/{id}',
  	['as'=>'detailProduct', 'uses'=>'UserController@getProductDetail']
 );
+
+Route::get('listAuction',
+ 	['as'=>'listAuction', 'uses'=>'AdminController@getAuction']
+);
+
+Route::get('listAuctionProduct',
+ 	['as'=>'listAuctionProduct', 'uses'=>'AdminController@getAuctionProduct']
+);
+
+
+Route::get('/search','AdminController@search');
+
+Route::get('/searchUser','AdminController@searchUser');
+
+Route::get('/searchProducer','AdminController@searchProducer');
+
+Route::get('/searchCategory','AdminController@searchCategory');
+
+Route::get('/searchProduct','AdminController@searchProduct');
+
+Route::get('/searchShipper','AdminController@searchShipper');
+
+Route::get('/searchImport','AdminController@searchImport');

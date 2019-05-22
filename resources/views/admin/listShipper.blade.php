@@ -38,11 +38,9 @@
                                 </button>
                             </div>
                             <div style="margin-left: 700px; margin-top: -46px; margin-right: 10px;">    
-                                <form method="get" action="" id="form_search_shipper">
-                                    {{csrf_field()}}
+                                
                                     @include('admin.search')
                                     
-                                </form>
                             </div>
                         </div>
                         <br>

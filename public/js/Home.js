@@ -16,16 +16,18 @@ jQuery(function($) {
             type: 'post',
             dataType: 'json',
             data:{
-                email: email,
+                username: email,
                 password: password
             },
             success: function(data){
-
-                if(data.Role.id == 1){
-                    window.location.href="/homeAdmin";
-                }
-                else if(data.Role.id == 2){
+                // alert(data);
+                // alert("Success !");
+                console.log(data);
+                if(data.User.role_id == 1){
                     window.location.href="/homePage";
+                }
+                else if(data.User.role_id == 2){
+                    window.location.href="/homeAdmin";
                 }
                 else{
                     alert('You need register account');
@@ -34,7 +36,7 @@ jQuery(function($) {
                 
                 
             },
-            error: function(){
+            error: function(mess){
                 alert("Login fail !");
             }
 
@@ -185,6 +187,8 @@ jQuery(function($) {
         }
        
     });
+
+    
 
     $('#borrow_book').click(function(){
         var book_id = $('#borrow_book_id').val();

@@ -20,26 +20,18 @@
 
         </div>
         <div class="page-content">
-            <!-- <c:if test="${ != null}">
-                <h4 class="pink">
-                    <i class="ace-icon fa fa-hand-o-right icon-animated-hand-pointer blue"></i>
-
-                    <a class="green" data-toggle="modal">Chua co nha san xuat</a>
-                </h4>
-                <div class="hr hr-18 dotted hr-double"></div>
-            </c:if> -->
 
             <div class="row" >
                 <div class="col-xs-12">
 
                 	<div class="row">
                         <div class="col-xs-12">
-                            <h4 >List Export Bill</h4> 
+                            <h3 class="box-title"><b>List Export Bill</b></h3> 
                             <button class="btn btn-sm btn-success" data-toggle="modal" id="addExportBill" style="float: right; margin-top: -40px;">
-                        <i class="ace-icon fa fa-plus bigger-110 white"></i>
-                            <b>Add</b>
+                            <i class="ace-icon fa fa-plus bigger-110 white"></i>
+                                <b>Add</b>
 
-                        </button>
+                            </button>
 
                            
 
@@ -69,7 +61,7 @@
                         {{csrf_field()}}
                         <div style="margin-left: 0px;">
                             <div style="margin-left: 80px; width: 1000px;">
-                                <label class="control-label col-sm-1 " for="password2" style="margin-top: 7px;">Tu ngay:</label>
+                                <label class="control-label col-sm-1 " for="password2" style="margin-top: 7px;">From:</label>
                                 <div class="row">
                                     <div class="control-label col-xs-12 col-sm-3 no-padding-right">
                                         <div class="input-group">
@@ -82,7 +74,7 @@
                                 </div>
                             </div>
                             <div style="margin-left: 470px; margin-top: -50px; width: 1000px;">
-                                <label  style="margin-top: 7px;" class="control-label col-sm-1 " for="password2">den:</label>
+                                <label  style="margin-top: 7px;" class="control-label col-sm-1 " for="password2">to:</label>
                                 <div class="row" style="">
                                     <div class="control-label col-xs-12 col-sm-3 no-padding-right">
                                         <div class="input-group">
@@ -98,7 +90,7 @@
                                 
                                 <button class="btn btn-sm btn-success" id="between_exportBill">
                                 <i class=" "></i>
-                                Xac nhan
+                                Confirm
                                 
                                 </button>
                                 
@@ -118,15 +110,15 @@
                                             ID
                                         </th>
                                         <th class="center">
-                                            ID nguoi tao
+                                            ID Creator
                                         </th>
                                         <th class="center">
-                                            ID hoa don
+                                            ID Bill
                                         </th>
                                         <th class="center">
-                                            Xu ly
+                                            Proccess
                                         </th><th class="center">
-                                            Xoa
+                                            Delete
                                         </th>
                                     </tr>
                                 </thead>
@@ -199,17 +191,6 @@
                 <div class="modal-body">
                     <div class="row">
                         <div class="col-xs-12">
-                            
-                            <!-- <div class="col-sm-12" style="margin-top: 5px;">
-                                <div class="form-group">
-                                    <label class="col-sm-3 control-label no-padding-right" for="form-field-1" style="margin-top: 7px;">ID nguoi tao: </label>
-
-                                    <div class="col-sm-9">
-                                        <input type="text" id="exportBill-creator_id" placeholder="Nhap ID tao hoa don" class="form-control" name="exportBill-creator_id"/>
-                                    </div>
-                                </div>
-
-                            </div> -->
 
                             <div class="col-sm-12" style="margin-top: 5px;">
                                 <div class="form-group">

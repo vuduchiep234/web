@@ -18,15 +18,13 @@ class UserPatchRequest extends PatchRequest
         if($this->route('id')){
             return [
                 'email' => 'email|unique:users,email',
-                'phone' => 'string|unique:users,phone',
-                'name' => 'string|required'
+                'name' => 'string|'
             ];
         }
         return [
             '*.id' => 'int|exists:users,id',
             '*.email'=> 'email|unique:users,email|distinct',
-            '*.password'=>'string|min:6',
-            '*.name' => 'string|required'
+            '*.name' => 'string|'
         ];
     }
 }

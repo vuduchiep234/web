@@ -53,8 +53,9 @@ jQuery(function($) {
                 $('#myModal-product').modal('hide');
                 load_data_product();
             },
-            error:function(err){
-                alert("Fail !");
+            error: function(err){
+                alert('Error! Please, try again.');
+                $('#myModal-product').modal('hide');
                 console.log(err);
             }
         });
@@ -200,12 +201,17 @@ jQuery(function($) {
 
         $.ajax({
                 
-                url: '/api/v1/products/'+id,
-                type: 'delete',
-                data: {id: id, _method: "delete"},
-                success: function(res) {
+            url: '/api/v1/products/'+id,
+            type: 'delete',
+            data: {id: id, _method: "delete"},
+            success: function(res) {
 
-                }
+            }, 
+            error: function(err){
+                alert('Error! Please, try again.');
+                $('#deleteModal-product').modal('hide');
+                console.log(err);
+            }
         });
  
     });
@@ -300,7 +306,13 @@ jQuery(function($) {
                         +"</tr>";
  
                 }
-                $("tr[row_id_product="+data[i-2].id+"]").after(output);
+                if(i >= 2){
+                    $("tr[row_id_product="+data[i-2].id+"]").after(output);   
+                }
+                else{
+                    $("#body_list_product").html(output);
+                }
+                
 
                 $('a[data-role=delete-product]').on('click', function(){
 
@@ -470,5 +482,78 @@ jQuery(function($) {
             }
         });
     }
+
+    $('#search').on('click',function(){
+        // alert(1);
+        var value=$('#data_search').val();
+        // alert(value);
+        $.ajax({
+            type : 'get',
+            url : '/searchProduct',
+            data: {'data_search':value},
+            success:function(data){
+                // console.log(data);
+                $('#body_list_product').html(data);
+                $('a[data-type=delete-product]').on('click', function(){
+
+                    var id = $(this).attr("id_delete_product");
+
+                    $('#product-delete_id').val(id);
+                    $('#deleteModal-product').modal('show');
+                    
+                });
+
+                $('a[data-type=update-product]').on('click', function(){
+
+
+                    var id = $(this).attr("id_edit_product");
+                    var name = $(this).attr("product-name");
+                    var price = $(this).attr("product-price");
+                    var detail = $(this).attr("product-detail");
+                    var producer_id = $(this).attr("product-producer_id");
+                    var category_id = $(this).attr("product-category_id");
+                    var image_id = $(this).attr("product-image_id");
+                    var state = $(this).attr("product-state");
+                    
+
+                    // $('input[data-type=edit]').val(type);
+                    $('#product-id').val(id);
+                    $('#product-name').val(name);
+                    $('#product-price').val(price);
+                    $('#product-detail').text(detail);
+                    $('#product-producer_id').val(producer_id);
+                    $('#product-category_id').val(category_id);
+                    $('#product-image_id').val(image_id);
+                    $('#product-state').val(state);
+
+                    $('#_name').val(name);
+                    $('#_price').val(price);
+                    $('#_detail').val(detail);
+                    $('#_producer_id').val(producer_id);
+                    $('#_category_id').val(category_id);
+                    $('#_image_id').val(image_id);
+                    $('#_state').val(state);
+
+                    $('#editModal-product').modal('show');
+                });
+
+                $('a[data-type=import-product]').click(function(){
+
+                    $('#quantity_product').val("");
+
+                    var id = $(this).attr("id_import_product");
+
+                    $('#import_product_id').val(id);
+
+                    $('#importModal-product').modal('show');
+
+                });
+            },
+            error: function(err){
+                alert("fail");
+                console.log(err);
+            }
+        });
+    });
 
 });

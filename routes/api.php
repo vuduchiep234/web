@@ -229,31 +229,6 @@ Route::prefix('v1')->group(function () {
 
     });
 
-    Route::prefix('comments')->group(function () {
-
-
-        Route::get('{id?}', [
-            'uses' => 'API\CommentController@get',
-            'as' => 'api/v1/comments/get'
-        ])->where('id', '[0-9]+');
-
-        Route::post('', [
-            'uses' => 'API\CommentController@post',
-            'as' => 'api/v1/comments/post'
-        ]);
-
-        Route::patch('{id?}', [
-            'uses' => 'API\CommentController@patch',
-            'as' => 'api/v1/comments/patch'
-        ])->where('id', '[0-9]+');
-
-        Route::delete('{id}', [
-            'uses' => 'API\CommentController@delete',
-            'as' => 'api/v1/comments/delete'
-        ])->where('id', '[0-9]+');
-
-    });
-
     Route::prefix('exportBills')->group(function () {
 
 

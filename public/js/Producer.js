@@ -41,8 +41,9 @@ jQuery(function($) {
                 $('#myModal-producer').modal('hide');
                 load_data_producer();
             },
-            error:function(err){
-            	alert("Fail !");
+            error: function(err){
+                alert('Error! Please, try again.');
+                $('#myModal-producer').modal('hide');
             }
         });
 	});
@@ -112,15 +113,19 @@ jQuery(function($) {
         console.log(data);
         $.ajax({
                 
-                url: '/api/v1/producers/'+id,
-                type: 'patch',
-                data: data,
-                success: function(res) {
-                    alert("Success !");
-                    $('#editModal-producer').modal('hide');
-                    loaddata_producer(id);
+            url: '/api/v1/producers/'+id,
+            type: 'patch',
+            data: data,
+            success: function(res) {
+                alert("Success !");
+                $('#editModal-producer').modal('hide');
+                loaddata_producer(id);
 
-                }
+            },
+            error: function(err){
+                alert('Error! Please, try again.');
+                $('#editModal-producer').modal('hide');
+            }
         });
     });
 
@@ -148,16 +153,83 @@ jQuery(function($) {
 
         $.ajax({
                 
-                url: '/api/v1/producers/'+id,
-                type: 'delete',
-                data: {id: id, _method: "delete"},
-                success: function(res) {
-                    alert("Success !");
-                    $('#deleteModal-producer').modal('hide');
-                    $("tr[row_id_producer="+id+"]").remove();
-                }
+            url: '/api/v1/producers/'+id,
+            type: 'delete',
+            data: {id: id, _method: "delete"},
+            success: function(res) {
+                alert("Success !");
+                $('#deleteModal-producer').modal('hide');
+                $("tr[row_id_producer="+id+"]").remove();
+            },
+            error: function(err){
+                alert('Error! Please, try again.');
+                $('#deleteModal-producer').modal('hide');
+            }
         });
     	
+    });
+
+    $('#search').on('click',function(){
+        // alert(1);
+        var value=$('#data_search').val();
+        // alert(value);
+        $.ajax({
+            type : 'get',
+            url : '/searchProducer',
+            data: {'data_search':value},
+            success:function(data){
+                // console.log(data);
+                $('#body_list_producer').html(data);
+
+                $('a[data-type=update-producer]').on('click', function(){
+
+
+                    var id = $(this).attr("id_edit_producer");
+                    // var name = $(this).attr("name");
+                    // alert(id);
+
+                    $.ajax({
+            
+                        url: '/api/v1/producers?id='+id,
+                        type: 'get',
+                        dataType: 'json',
+                        success: function(data) {
+                            // console.log(data.data.type);
+                            // name = data.type;
+                            // alert(data.data.type);
+                            $('#name-producer').val(data.data.name);
+                            $('#address-producer').val(data.data.address);
+                            $('#email-producer').val(data.data.email);
+                            $('#phone-producer').val(data.data.phone);
+                        },
+                        error: function(mess){
+                            alert("Loi gi nay");
+                            // console.log(mess);
+                        }
+                    });
+
+                    // alert(name);
+
+                    
+                    $('#producer-id').val(id);
+                    $('#editModal-producer').modal('show');
+                });
+
+                $('a[data-type=delete-producer]').on('click', function(){
+
+                    var id = $(this).attr("id_delete_producer");
+
+                    $('#producer-delete').val(id);
+                    $('#deleteModal-producer').modal('show');
+                    
+                });
+                
+            },
+            error: function(err){
+                alert("fail");
+                console.log(err);
+            }
+        });
     });
     
     function load_data_producer(){
@@ -170,7 +242,7 @@ jQuery(function($) {
                 var output = "";
                 for(var i = 0; i < data.length; i++){
 
-                    output +=   "<tr row_id_producer="+data[i].id+">"
+                    output =   "<tr row_id_producer="+data[i].id+">"
                                     +"<td class='text-center'>"+data[i].id+"</td>"
                                     +"<td class='text-center'>"+data[i].name+"</td>"
                                     +"<td class='text-center'>"+data[i].address+"</td>"
@@ -190,7 +262,14 @@ jQuery(function($) {
                                 +"</tr>";
 
                 }
-                $("tr[row_id_producer="+data[i-2].id+"]").after(output);
+
+                if(i >= 2){
+                    $("tr[row_id_producer="+data[i-2].id+"]").after(output);
+                }
+                else{
+                    $("#body_list_producer").html(output);
+                }
+               
                 $('a[data-type=update-producer]').on('click', function(){
 
 
@@ -247,13 +326,13 @@ jQuery(function($) {
     function loaddata_producer(id){
         $.ajax({
                     
-            url: '/api/v1/producers?id='+id,
+            url: '/api/v1/producers/'+id,
             type: 'get',
             dataType: 'json',
             success: function(data) {
                 var output = "";
                 
-                    output +=   
+                    output =   
                                     "<td class='text-center'>"+data.data.id+"</td>"
                                     +"<td class='text-center'>"+data.data.name+"</td>"
                                     +"<td class='text-center'>"+data.data.address+"</td>"

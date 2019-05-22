@@ -35,6 +35,10 @@ jQuery(function($) {
                 alert("Success !");
                 $('#myModal').modal('hide');
                 load_data_category();
+            },
+            error:function(err){
+                alert("Error! Please, try again.");
+                $('#myModal').modal('hide');
             }
         });
 		
@@ -74,6 +78,10 @@ jQuery(function($) {
                     alert("Success !");
                     $('#editModal-category').modal('hide');
                     loaddata_category(id);
+                },
+                error:function(err){
+                    alert("Error! Please, try again.");
+                    $('#editModal-category').modal('hide');
                 }
         });
     });
@@ -107,9 +115,72 @@ jQuery(function($) {
                     alert("Success !");
                     $('#deleteModal-category').modal('hide');
                     $("tr[row_id_category="+id+"]").remove();
+                },
+                error:function(err){
+                    alert("Error! Please, try again.");
+                    $('#deleteModal-category').modal('hide');
                 }
         });
 
+    });
+
+    $('#search').on('click',function(){
+        // alert(1);
+        var value=$('#data_search').val();
+        // alert(value);
+        $.ajax({
+            type : 'get',
+            url : '/searchCategory',
+            data: {'data_search':value},
+            success:function(data){
+                // console.log(data);
+                $('#body_list_category').html(data);
+                $('a[data-type=update-category]').on('click', function(){
+
+
+                    var id = $(this).attr("id_edit_category");
+                    // var name = $(this).attr("name");
+                    alert(id);
+
+                    $.ajax({
+            
+                        url: '/api/v1/categories/'+id,
+                        type: 'get',
+                        dataType: 'json',
+                        success: function(data) {
+                            // console.log(data.data.type);
+                            // name = data.type;
+                            // alert(data.data.type);
+                            $('#_type-cate').val(data.data.type);
+                            
+                        },
+                        error: function(mess){
+                            alert("Loi gi nay");
+                            // console.log(mess);
+                        }
+                    });
+
+                    // alert(name);
+
+                    
+                    $('#cate-id').val(id);
+                    $('#editModal-category').modal('show');
+                });
+
+                $('a[data-type=delete-category]').on('click', function(){
+
+                    var id = $(this).attr("id_delete_category");
+
+                    $('#delete_cate_id').val(id);
+                    $('#deleteModal-category').modal('show');
+                    
+                });
+            },
+            error: function(err){
+                alert("fail");
+                // console.log(err);
+            }
+        });
     });
     
     function load_data_category(){
@@ -122,7 +193,7 @@ jQuery(function($) {
                 var output = "";
                 for(var i = 0; i < data.length; i++){
 
-                    output +=   "<tr row_id_category="+data[i].id+">"
+                    output =   "<tr row_id_category="+data[i].id+">"
                                     +"<td class='text-center'>"+data[i].id+"</td>"
                                     +"<td class='text-center'>"+data[i].type+"</td>"
                                     
@@ -140,7 +211,13 @@ jQuery(function($) {
                                 +"</tr>";
 
                 }
-                 $("tr[row_id_category="+data[i-2].id+"]").after(output);
+                if(i >= 2){
+                    $("tr[row_id_category="+data[i-2].id+"]").after(output);
+                }
+                else{
+                    $("#body_list_category").html(output);
+                }
+                
                 // $('#body_list_category').html(output);
                 $('a[data-role=update-category]').on('click', function(){
 
@@ -203,7 +280,7 @@ jQuery(function($) {
                 var output = "";
                 // for(var i = 0; i < data.length; i++){
 
-                    output +=   
+                    output =   
                                     "<td class='text-center'>"+data.data.id+"</td>"
                                     +"<td class='text-center'>"+data.data.type+"</td>"
                                     

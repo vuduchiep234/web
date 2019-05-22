@@ -34,11 +34,10 @@
 
                 <div style="margin-left: 700px; margin-top: -46px; margin-right: 10px;">
 
-                    <form method="get" action="" id="form_search_user">
-                        {{csrf_field()}}
+                    
                         @include('admin.search')
                         
-                    </form>
+                   
                 </div>
                 
             </div>
@@ -51,7 +50,7 @@
                       <th class="text-center">ID</th>
                       <th class="text-center">Name</th>
                       <th class="text-center">Email</th>
-                      <th class="text-center">Password</th>
+                      <!-- <th class="text-center">Password</th> -->
                       <th class="text-center">Role</th>
                       <th class="text-center">Edit</th>
                       <th class="text-center">Delete</th>
@@ -64,16 +63,16 @@
                             <td class="text-center">{{$user->id}}</td>
                             <td class="text-center">{{$user->name}}</td>
                             <td class="text-center">{{$user->email}}</td>
-                            <td class="text-center">{{$user->password}}</td>
-                            <td class="text-center">{{$user->role_id}}</td>
+                            <!-- <td class="text-center">{{$user->password}}</td> -->
+                            <td class="text-center">{{$user->type}}</td>
                             <td class="text-center">
-                                <a href="#" class="text-blue" id="<?php echo $user->id; ?>" name="{{$user->name}}" email="{{$user->email}}" password="{{$user->password}}" role_id="{{$user->role_id}}" data-type="update-user" data-toggle="modal">
+                                <a href="#" class="blue" id_edit_user="<?php echo $user->id; ?>" name="{{$user->name}}" email="{{$user->email}}" password="{{$user->password}}" role_id="{{$user->role_id}}" role="{{$user->type}}" data-type="update-user" data-toggle="modal">
                                     <i class="ace-icon fa fa-pencil bigger-130"></i>
                                 </a>
                             </td>
                             
                             <td class="text-center">
-                                <a class="text-red" href="#" id="<?php echo $user->id; ?>" data-type="delete-user" data-toggle="modal">
+                                <a class="red" href="#" id_delete_user="<?php echo $user->id; ?>" data-type="delete-user" data-toggle="modal">
                                     <i class="ace-icon fa fa-trash-o bigger-130"></i>
                                 </a>
 
@@ -85,6 +84,7 @@
                 </tbody>
 
               </table>
+              <div style="margin-left: 0px;">{!! $list->links() !!}</div>
             </div>
             <!-- /.box-body -->
         </div>
@@ -92,82 +92,6 @@
     </div>
 </div>
     <!-- /.content -->
-
- <div class="modal fade" id="myModal-user" role="dialog">
-    <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h3 class="modal-title" style="text-align: center;"><b>Add User</b></h4>
-                </div>
-                <div class="modal-body">
-                    <div class="row">
-                        <div class="col-xs-12">
-                            <div class="col-sm-11">
-                                <div class="form-group">
-                                    <label class="col-sm-3 control-label no-padding-right" for="form-field-1" style="margin-top: 5px;"><b>Name: </b></label>
-
-                                    <div class="col-sm-9" style="margin-left: -15px; width: 380px;">
-                                        <input type="text" id="name_user" placeholder="Enter name ..." class="form-control" name="email-user"/>
-                                    </div>
-                                </div>
-
-                            </div>
-                            <div class="col-sm-11" style="margin-top: 5px;">
-                                <div class="form-group">
-                                    <label class="col-sm-3 control-label no-padding-right" for="form-field-1" style="margin-top: 5px;"><b>Email: </b></label>
-
-                                    <div class="col-sm-9" style="margin-left: -15px; width: 380px;">
-                                        <input type="text" id="email_user" placeholder="Enter email ..." class="form-control" name="password-user"/>
-                                    </div>
-                                </div>
-
-                            </div>
-
-                            <div class="col-sm-11" style="margin-top: 5px;">
-                                <div class="form-group">
-                                    <label class="col-sm-3 control-label no-padding-right" for="form-field-1" style="margin-top: 5px;"><b>Password: </b></label>
-
-                                    <div class="col-sm-9" style="margin-left: -15px; width: 380px;">
-                                        <input type="text" id="password_user" placeholder="Enter password ..." class="form-control" name="first-name"/>
-                                    </div>
-                                </div>
-
-                            </div>
-
-                            <div class="col-sm-11" style="margin-top: 5px;">
-                                <div class="form-group">
-                                    <label style="margin-top: 5px;" class="control-label col-sm-3 no-padding-right" for="password2"><b>Role:</b></label>
-                                    <div class="col-sm-9" style="margin-left: -15px; width: 382px;">
-                                        <select class="form-control" id="role_id_user">
-                                            <option value=""></option>
-                                            @foreach($listR as $role)
-                                                <option value="<?php echo $role->id; ?>">{{$role->type}}</option>
-                                            @endforeach
-                                    
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-                <br/>
-                <div class="modal-footer">
-                  <button class="btn btn-white btn-round pull-left" data-dismiss="modal">
-                        <i class="ace-icon fa fa-times red2"></i>
-                        Close
-                    </button>
-                    <button class="btn btn-white btn-bold" type="submit" id="add-user">
-                        <i class="ace-icon fa fa-check bigger-110 green"></i>
-                        Add
-                    </button>
-                </div>
-            </div>
-        </form>
-    </div>
-</div>
 
 <div class="modal fade" id="editModal-user" role="dialog">
     <div class="modal-dialog">
@@ -184,72 +108,17 @@
                 <div class="modal-body">
                     <div class="row">
                         <div class="col-xs-12">
-                            <!-- PAGE CONTENT BEGINS -->
-
-                            <!-- <div class="col-sm-11">
-                                <div class="form-group">
-                                    <label class="col-sm-3 control-label no-padding-right" for="form-field-1" style="margin-top: 5px;">Name: </label>
-
-                                    <div class="col-sm-9" style="margin-left: -15px; width: 380px;">
-                                        <input type="text" id="user_name" placeholder="Enter name ..." class="form-control" name="email-user"/>
-                                    </div>
-                                </div>
-
-                            </div>
-                            <div class="col-sm-11" style="margin-top: 5px;">
-                                <div class="form-group">
-                                    <label class="col-sm-3 control-label no-padding-right" for="form-field-1" style="margin-top: 5px;">Email: </label>
-
-                                    <div class="col-sm-9" style="margin-left: -15px; width: 380px;">
-                                        <input type="text" id="user_email" placeholder="Enter email ..." class="form-control" name="password-user"/>
-                                    </div>
-                                </div>
-
-                            </div> -->
-
-                            <!-- <div class="col-sm-11" style="margin-top: 5px;">
-                                <div class="form-group">
-                                    <label class="col-sm-3 control-label no-padding-right" for="form-field-1" style="margin-top: 5px;">Password: </label>
-
-                                    <div class="col-sm-9" style="margin-left: -15px; width: 380px;">
-                                        <input type="text" id="user_password" placeholder="Enter password ..." class="form-control" name="first-name"/>
-                                    </div>
-                                </div>
-
-                            </div> -->
-
                             <div class="col-sm-11" style="margin-top: 5px;">
                                 <div class="form-group">
                                     <label style="margin-top: 5px;" class="control-label col-sm-3 no-padding-right" for="password2"><b>Role:</b></label>
                                     <div class="col-sm-9" style="margin-left: -15px; width: 382px;">
-                                        <select class="form-control" id="role_id-member">
+                                        <select class="form-control" id="role_user">
                                             <option value=""></option>
                                             @foreach($listR as $role)
                                                 <option value="<?php echo $role->id; ?>">{{$role->type}}</option>
                                             @endforeach
                                     
                                         </select>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-sm-11" style="margin-top: 5px;">
-                                <div class="form-group">
-                                    <label class="control-label col-sm-3 no-padding-right" for="password2" style="margin-top: 5px;"><b>Role:</b></label>
-
-                                    <div class="input-group " style="width: 382px;" >
-
-                                        <select class="form-control" id="role_id-user">
-                                            <option value=""></option>
-                                            @foreach($listR as $role)
-                                                <option value="<?php echo $role->id; ?>">{{$role->type}}</option>
-                                            @endforeach
-                                    
-                                        </select>
-                                      /btn-group
-                                      <input type="hidden" class="form-control" id="role_id_user">
-                                      <input type="text" class="form-control" id="role_user">
-
                                     </div>
                                 </div>
                             </div>
@@ -260,9 +129,7 @@
                 <br/>
                 <div class="modal-footer">
                     <input type="hidden" id="user_id_" name="user-id" value="" />
-                    <input type="hidden" id="name" value="" />
-                    <input type="hidden" id="email" value="" />
-                    <input type="hidden" id="password" value="" />
+
                     <input type="hidden" id="role_id" value="" />
 
                     <button class="btn btn-white btn-round pull-left" data-dismiss="modal">
@@ -314,7 +181,7 @@
                                 <i class="ace-icon fa fa-times red2"></i>
                                 Close
                             </button>
-                            <button class="btn btn-white btn-warning btn-bold" id="delete-user">
+                            <button class="btn btn-white btn-warning btn-bold" id="_delete-user">
                                 <i class="ace-icon fa fa-trash-o bigger-120 orange"></i>
                                 Delete
                             </button>

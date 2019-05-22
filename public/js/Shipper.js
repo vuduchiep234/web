@@ -351,4 +351,70 @@ jQuery(function($) {
         });
     }
 
+    $('#search').on('click',function(){
+        // alert(1);
+        var value=$('#data_search').val();
+        // alert(value);
+        $.ajax({
+            type : 'get',
+            url : '/searchShipper',
+            data: {'data_search':value},
+            success:function(data){
+                // console.log(data);
+                $('#body_list_shipper').html(data);
+
+                $('a[data-type=update-shipper]').on('click', function(){
+
+
+                    var id = $(this).attr("id_edit_shipper");
+                    // var name = $(this).attr("name");
+                    // alert(id);
+
+                    $.ajax({
+            
+                        url: '/api/v1/shippers?id='+id,
+                        type: 'get',
+                        dataType: 'json',
+                        success: function(data) {
+                            // console.log(data.data.type);
+                            // name = data.type;
+                            // alert(data.data.type);
+                            $('#name-shipper').val(data.data.name);
+                            $('#phone-shipper').val(data.data.phone);
+                            $('#state-shipper').val(data.data.state);
+
+                            $('#_nameShipper').val(data.data.name);
+                            $('#_phoneShipper').val(data.data.phone);
+                            $('#_stateShipper').val(data.data.state);
+                        },
+                        error: function(mess){
+                            alert("Loi gi nay");
+                            // console.log(mess);
+                        }
+                    });
+
+                    // alert(name);
+
+                    
+                    $('#shipper-id').val(id);
+                    $('#editModal-shipper').modal('show');
+                });
+
+                $('a[data-type=delete-shipper]').on('click', function(){
+
+                    var id = $(this).attr("id_delete_shipper");
+
+                    $('#shipper-delete').val(id);
+                    $('#deleteModal-shipper').modal('show');
+                    
+                });
+                
+            },
+            error: function(err){
+                alert("fail");
+                console.log(err);
+            }
+        });
+    });
+
 });
