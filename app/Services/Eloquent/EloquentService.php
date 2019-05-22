@@ -9,16 +9,18 @@
 namespace App\Services\Eloquent;
 
 
+use App\Decorators\Message;
 use App\Repositories\Repository;
 use App\Services\Service;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Model;
 
-class EloquentService implements Service
+class EloquentService implements Service, Message
 {
     protected $manyToManyRelations = [];
 
     private $repository;
+    private $message;
 
     public function __construct(Repository $repository)
     {
@@ -50,6 +52,7 @@ class EloquentService implements Service
             });
         }
         catch (\Exception $e){
+            $this->setMessage($e->getMessage());
             return null;
         }
         return $model;
@@ -70,6 +73,7 @@ class EloquentService implements Service
             });
             return $state;
         }catch (\Exception $e){
+            $this->setMessage($e->getMessage());
             return false;
         }
     }
@@ -112,5 +116,15 @@ class EloquentService implements Service
         }
 
         return $this->repository->getBy($conditions, $relations);
+    }
+
+    public function getMessage(): string
+    {
+        return $this->message;
+    }
+
+    public function setMessage(string $message): void
+    {
+        $this->message = $message;
     }
 }

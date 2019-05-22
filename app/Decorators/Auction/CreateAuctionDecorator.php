@@ -8,6 +8,7 @@
 
 namespace App\Decorators\Auction;
 
+use App\Handlers\AuctionHandlers\CheckAuctionCardHandler;
 use App\Handlers\AuctionHandlers\CheckAuctionDurationHandler;
 use App\Handlers\AuctionProductHandler\CreateAuctionProductHandler;
 use App\Handlers\UserHandler\CheckUserSessionHandler;
@@ -18,10 +19,12 @@ class CreateAuctionDecorator extends EloquentAuctionDecorator
     public function updateModel(array $attributes, $id): bool
     {
         $userHandler = new CheckUserSessionHandler();
+        $cardHandler = new CheckAuctionCardHandler();
         $timeHandler = new CheckAuctionDurationHandler();
         $auctionProductHandler = new CreateAuctionProductHandler();
 
-        $userHandler->setNextHandler($timeHandler);
+        $userHandler->setNextHandler($cardHandler);
+        $cardHandler->setNextHandler($timeHandler);
         $timeHandler->setNextHandler($auctionProductHandler);
 
         $response = $userHandler->handle($attributes);
