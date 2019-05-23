@@ -11,7 +11,6 @@ namespace App\Repositories\Eloquent;
 
 use App\Models\Auction;
 use App\Repositories\AuctionRepository;
-use Illuminate\Database\Eloquent\Model;
 
 class EloquentAuctionRepository extends EloquentRepository implements AuctionRepository
 {
