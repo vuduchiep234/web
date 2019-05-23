@@ -256,11 +256,11 @@ jQuery(function($) {
             type: 'post',
             dataType: 'json',
             data: {
-                
+                0:{
                 user_id: user_id,
                 address: address,
                 phone: phone
-                
+                }
                 
             },
             success: function(data){

@@ -212,7 +212,7 @@ jQuery(function($) {
             },
             error: function(mess){
                 alert("Error! Please, try again.");
-                console.log(mess);
+                alert(mess);
                 $('#myModal-auction_product').modal('hide');
 
             }
@@ -282,8 +282,8 @@ jQuery(function($) {
                     }
 
                 }
-                alert(ap);
-                $("#body_list_auction_product").html(output);
+                // alert(ap);
+                $("#body_list_auction_product").append(output);
                 
 
                 $('a[data-type=update-auction_product]').on('click', function(){

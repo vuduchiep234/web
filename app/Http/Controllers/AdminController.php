@@ -41,8 +41,8 @@ class AdminController extends Controller
     public function getAuctionProduct(){
 
         $data['list'] = DB::table('auction_product')->join('auctions', 'auction_product.auction_id', 'auctions.id')->join('products', 'auction_product.product_id', 'products.id')->join('users', 'auction_product.user_id', 'users.id')->select('auction_product.*', 'products.name as nameProduct', 'users.name as nameUser', 'auctions.duration')->where('users.role_id', 2)->paginate(10);
-        $data['listP'] = Product::all();
-        $data['listA'] = Auction::all();
+        $data['listP'] = DB::table('products')->whereNotIn('products.id', DB::table('auction_product')->join('auctions', 'auction_product.auction_id', 'auctions.id')->join('products', 'auction_product.product_id', 'products.id')->select('products.id'))->get();
+        $data['listA'] = DB::table('auctions')->whereNotIn('auctions.id', DB::table('auction_product')->join('auctions', 'auction_product.auction_id', 'auctions.id')->join('products', 'auction_product.product_id', 'products.id')->select('auctions.id'))->get();
         return view('admin.listAuctionProduct', $data);
         
     }
