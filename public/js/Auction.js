@@ -8,7 +8,25 @@ jQuery(function($) {
         
     });
 
-    
+    $('#search_auction').on('click',function(){
+        // alert(1);
+        var value=$('#data_search').val();
+        // alert(value);
+        $.ajax({
+            type : 'get',
+            url : '/searchAuction',
+            data: {'data_search':value},
+            success:function(data){
+                // console.log(data);
+                $('#body_list_auction').html(data);
+                
+            },
+            error: function(err){
+                // alert("fail");
+                console.log(err);
+            }
+        });
+    });
 
 	$('#add-auction').on('click', function(){
 

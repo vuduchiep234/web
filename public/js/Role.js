@@ -126,7 +126,7 @@ jQuery(function($) {
 		
 	});
 
-    $('#search').on('click',function(){
+    $('#search_role').on('click',function(){
         // alert(1);
         var value=$('#data_search').val();
         // alert(value);
@@ -179,8 +179,8 @@ jQuery(function($) {
                 });
             },
             error: function(err){
-                alert("fail");
-                // console.log(err);
+                // alert("fail");
+                console.log(err);
             }
         });
     });

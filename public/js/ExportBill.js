@@ -36,6 +36,7 @@ jQuery(function($) {
             },
             success: function (response) {
             	console.log("success");
+                load_data_export();
             },
             error:function(err){
             	console.log("fail");
@@ -62,89 +63,7 @@ jQuery(function($) {
     	$('#editModal-exportBill').modal('show');
     });
 
-    // $('#edit-exportBill').on('click', function () {
-    //     var id = $('#id-exportBill').val();
-    //     // var creator_id = $('#creator_id-exportBill').val();
-    //     var bill_id = $('#bill_id-exportBill').val();
-        
-    //     // var _creator_id = $('#_creator_id').val();
-    //     var _bill_id = $('#_bill_id').val();
-        
-
-    //     $.ajaxSetup({
-    //         headers: {
-    //             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-    //         }
-
-    //     });
-
-        // if(creator_id !== _creator_id){
-        //     $.ajax({
-                
-        //         url: '/api/v1/exportBills/'+id,
-        //         type: 'patch',
-        //         data: {creator_id: creator_id, _method: "patch"},
-        //         success: function(res) {
-
-        //         }
-        //     });
-        // }
-        // if(bill_id !== _bill_id){
-        //     $.ajax({
-                
-        //         url: '/api/v1/exportBills/'+id,
-        //         type: 'patch',
-        //         data: {bill_id: bill_id, _method: "patch"},
-        //         success: function(res) {
-
-        //         }
-        //     });
-        // }
-
-        // $.ajax({
-                
-        //         url: '/api/v1/exportBills/'+id,
-        //         type: 'patch',
-        //         data: {name: name, phone: phone, email: email, address: address, _method: "patch"},
-        //         success: function(res) {
-
-        //         }
-        // });
-    // });
-
- //    $('a[data-role=delete-exportBill]').on('click', function(){
-
- //    	var id = $(this).attr("id");
-
- //        $('#exportBill-id').val(id);
-	// 	$('#deleteModal-exportBill').modal('show');
-		
-
-
- //    });
- //    $('#_delete-exportBill').on('click', function(){
-
- //    	var id = $('#exportBill-id').val();
- //    	// alert(id);
-
- //        $.ajaxSetup({
- //            headers: {
- //                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
- //            }
-
- //        });
-
- //        $.ajax({
-                
- //                url: '/api/v1/exportBills/'+id,
- //                type: 'delete',
- //                data: {id: id, _method: "delete"},
- //                success: function(res) {
-
- //                }
- //        });
-    			
-	// });
+   
 
     $('.done').on('click', function(){
 
@@ -163,9 +82,13 @@ jQuery(function($) {
         $.ajax({
             url: '/api/v1/exportBills/confirm/'+id,
             type: 'patch',
-            data: { _method: "patch"},
+            data: { id: id},
             success: function(data){
-
+                alert("Success !");
+                $('#doneModal').modal('hide');
+            },
+            error: function(err){
+                console.log(err);
             }
         });
     });
@@ -183,96 +106,87 @@ jQuery(function($) {
         $.ajax({
             url: '/api/v1/exportBills/'+id,
             type: 'delete',
-            data: {_method: "delete"},
+            data: {id: id},
             success: function(data){
-
+                alert("Success !");
+                $('#deleteModal-exportBill').modal('hide');
+                $("tr[row_id_export="+id+"]").remove();
+            },
+            error: function(err){
+                console.log(err);
             }
         });
     });
 
-
-
-    // $('#between_exportBill').on('click', function(){
-
-    //     var from_date = $('#from_date').val();
-    //     var to_date = $('#to_date').val();
-    //     // alert(from_date);
-    //     // alert(to_date);
-    //     alert('/api/v1/exportBills/between?from='+from_date+'&to='+to_date);
-    //     $('#body_exportBill').html("<h3>Trong</h3>");
-
-    //     const Http= new XMLHttpRequest();
-    //     const url = '/api/v1/exportBills/between?from='+from_date+'&to='+to_date;
-    //     Http.open("GET", url);
-    //     Http.send();
-    //     Http.onreadystatechange=(e)=>{
-    //         console.log(Http.responseText);
-    //     }
-
-    //     // $.ajaxSetup({"cache":"false"} ) ;
-        
-    //     // $.ajax({
-            
-    //     //     url: '/api/v1/exportBills/between' ,
-    //     //     type: 'get',
-    //     //     dataType: 'json',
-
-    //     //      success: function(data) {
-    //     //         $('#body_exportBill').html("<h3>success</h3>");
-    //     //         console.log(data);
-    //     //         console.log(1);
-    //     //         alert(1);
-    //     //         var output = "";
-                
-    //     //         for(var i = 0; i < data.length; i++){
-
-    //     //             output +=   "<tr>"
-    //     //                             +"<td>"+data[i].id+"</td>"
-    //     //                             +"<td>"+data[i].creator_id+"</td>"
-    //     //                             +"<td>"+data[i].bill_id+"</td>"
-    //     //                             +"<td>"+data[i].created_at+"</td>"
-    //     //                             +"<td class='center'>"
-    //     //                                     +"<div class='btn-group'>"
-    //     //                                         +"<button data-toggle='dropdown' class='btn btn-sm btn-danger dropdown-toggle' aria-expanded='false'>"
-    //     //                                             +"Confirm"
-    //     //                                             +"<i class='ace-icon fa fa-angle-down icon-on-right'></i>"
-    //     //                                         +"</button>"
-    //     //                                         +"<input type='hidden' name='exportBill-id' id='exportBill-id' value='{{$exportBill->id}}'>"
-    //     //                                         +"<ul class='dropdown-menu'>"
-    //     //                                             +"<li>"
-    //     //                                                 +"<a href='#' data='<?php echo($exportBill->id) ?>' class='done' data-toggle='modal' >Thanh cong</a>"
-    //     //                                             +"</li>"
-
-    //     //                                             +"<li class='divider'></li>"
-
-    //     //                                             +"<li>"
-    //     //                                                 +"<a href='#' class='fail' data='<?php echo($exportBill->id) ?>' data-toggle='modal'>That bai</a>"
-    //     //                                             +"</li>"
-    //     //                                         +"</ul>"
-    //     //                                     +"</div>"
-
-    //     //                                 +"</td>"
-                                        
-    //     //                                 +"<td class='center' style='padding-top: 13px;'>"
-    //     //                                     +"<a class='red' href='#' id='<?php echo $exportBill->id; ?>' data-role='delete-exportBill' data-toggle='modal'>"
-    //     //                                         +"<i class='ace-icon fa fa-trash-o bigger-130'></i>"
-    //     //                                     +"</a>"
-
-    //     //                                 +"</td>"
-    //     //                         +"</tr>";
-
+    function load_data_export(){
+        $.ajax({
                     
-    //     //         }
-    //     //         $('#body_exportBill').html(output);
-    //     //     },
-    //     //     error: function(err){
-    //     //         $('#body_exportBill').html("<h3>error</h3>");
-    //     //         alert(err);
-    //     //         console.log(err);
-    //     //     }
+            url: '/api/v1/exportBills/'+'all',
+            type: 'get',
+            dataType: 'json',
+            success: function(data) {
+                var output = "";
+                for(var i = 0; i < data.length; i++){
 
-    //     // });
-    // });    
+                    output =   "<tr row_id_export="+data[i].id+">"
+                                    +"<td class='text-center'>"+data[i].id+"</td>"
+                                    +"<td class='text-center'>"+data[i].creator_id+"</td>"
+                                    +"<td class='text-center'>"+data[i].bill_id+"</td>"
+                                    
+                                    +"<td class='center'>"
+                                        +"<div class='btn-group'>"
+                                            +"<button data-toggle='dropdown' class='btn btn-sm btn-danger dropdown-toggle' aria-expanded='false'>"
+                                                +"Confirm"
+                                                +"<i class='ace-icon fa fa-angle-down icon-on-right'></i>"
+                                            +"</button>"
+                                            +"<input type='hidden' name='exportBill-id' id='exportBill-id' value="+data[i].id+">"
+                                            +"<ul class='dropdown-menu'>"
+                                                +"<li>"
+                                                    +"<a href='#' data="+data[i].id+" class='done' data-toggle='modal' >Done</a>"
+                                                +"</li>"
 
-    // console.log(1);
+                                                
+                                            +"</ul>"
+                                        +"</div>"
+
+                                        +"</td>"
+                                    +"<td class='center' style='padding-top: 13px;'>"
+                                        +"<a class='red' href='#' id="+data[i].id+" data-role='delete-exportBill' data-toggle='modal'>"
+                                            +"<i class='ace-icon fa fa-trash-o bigger-130'></i>"
+                                        +"</a>"
+
+                                    +"</td>"
+                                    
+                                +"</tr>";
+
+                }
+                if(i >= 2){
+                    $("tr[row_id_export="+data[i-2].id+"]").after(output);
+                }
+                else{
+                    $("#body_list_export").html(output);
+                }
+                $('.done').on('click', function(){
+
+                    var id = $(this).attr('data');
+
+                    alert(id);
+                    $('#doneModal').modal('show');
+                    $('#button-done').val(id);
+                });
+
+                $('a[data-role=delete-exportBill]').on('click', function(){
+
+                    var id = $(this).attr('id');
+                    $('#exportBill-id').val(id);
+                    $('#deleteModal-exportBill').modal('show');
+                });
+                
+            },
+            error: function(err){
+                alert("Error load data");
+            }
+        });
+    }
+
 });

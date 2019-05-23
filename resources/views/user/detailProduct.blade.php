@@ -123,7 +123,7 @@
 					</li>
 				</ul>
 				@if($flag == 1)
-				<a href="#" data-toggle="modal" class="primary-btn text-uppercase borrow">Auction</a>
+				<a href="#" data-toggle="modal" class="primary-btn text-uppercase auction_" product_id="{{$list->product_id}}" auction_id="{{$list->auction_id}}" user_id="{{Session::get('user_id')}}">Auction</a>
 				@else
 				<a href="#" data-toggle="modal" class="primary-btn text-uppercase">Can't bid now</a>
 				@endif
@@ -133,7 +133,7 @@
 	</div>	
 </section>
 
-<div class="modal fade" id="myModal-borrow" author="dialog">
+<div class="modal fade" id="myModal-auction" author="dialog">
     <div class="modal-dialog">
 
         <!-- <form id="form-author"> -->
@@ -154,7 +154,7 @@
                                     <label class="col-sm-4 control-label no-padding-right" for="form-field-1" style="margin-top: 22px;"><b>Price:</b></label>
 
                                     <div class="col-sm-7">
-                                        <input type="text" placeholder="Enter price ..." class="form-control"  name="quantity" id="quantity" style="width: 350px; margin-top: -40px; margin-left: 80px;"/>
+                                        <input type="text" placeholder="Enter price ..." class="form-control"  name="price" id="price" style="width: 320px; margin-top: 15px; margin-left: -20px;"/>
                                     </div>
                                 </div>
 
@@ -166,10 +166,11 @@
                 </div>
                 <br/>
                 <div class="modal-footer" style="background: #FFFAFA;">
-                	<input type="hidden" name="borrow_book_id" id="borrow_book_id" value="">
-                	<input type="hidden" name="borrow_user_id" id="borrow_user_id" value="{{Session::get('user_id')}}">
+                	<input type="hidden" name="product_id" id="product_id" value="">
+                	<input type="hidden" name="auction_id" id="auction_id" value="">
+                	<input type="hidden" name="user_id" id="user_id" value="{{Session::get('user_id')}}">
                     <!-- <button style="margin-left: -400px;" type="button" class="btn" data-dismiss="modal">Close</button> -->
-                    <input type="submit" value="Ok" id="borrow_book">
+                    <input type="submit" value="Ok" id="_auction">
 
                 </div>
             </div>

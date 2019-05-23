@@ -37,11 +37,16 @@
 
                         </div>
                         <div style="margin-left: 700px; margin-top: -46px; margin-right: 10px;">    
-                            <form method="get" action="{{route('listExportBill/search')}}" id="form_search_exportBill">
-                                {{csrf_field()}}
-                                @include('admin.search')
-                                
-                            </form>
+                            <div class="input-group">
+
+        <input id="data_search" name="data_search" type="text" class="form-control search-query" placeholder="Nhap tu khoa tim kiem ...">
+        <span class="input-group-btn">
+            <button type="submit" class="btn btn-purple btn-sm" id="search_export">
+                <span class="ace-icon fa fa-search icon-on-right bigger-110"></span>
+                Search
+            </button>
+        </span>
+    </div>
                         </div>
 
                     </div>
@@ -125,7 +130,7 @@
                                 <tbody id="body_exportBill">
 
                                     @foreach($list as $exportBill)
-                                    <tr id="<?php echo $exportBill->id; ?>">
+                                    <tr row_id_export="<?php echo $exportBill->id; ?>">
                                         <td class="center" data-target="idexportBill" style="padding-top: 13px;">{{ $exportBill->id }}</td>
                                         <td class="center" data-target="creator_id" style="padding-top: 13px;">{{ $exportBill->creator_id }}</td>
                                         <td class="center" data-target="bill_id" style="padding-top: 13px;">{{ $exportBill->bill_id }}</td>
@@ -138,14 +143,14 @@
                                                 <input type="hidden" name="exportBill-id" id="exportBill-id" value="{{$exportBill->id}}">
                                                 <ul class="dropdown-menu">
                                                     <li>
-                                                        <a href="#" data="<?php echo($exportBill->id) ?>" class="done" data-toggle="modal" >Thanh cong</a>
+                                                        <a href="#" data="<?php echo($exportBill->id) ?>" class="done" data-toggle="modal" >Done</a>
                                                     </li>
 
-                                                    <li class="divider"></li>
-
+                                                    <!-- <li class="divider"></li> -->
+<!-- 
                                                     <li>
                                                         <a href="#" class="fail" data="<?php echo($exportBill->id) ?>" data-toggle="modal">That bai</a>
-                                                    </li>
+                                                    </li> -->
                                                 </ul>
                                             </div>
 
@@ -174,52 +179,57 @@
 </div><!-- /.main-content -->
 <!-- End Content -->
 
-
-
-<!-- Modal -->
 <div class="modal fade" id="myModal-exportBill" role="dialog">
     <div class="modal-dialog">
 
-        <form action="" method="get" id="form-exportBill">
-            <!-- Modal content-->
-            {{csrf_field()}}
             <div class="modal-content">
-                <div class="modal-header" style="background: #1B9B25;">
-                    <button type="button" class="close" data-dismiss="modal" style="color: white;">&times;</button>
-                    <h3 class="modal-title" style="text-align: center; color: white;">Thong tin hoa don xuat hang</h3>
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h3 style="text-align: center;" class="modal-title"><b>Add Export Bill</b></h3>
                 </div>
                 <div class="modal-body">
                     <div class="row">
                         <div class="col-xs-12">
-
-                            <div class="col-sm-12" style="margin-top: 5px;">
+                            <div class="col-sm-11" style="margin-top: 5px;">
                                 <div class="form-group">
-                                    <label class="col-sm-3 control-label no-padding-right" for="form-field-1" style="margin-top: 7px;">ID hoa don: </label>
-
-                                    <div class="col-sm-9">
-                                        <input type="text" id="exportBill-bill_id" placeholder="Nhap ID hoa don" class="form-control" name="exportBill-bill_id"/>
+                                    <label style="margin-top: 5px;" class="control-label col-sm-3 no-padding-right" for="password2"><b>ID Bill:</b></label>
+                                    <div class="col-sm-9" style="margin-left: -15px; width: 382px;">
+                                        <select class="form-control" id="exportBill-bill_id">
+                                            <option value=""></option>
+                                            @foreach($listB as $role)
+                                                <option value="<?php echo $role->id; ?>">{{$role->id}}</option>
+                                            @endforeach
+                                    
+                                        </select>
                                     </div>
                                 </div>
-
                             </div>
                         </div>
                     </div>
 
-                </div>  
+                </div>
                 <br/>
                 <div class="modal-footer">
-                    <input type="hidden" name="exportBill-creator_id" id="exportBill-creator_id" value="{{Session::get('id')}}">
-                    <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
                     
-                    <button class="btn btn-info" type="submit" id="add-exportBill">
-                        <i class="ace-icon fa fa-check bigger-110"></i>
-                        Them
+                    <input type="hidden" id="exportBill-creator_id" value="{{Session::get('user_id')}}" />
+
+                    <button class="btn btn-white btn-round pull-left" data-dismiss="modal">
+                        <i class="ace-icon fa fa-times red2"></i>
+                        Close
                     </button>
+                    <button class="btn btn-white btn-bold blue" type="submit" id="add-exportBill">
+                        <i class="ace-icon fa fa-check bigger-110 green"></i>
+                        Add
+                    </button>
+
                 </div>
             </div>
-        </form>
+        <!-- </form> -->
     </div>
 </div>
+
+<!-- Modal -->
+
 
 <div class="modal fade" id="editModal-exportBill" role="dialog">
     <div class="modal-dialog">
@@ -284,15 +294,11 @@
     <div class="modal-dialog">
         
         <div class="modal-content">
-            <form method="get" class="form-delete">
-                <input type="hidden" name="_method" value="delete">
-                {{csrf_field()}}
             
-        <!-- Modal content-->
         
                 <div class="modal-header" style="background: rgb(209, 91, 71);">
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h3 class="modal-title" style="color: white; text-align: center;">Xac nhan yeu cau</h3>
+                    <h3 class="modal-title" style="color: white; text-align: center;"><b>Confirm</b></h3>
                 </div>
                 <div class="modal-body">
                     
@@ -300,7 +306,7 @@
                     <div class="row">
                         <div class="col-xs-12">
                             <!-- PAGE CONTENT BEGINS -->
-                            <h4>Ban co muon xoa khong ?</h4>
+                            <h4 class="center">You may want to delete ?</h4>
 
                         </div>
                     </div>
@@ -319,8 +325,6 @@
                     </button>
                     
                 </div>
-            </form>
-                
             
         </div>
     </div>
@@ -330,15 +334,10 @@
             <div class="modal-dialog">
                 
                 <div class="modal-content">
-                    <form method="get" class="form-delete">
-                        <input type="hidden" name="_method" value="delete">
-                        {{csrf_field()}}
                     
-                <!-- Modal content-->
-                
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal">&times;</button>
-                            <h4 class="modal-title">Xac nhan yeu cau</h4>
+                            <h3 class="modal-title center"><b>Confirm</b></h3>
                         </div>
                         <div class="modal-body">
                             
@@ -346,7 +345,7 @@
                             <div class="row">
                                 <div class="col-xs-12">
                                     <!-- PAGE CONTENT BEGINS -->
-                                    <h4>Xac nhan don hang thanh cong ?</h4>
+                                    <h4 class="center">Confirm order successfully ?</h4>
 
                                 </div>
                             </div>
@@ -357,20 +356,58 @@
                             <input type="hidden" id="button-done" value="" />
                             <button class="btn btn-white btn-round pull-left" data-dismiss="modal">
                                 <i class="ace-icon fa fa-times red2"></i>
-                                Khong
+                                No
                             </button>
                             <button class="btn btn-white btn-warning btn-bold" id="done-bill">
                                 <i class="ace-icon fa fa-trash-o bigger-120 orange"></i>
-                                Xac nhan
+                                Yes 
                             </button>
                             
                         </div>
-                    </form>
-                        
-                    
+                   
                 </div>
             </div>
 </div>
 
+<!-- <div class="modal fade" id="myModal-exportBill" role="dialog">
+    <div class="modal-dialog">
 
+        
+            <div class="modal-content">
+                <div class="modal-header" style="background: #1B9B25;">
+                    <button type="button" class="close" data-dismiss="modal" style="color: white;">&times;</button>
+                    <h3 class="modal-title" style="text-align: center; color: white;">Thong tin hoa don xuat hang</h3>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-xs-12">
+
+                            <div class="col-sm-12" style="margin-top: 5px;">
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label no-padding-right" for="form-field-1" style="margin-top: 7px;">ID hoa don: </label>
+
+                                    <div class="col-sm-9">
+                                        <input type="text" id="exportBill-bill_id" placeholder="Nhap ID hoa don" class="form-control" name="exportBill-bill_id"/>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>  
+                <br/>
+                <div class="modal-footer">
+                    <input type="hidden" name="exportBill-creator_id" id="exportBill-creator_id" value="{{Session::get('id')}}">
+                    <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+                    
+                    <button class="btn btn-info" type="submit" id="add-exportBill">
+                        <i class="ace-icon fa fa-check bigger-110"></i>
+                        Them
+                    </button>
+                </div>
+            </div>
+        
+    </div>
+</div> -->
 @endsection

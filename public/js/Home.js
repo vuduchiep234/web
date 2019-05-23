@@ -100,6 +100,11 @@ jQuery(function($) {
         var confirm_password = $('#confirm').val();
         var user_id = $('#change_user_id').val();
 
+        // alert(user_id);
+        // alert(current_password);
+        // alert(new_password);
+        // alert(confirm_password);
+
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -125,7 +130,7 @@ jQuery(function($) {
                
             },
             error: function(err){
-                alert(err);
+                console.log(err);
             }
 
         });
@@ -174,13 +179,16 @@ jQuery(function($) {
 
     });
 
-    $('.borrow').click(function(){
-        var id = $('#book_id').val();
+    $('.auction_').click(function(){
+        var product_id = $(this).attr('product_id');
+        var auction_id = $(this).attr('auction_id');
         var user_id = $(this).attr('user_id');
         // alert(user_id);
         if(user_id != ""){
-             $('#borrow_book_id').val(id);
-            $('#myModal-borrow').modal('show');
+             $('#product_id').val(product_id);
+             $('#auction_id').val(auction_id);
+
+            $('#myModal-auction').modal('show');
         }
         else{
             alert('You are not login')
@@ -190,12 +198,13 @@ jQuery(function($) {
 
     
 
-    $('#borrow_book').click(function(){
-        var book_id = $('#borrow_book_id').val();
+    $('#_auction').click(function(){
+        var product_id = $('#product_id').val();
+        var auction_id = $('#auction_id').val();
         // alert(book_id);
-        var quantity = $('#quantity').val();
+        var price = $('#price').val();
         // alert(quantity);
-        var user_id = $('#borrow_user_id').val();
+        var user_id = $('#user_id').val();
         // alert(user_id);
         $.ajaxSetup({
             headers: {
@@ -204,25 +213,23 @@ jQuery(function($) {
         });
 
         $.ajax({
-            url: '/api/v1/books/borrow',
-            type: 'patch',
-            dataType: 'json',
+            
+            url: '/api/v1/auctions/auction',
+            type: 'post',
+            dataType: "json",
             data: {
                 user_id: user_id,
-                books: {
-                    0:{
-                    book_id: book_id,
-                    quantity: quantity
-                    }
-                }
+                product_id: product_id,
+                auction_id: auction_id,
+                offer: price
             },
             success: function(data){
-                alert(data);
-                $('#myModal-borrow').modal('hide');
+                alert(data["Message"]);
+                $('#myModal-auction').modal('hide');
                 console.log(data);
             },
             error: function(err){
-                alert(err);
+                alert("Must register card to continue");
                 console.log(err);
             }
         });
@@ -348,7 +355,8 @@ jQuery(function($) {
 
                 var name_user = "";
                 var output = "";
-                
+                var output1 = "";
+                var flag = 0;
  
                 $.ajax({
 
@@ -369,6 +377,7 @@ jQuery(function($) {
 
                     for(var j = 0; j < data[0].auction_products.length; j++){
                         if(data[0].auction_products[j].user_id == user_id){
+                            flag = 1;
                             output += 
 
                             "<tr >"
@@ -379,17 +388,23 @@ jQuery(function($) {
                                 +"<td class='text-center'>"+data[0].auction_products[j].offer+"</td>"
                                 +"<td class='text-center'>"+data[0].auction_products[j].created_at+"</td>"  
                             +"</tr>";
+                            
                         }
-                        else{
-                            output = "<tr>"
+                        
+                    }
+                    if(flag == 0){
+
+                            output= "<tr>"
                                 +"<td class='text-center' colspan='6'>No Data Found</td>"
                            +"</tr>";
-                        }
+                           
+                        
                     }
+                    $('#data_history').html(output);
                 
                 
                 
-                $('#data_history').html(output);
+                
 
                 console.log(output);
             },
@@ -399,6 +414,33 @@ jQuery(function($) {
             }
 
         });
+    });
+
+    $('#data_search').keyup(function(){ 
+        var value = $('#data_search').val();
+        // alert(value);
+        if(value != '')
+        {
+         // var _token = $('input[name="_token"]').val();
+            $.ajax({
+                type : 'get',
+                url : '/searchProductUser',
+                data: {'data_search':value},
+                success:function(data){
+                    console.log(data);
+                   $('#dataList').fadeIn();  
+                    $('#dataList').html(data);
+                },
+                error: function(err){
+                    console.log(err);
+                }
+            });
+        }
+    });
+
+    $(document).on('click', 'li', function(){  
+        $('#data_search').val($(this).text());  
+        $('#dataList').fadeOut();  
     });
     
 });

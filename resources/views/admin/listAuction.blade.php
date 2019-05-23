@@ -34,11 +34,16 @@
 
                 <div style="margin-left: 700px; margin-top: -46px; margin-right: 10px;">
 
-                    <!-- <form method="get" action="" id="form_search_auction"> -->
-                        <!-- {{csrf_field()}} -->
-                        @include('admin.search')
-                        
-                    <!-- </form> -->
+                    <div class="input-group">
+
+                        <input id="data_search" name="data_search" type="text" class="form-control search-query" placeholder="Nhap tu khoa tim kiem ...">
+                        <span class="input-group-btn">
+                            <button type="submit" class="btn btn-purple btn-sm" id="search_auction">
+                                <span class="ace-icon fa fa-search icon-on-right bigger-110"></span>
+                                Search
+                            </button>
+                        </span>
+                    </div>
                 </div>
                 
             </div>

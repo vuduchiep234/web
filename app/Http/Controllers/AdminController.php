@@ -88,6 +88,7 @@ class AdminController extends Controller
     public function getListExportBill(){
 
         $data['list'] = ExportBill::paginate(10);
+        $data['listB'] = Bill::where('state', 'activated')->select('bills.id')->get();
         return view('admin.listExportBill', $data);
     }
 
@@ -116,7 +117,8 @@ class AdminController extends Controller
             $result="";
 
             $role = Role::where('type','LIKE','%'.$request->data_search.'%')->orWhere('id','LIKE','%'.$request->data_search.'%')->get();
-            if($role){
+            $total_row = $role->count();
+            if($total_row > 0){
                 foreach ($role as  $key => $data) {
                     $result .= "<tr row_id_role='$data->id'>".
                                 "<td class='text-center'>".$data->id."</td>".
@@ -133,8 +135,14 @@ class AdminController extends Controller
                                     ."</td>"
                             ."</tr>";
                 }
-                return Response($result);
+                
             }
+            else{
+                $result = "<tr>"
+                                ."<td class='text-center' colspan='5'>No Data Found</td>"
+                           ."</tr>";
+            }
+            return Response($result);
         }
     }
 
@@ -144,7 +152,8 @@ class AdminController extends Controller
             $result="";
 
             $user = DB::table('users')->join('roles', 'roles.id', 'users.role_id')->select('users.*', 'roles.type')->where('name','LIKE','%'.$request->data_search.'%')->orWhere('users.id','LIKE','%'.$request->data_search.'%')->orWhere('users.email','LIKE','%'.$request->data_search.'%')->orWhere('roles.type','LIKE','%'.$request->data_search.'%')->get();
-            if($user){
+            $total_row = $user->count();
+            if($total_row > 0){
                 foreach ($user as  $key => $data) {
                     $result .= 
 
@@ -168,8 +177,13 @@ class AdminController extends Controller
                             ."</td>"
                         ."</tr>";
                 }
-                return Response($result);
             }
+            else{
+                $result = "<tr>"
+                                ."<td class='text-center' colspan='6'>No Data Found</td>"
+                           ."</tr>";
+            }
+            return Response($result);
         }
     }
 
@@ -179,7 +193,8 @@ class AdminController extends Controller
             $result="";
 
             $producer = DB::table('producers')->where('name','LIKE','%'.$request->data_search.'%')->orWhere('address','LIKE','%'.$request->data_search.'%')->orWhere('email','LIKE','%'.$request->data_search.'%')->orWhere('phone','LIKE','%'.$request->data_search.'%')->orWhere('id','LIKE','%'.$request->data_search.'%')->get();
-            if($producer){
+            $total_row = $producer->count();
+            if($total_row > 0){
                 foreach ($producer as  $key => $data) {
                     $result .= 
 
@@ -201,8 +216,13 @@ class AdminController extends Controller
                                     ."</td>"
                         ."</tr>";
                 }
-                return Response($result);
             }
+            else{
+                $result = "<tr>"
+                                ."<td class='text-center' colspan='7'>No Data Found</td>"
+                           ."</tr>";
+            }
+            return Response($result);
 
         }
     }
@@ -213,7 +233,8 @@ class AdminController extends Controller
             $result="";
 
             $category = Category::where('type','LIKE','%'.$request->data_search.'%')->orWhere('id','LIKE','%'.$request->data_search.'%')->get();
-            if($category){
+            $total_row = $category->count();
+            if($total_row > 0){
                 foreach ($category as  $key => $data) {
                     $result .= "<tr row_id_category='$data->id'>".
                                 "<td class='text-center'>".$data->id."</td>".
@@ -230,8 +251,13 @@ class AdminController extends Controller
                                     ."</td>"
                             ."</tr>";
                 }
-                return Response($result);
             }
+            else{
+                $result = "<tr>"
+                                ."<td class='text-center' colspan='5'>No Data Found</td>"
+                           ."</tr>";
+            }
+            return Response($result);
         }
     }
 
@@ -241,7 +267,8 @@ class AdminController extends Controller
             $result="";
 
             $product = DB::table('products')->join('producers', 'products.producer_id', 'producers.id')->join('categories', 'products.category_id', 'categories.id')->join('inventories', 'products.id', 'inventories.product_id')->join('images', 'products.image_id', 'images.id')->select('products.*', 'producers.name as nameProducer', 'categories.type', 'inventories.quantity', 'images.image_url')->where('products.name','LIKE','%'.$request->data_search.'%')->orWhere('products.id','LIKE','%'.$request->data_search.'%')->orWhere('producers.name','LIKE','%'.$request->data_search.'%')->orWhere('categories.type','LIKE','%'.$request->data_search.'%')->get();
-            if($product){
+            $total_row = $product->count();
+            if($total_row > 0){
                 foreach ($product as  $key => $data) {
                     $result .= 
 
@@ -254,11 +281,11 @@ class AdminController extends Controller
                             ."<td class='text-center'>$data->type</td>"
                             ."<td class='text-center'>$data->image_url</td>"
                             ."<td class='text-center'>$data->quantity</td>"
-                            ."<td class='center'>"
-                                ."<a href='#' class='orange' data-toggle='modal' id_import_product=".$data->id." data-type='import-product' >"
-                                    ."<i class='ace-icon fa fa-edit bigger-130'></i>"
-                                ."</a>"
-                            ."</td>"
+                            // ."<td class='center'>"
+                            //     ."<a href='#' class='orange' data-toggle='modal' id_import_product=".$data->id." data-type='import-product' >"
+                            //         ."<i class='ace-icon fa fa-edit bigger-130'></i>"
+                            //     ."</a>"
+                            // ."</td>"
                             ."<td class='center'>"
                                 ."<a href='#' class='blue' data-toggle='modal' id_edit_product=".$data->id." data-type='update-product' >"
                                 ."<i class='ace-icon fa fa-pencil bigger-130'></i>"
@@ -271,8 +298,13 @@ class AdminController extends Controller
                             ."</td>"
                         ."</tr>";
                 }
-                return Response($result);
             }
+            else{
+                $result = "<tr>"
+                                ."<td class='text-center' colspan='10'>No Data Found</td>"
+                           ."</tr>";
+            }
+            return Response($result);
 
         }
     }
@@ -283,7 +315,8 @@ class AdminController extends Controller
             $result="";
 
             $shipper = Shipper::where('name','LIKE','%'.$request->data_search.'%')->orWhere('id','LIKE','%'.$request->data_search.'%')->orWhere('phone','LIKE','%'.$request->data_search.'%')->orWhere('state','LIKE','%'.$request->data_search.'%')->get();
-            if($shipper){
+            $total_row = $shipper->count();
+            if($total_row > 0){
                 foreach ($shipper as  $key => $data) {
                     $result .= 
 
@@ -304,8 +337,13 @@ class AdminController extends Controller
                             ."</td>"
                         ."</tr>";
                 }
-                return Response($result);
             }
+            else{
+                $result = "<tr>"
+                                ."<td class='text-center' colspan='5'>No Data Found</td>"
+                           ."</tr>";
+            }
+            return Response($result);
         }
     }
 
@@ -315,7 +353,8 @@ class AdminController extends Controller
             $result="";
 
             $import = DB::table('import_bills')->join('products', 'import_bills.product_id', 'products.id')->join('users', 'import_bills.creator_id', 'users.id')->select('import_bills.*', 'products.name', 'users.name as creator')->where('users.name','LIKE','%'.$request->data_search.'%')->orWhere('import_bills.id','LIKE','%'.$request->data_search.'%')->orWhere('products.name','LIKE','%'.$request->data_search.'%')->orWhere('quantity','LIKE','%'.$request->data_search.'%')->orWhere('import_bills.price','LIKE','%'.$request->data_search.'%')->get();
-            if($import){
+            $total_row = $import->count();
+            if($total_row > 0){
                 foreach ($import as  $key => $data) {
                     $result .= 
 
@@ -337,11 +376,39 @@ class AdminController extends Controller
                             ."</td>"
                         ."</tr>";
                 }
-                return Response($result);
+                }
+            else{
+                $result = "<tr>"
+                                ."<td class='text-center' colspan='7'>No Data Found</td>"
+                           ."</tr>";
             }
+            return Response($result);
         }
     }
 
+    public function searchAuction(Request $request){
+        if($request->ajax()){
 
+            $result="";
+
+            $auction = Auction::where('duration','LIKE','%'.$request->data_search.'%')->orWhere('id','LIKE','%'.$request->data_search.'%')->get();
+            $total_row = $auction->count();
+            if($total_row > 0){
+                foreach ($auction as  $key => $data) {
+                    $result .= "<tr row_id_auction='$data->id'>".
+                                "<td class='text-center'>".$data->id."</td>".
+                                "<td class='text-center'>".$data->duration."</td>"
+                                
+                            ."</tr>";
+                }
+            }
+            else{
+                $result = "<tr>"
+                                ."<td class='text-center' colspan='5'>No Data Found</td>"
+                           ."</tr>";
+            }
+            return Response($result);
+        }
+    }
 
 }

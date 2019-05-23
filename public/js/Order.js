@@ -66,7 +66,9 @@ jQuery(function($) {
 			type: 'patch',
 			data: {state: "activated", shipper_id: id_shipper, _method: "patch"},
 			success: function(data){
-
+				alert("Success !");
+				$('#myModal-findShipper').modal('hide');
+				load_data_order(id_bill);
 			}
 		});
 	});
@@ -75,7 +77,7 @@ jQuery(function($) {
 
 		var id = $(this).attr('data');
 
-		alert(id);
+		// alert(id);
 		$('#cancelModal').modal('show');
 		$('#button-cancel').val(id);
 	});
@@ -83,13 +85,18 @@ jQuery(function($) {
 	$('#cancel-bill').on('click', function(){
 
 		var id = $('#button-cancel').val();
-		alert(id);
+		// alert(id);
 		$.ajax({
 			url: '/api/v1/bills/cancel/'+id,
 			type: 'patch',
-			data: {state: "cancelled", _method: "patch"},
+			data: {state: "cancelled"},
 			success: function(data){
-
+				alert("Success !");
+				$('#cancelModal').modal('hide');
+				load_data_order(id);
+			},
+			error: function(err){
+				console.log(err);
 			}
 		});
 	});
@@ -109,9 +116,104 @@ jQuery(function($) {
 			type: 'delete',
 			data: {_method: "delete"},
 			success: function(data){
-
+				alert("Success !");
+				$("tr[row_id_order="+id+"]").remove();
+				$('#deleteModal-order').modal('hide');
 			}
 		});
 	});
+
+	function load_data_order(id){
+		$.ajax({
+                    
+            url: '/api/v1/bills/'+id,
+            type: 'get',
+            dataType: 'json',
+            success: function(data) {
+                // console.log(data);
+                var output = "";
+                // for(var i = 0; i < data.length; i++){
+
+                    output =   
+                                    "<td class='text-center'>"+data.data.id+"</td>"
+                                    +"<td class='text-center'>"+data.data.billdetail_id+"</td>"
+                                    +"<td class='text-center'>"+data.data.user_id+"</td>"
+                                    +"<td class='text-center'>"+data.data.shipper_id+"</td>"
+                                    +"<td class='text-center'>"+data.data.state+"</td>"
+                                    +"<td class='center' style='padding-top: 13px;'>"
+                                        +"<a href='#' class='green edit-cate' data-toggle='modal'>"
+                                            +"<i class='ace-icon fa fa-eye  bigger-130'></i>"
+                                        +"</a>"
+	                                +"</td>"
+	                                +"<td class='center'>"
+	                                    
+	                                    +"<div class='btn-group'>"
+	                                        +"<button data-toggle='dropdown' class='btn btn-sm btn-danger dropdown-toggle' aria-expanded='false'>"
+	                                            +"Action"
+	                                            +"<i class='ace-icon fa fa-angle-down icon-on-right'></i>"
+	                                        +"</button>"
+	                                        +"<input type='hidden' name='order-id' id='order-id' value="+data.data.id+">"
+	                                        +"<ul class='dropdown-menu'>"
+	                                            +"<li>"
+	                                                +"<a href='#' data="+data.data.id+" class='find-shipper' data-toggle='modal' >Active</a>"
+	                                            +"</li>"
+
+	                                            +"<li class='divider'></li>"
+
+	                                            +"<li>"
+	                                                +"<a href='#' class='cancel' data="+data.data.id+" data-toggle='modal'>Cancel</a>"
+	                                            +"</li>"
+	                                        +"</ul>"
+	                                    +"</div>"
+	                                +"</td>"
+	                                
+	                                +"<td class='center' style='padding-top: 13px;'>"
+
+	                                    +"<a class='red' href='#' id="+data.data.id+" data-order='delete-order' data-toggle='modal'>"
+	                                        +"<i class='ace-icon fa fa-trash-o bigger-130'></i>"
+	                                    +"</a>"
+
+	                                +"</td>"
+                                    
+                                ;
+                                
+
+                // }
+
+                $("tr[row_id_order="+data.data.id+"]").html(output);
+
+                $('.find-shipper').click(function(){
+
+					var id = $(this).attr("data");
+					// alert(id);
+			        $('#myModal-findShipper').modal('show');
+			        $('#id_bill').val(id);
+			        // $('#form-member')[0].reset();
+			        
+			    });
+
+			    $('.cancel').on('click', function(){
+
+					var id = $(this).attr('data');
+
+					alert(id);
+					$('#cancelModal').modal('show');
+					$('#button-cancel').val(id);
+				});
+
+				$('a[data-order=delete-order]').on('click', function(){
+
+					var id = $(this).attr('id');
+					$('#order-delete').val(id);
+					$('#deleteModal-order').modal('show');
+				});
+
+                
+            },
+            error: function(err){
+                alert("Error load data");
+            }
+        });
+	}
 
 });

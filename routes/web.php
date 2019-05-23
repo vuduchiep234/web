@@ -160,3 +160,13 @@ Route::get('/searchProduct','AdminController@searchProduct');
 Route::get('/searchShipper','AdminController@searchShipper');
 
 Route::get('/searchImport','AdminController@searchImport');
+
+Route::get('/searchAuction','AdminController@searchAuction');
+
+Route::get('/searchOrder','AdminController@searchOrder');
+
+Route::get('/searchExport','AdminController@searchExport');
+
+Route::get('/searchAuctionProduct','AdminController@searchAuctionProduct');
+
+Route::get('/searchProductUser','UserController@searchProductUser')->name('searchProductUser');

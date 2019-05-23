@@ -47,4 +47,27 @@ class UserController extends Controller
         return view('user.listBookGenre', $data);
         
     }
+
+    public function searchProductUser(Request $request){
+        if($request->ajax()){
+
+            // $result="";
+            $output="";
+
+            $data =  DB::table('products')->join('images', 'images.id', 'products.image_id')->select('products.*', 'images.image_url')
+            ->where('products.name','LIKE','%'.$request->data_search.'%')
+            ->get();
+              $output = "<ul class='dropdown-menu' style='display:table; position:relative;'>";
+              foreach($data as $row)
+              {
+        
+               $output .=
+               "<li><a href='/detailProduct/$row->id'>".$row->name."</a></li>";
+              }
+              $output .= "</ul>";
+              // echo $output;
+              return Response($output);
+            
+        }
+    }
 }

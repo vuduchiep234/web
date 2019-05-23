@@ -207,7 +207,12 @@ jQuery(function($) {
                                 +"</tr>";
 
                 }
-                $("tr[row_id_shipper="+data[i-2].id+"]").after(output);
+                if(i >= 2){
+                    $("tr[row_id_shipper="+data[i-2].id+"]").after(output);
+                }
+                else{
+                    $("#body_list_shipper").html(output);
+                }
                 $('a[data-type=update-shipper]').on('click', function(){
 
 
@@ -351,7 +356,7 @@ jQuery(function($) {
         });
     }
 
-    $('#search').on('click',function(){
+    $('#search_shipper').on('click',function(){
         // alert(1);
         var value=$('#data_search').val();
         // alert(value);

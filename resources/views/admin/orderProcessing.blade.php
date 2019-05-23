@@ -38,10 +38,16 @@
                                         
                                     </div>
                                     <div style="margin-left: 700px; margin-top: -46px; margin-right: 10px;">
-                                        <form method="get" id="search-order" class="search-form" action="{{route('listOrder/search')}}">
-                                            {{csrf_field()}}
-                                            @include('admin.search')
-                                        </form>
+                                        <div class="input-group">
+
+        <input id="data_search" name="data_search" type="text" class="form-control search-query" placeholder="Nhap tu khoa tim kiem ...">
+        <span class="input-group-btn">
+            <button type="submit" class="btn btn-purple btn-sm" id="search_order">
+                <span class="ace-icon fa fa-search icon-on-right bigger-110"></span>
+                Search
+            </button>
+        </span>
+    </div>
                                     </div>
                                     
                                 </div>
@@ -80,7 +86,7 @@
                                             <tbody>
 
                                              @foreach($list as $order)
-                                            <tr id="<?php echo $order->id; ?>">
+                                            <tr row_id_order="<?php echo $order->id; ?>">
                                                 <td class="center" data-target="idBill" style="padding-top: 13px;" >{{ $order->id }}</td>
                                                 <td class="center" data-target="idBillDetail" style="padding-top: 13px;">{{ $order->billdetail_id }}</td>
                                                 <td class="center" data-target="user_id" style="padding-top: 13px;">{{ $order->user_id }}</td>
@@ -101,13 +107,13 @@
                                                         <input type="hidden" name="order-id" id="order-id" value="{{$order->id}}">
                                                         <ul class="dropdown-menu">
                                                             <li>
-                                                                <a href="#" data="<?php echo($order->id) ?>" class="find-shipper" data-toggle="modal" >Kich hoat</a>
+                                                                <a href="#" data="<?php echo($order->id) ?>" class="find-shipper" data-toggle="modal" >Active</a>
                                                             </li>
 
                                                             <li class="divider"></li>
 
                                                             <li>
-                                                                <a href="#" class="cancel" data="<?php echo($order->id) ?>" data-toggle="modal">Huy</a>
+                                                                <a href="#" class="cancel" data="<?php echo($order->id) ?>" data-toggle="modal">Cancel</a>
                                                             </li>
                                                         </ul>
                                                     </div>
@@ -151,7 +157,7 @@
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                     <h3 class="modal-title center"><b>Find Shipper</b></h3>
-                    <button type="button" id="random" class="btn btn-purple btn-sm btn-primary" style="margin-left: 200px; margin-top: -45px;">Random</button>
+                    <button type="button" id="random" class="btn btn-purple btn-sm btn-primary" style="margin-left: 250px; margin-top: 20px;">Random</button>
                 </div>
                 <div class="modal-body">
                     <div class="row">
@@ -184,9 +190,6 @@
             <div class="modal-dialog">
                 
                 <div class="modal-content">
-                    <form method="get" class="form-delete">
-                        <input type="hidden" name="_method" value="patch">
-                        {{csrf_field()}}
                     
                 <!-- Modal content-->
                 
@@ -219,8 +222,6 @@
                             </button>
                             
                         </div>
-                    </form>
-                        
                     
                 </div>
             </div>
@@ -230,15 +231,12 @@
             <div class="modal-dialog">
                 
                 <div class="modal-content">
-                    <form method="get" class="form-delete">
-                        <input type="hidden" name="_method" value="delete">
-                        {{csrf_field()}}
                     
                 <!-- Modal content-->
                 
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal">&times;</button>
-                            <h4 class="modal-title">Xac nhan yeu cau</h4>
+                            <h3 class="modal-title"><b>Confirm</b></h3>
                         </div>
                         <div class="modal-body">
                             
@@ -246,7 +244,7 @@
                             <div class="row">
                                 <div class="col-xs-12">
                                     <!-- PAGE CONTENT BEGINS -->
-                                    <h4>Ban co muon xoa don hang nay khong ?</h4>
+                                    <h4 class="center">You may want to delete ?</h4>
 
                                 </div>
                             </div>
@@ -257,17 +255,15 @@
                             <input type="hidden" id="order-delete" value="" />
                             <button class="btn btn-white btn-round pull-left" data-dismiss="modal">
                                 <i class="ace-icon fa fa-times red2"></i>
-                                Khong
+                                No
                             </button>
                             <button class="btn btn-white btn-warning btn-bold" id="delete-bill">
                                 <i class="ace-icon fa fa-trash-o bigger-120 orange"></i>
-                                Co
+                                Yes
                             </button>
                             
                         </div>
-                    </form>
-                        
-                    
+
                 </div>
             </div>
 </div>

@@ -13,8 +13,8 @@
 			<div class="col-lg-6 col-sm-6 col-4 header-top-right no-padding">
 				 @if(!Session::has('user_id'))
 				 <span style="float: right;">
-				<a href="{{route('register')}}"><span class="lnr lnr-phone-handset"></span> <span class="text"><b><u>Đăng ký</u></b></span></a>
-				<a href="{{route('login')}}"><span class="lnr lnr-envelope"></span> <span class="text"><b><u>Đăng nhập</u></b></span></a>
+				<a href="{{route('register')}}"><span class="lnr lnr-phone-handset"></span> <span class="text"><b><u>Register</u></b></span></a>
+				<a href="{{route('login')}}"><span class="lnr lnr-envelope"></span> <span class="text"><b><u>Login</u></b></span></a>
 				</span>
 				@else
 				<li class="dropdown user user-menu" style="float: right;">
@@ -26,20 +26,20 @@
 
 		                <!-- <li> -->
 		                  	<!-- <div class="col-xs-4 text-center"> -->
-		                    	<a id="_register_card" data_id="{{Session::get('user_id')}}" href="#" data-toggle="modal"><span class="hidden-xs text-center" style="color: black; font-size: 12px;  ">Đăng ký thẻ</span></a>
+		                    	<a id="_register_card" data_id="{{Session::get('user_id')}}" href="#" data-toggle="modal"><span class="hidden-xs text-center" style="color: black; font-size: 12px;  ">Register Card</span></a>
 		                  	<!-- </div> -->
-
+		                  	<!-- <a id="change_info" data_id="{{Session::get('user_id')}}" href="#" data-toggle="modal"><span class="hidden-xs text-center" style="color: black; font-size: 12px;  ">Change Infomation</span></a> -->
 		              	<!-- </li> -->
 		              	<!-- <li> -->
 		                  	<!-- <div class="col-xs-4 text-center"> -->
-		                    	<a id="" data_id="{{Session::get('user_id')}}" href="#" data-toggle="modal"><span class="hidden-xs _change_password text-center" style="color: black; font-size: 12px; ">Đổi mật khẩu</span></a>
+		                    	<a id="" data_id="{{Session::get('user_id')}}" href="#" data-toggle="modal"><span class="hidden-xs _change_password text-center" style="color: black; font-size: 12px; ">Change Password</span></a>
 
 		                    	
 		                  	<!-- </div> -->
 		              	<!-- </li> -->
 		              	<!-- <li> -->
 		                  	<!-- <div class="col-xs-4 text-center"> -->
-		                    	<a class="logout" data_id="{{Session::get('user_id')}}" href="#" data-toggle="modal"><span class="hidden-xs text-center" style="color: black; font-size: 12px; ">Đăng xuất</span></a>
+		                    	<a class="logout" data_id="{{Session::get('user_id')}}" href="#" data-toggle="modal"><span class="hidden-xs text-center" style="color: black; font-size: 12px; ">Logout</span></a>
 		                  	<!-- </div> -->
 		              	<!-- </li> -->
 

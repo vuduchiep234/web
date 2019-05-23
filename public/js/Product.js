@@ -483,7 +483,7 @@ jQuery(function($) {
         });
     }
 
-    $('#search').on('click',function(){
+    $('#search_product').on('click',function(){
         // alert(1);
         var value=$('#data_search').val();
         // alert(value);
