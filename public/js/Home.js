@@ -161,7 +161,7 @@ jQuery(function($) {
                 },
                 success: function () {
                     alert("success!");
-                    window.location.href = "/homePage"
+                    window.location.href = "/login"
                     // alert("success!");
                 },
                 error: function (err) {
@@ -240,6 +240,10 @@ jQuery(function($) {
     $('#register_card').click(function(){
         var user_id = $('#card_user_id').val();
         // alert(user_id);
+        var address = $('#address').val();
+        var phone = $('#phone').val();
+        // alert(address);
+        // alert(phone);
 
         $.ajaxSetup({
             headers: {
@@ -248,25 +252,153 @@ jQuery(function($) {
         });
 
         $.ajax({
-            url: '/api/v1/cards/post',
+            url: '/api/v1/cards',
             type: 'post',
             dataType: 'json',
             data: {
+                
                 user_id: user_id,
+                address: address,
+                phone: phone
+                
                 
             },
             success: function(data){
-                alert('success');
+                alert('Success !');
                 $('#card').modal('hide');
                 // $('#_register_card').text("");
             },
             error: function(err){
-                // console.log(err);
-                alert('Card exists!');
+                console.log(err);
+                alert('Error! Please, try again.');
                 $('#card').modal('hide');
             }
         });
 
+    });
+
+    $('#winner').click(function(){
+
+        var product_id = $(this).attr('product_id');
+        var auction_id = $(this).attr('auction_id');
+        // alert(product_id);
+        // alert(auction_id);
+        $.ajax({
+
+            url: '/api/v1/auctions/productAll?productId='+product_id+'&auction_id='+auction_id,
+            type: 'get',
+            dataType: 'json',
+            success: function(data) {
+
+                var name_user = "";
+
+                var user_id = data[0].winner.user_id;
+ 
+                $.ajax({
+
+                    url: '/api/v1/users?id='+user_id,
+                    type: 'get',
+                    dataType: 'json',
+                    success: function(data) {
+                        
+                        $('#name_user').text(data.data.name);
+
+                    },
+                    error: function(err){
+                        console.log(err);
+                    }
+                });
+
+
+                output = 
+
+                        "<tr >"
+                            +"<td class='text-center'>"+data[0].winner.product_id+"</td>"
+                            +"<td class='text-center'>"+data[0].product.name+"</td>"
+                            +"<td class='text-center'>"+data[0].winner.user_id+"</td>"
+                            +"<td class='text-center' id='name_user'></td>"
+                            +"<td class='text-center'>"+data[0].winner.offer+"</td>"
+                            +"<td class='text-center'>"+data[0].winner.created_at+"</td>"  
+                        +"</tr>";
+                $('#data_winner').html(output);
+
+                console.log(output);
+            },
+            error: function(err){
+                alert('Error!');
+                console.log(err);
+            }
+
+        });
+    });
+
+    $('#my_history').click(function(){
+
+        var product_id = $(this).attr('product_id');
+        var auction_id = $(this).attr('auction_id');
+        var user_id = $(this).attr('user_id');
+        // alert(product_id);
+        // alert(auction_id);
+        $.ajax({
+
+            url: '/api/v1/auctions/productAll?productId='+product_id+'&auction_id='+auction_id,
+            type: 'get',
+            dataType: 'json',
+            success: function(data) {
+
+                var name_user = "";
+                var output = "";
+                
+ 
+                $.ajax({
+
+                    url: '/api/v1/users?id='+user_id,
+                    type: 'get',
+                    dataType: 'json',
+                    success: function(data) {
+                        
+                        $('.name_user').text(data.data.name);
+
+                    },
+                    error: function(err){
+                        console.log(err);
+                    }
+                });
+
+                
+
+                    for(var j = 0; j < data[0].auction_products.length; j++){
+                        if(data[0].auction_products[j].user_id == user_id){
+                            output += 
+
+                            "<tr >"
+                                +"<td class='text-center'>"+data[0].auction_products[j].product_id+"</td>"
+                                +"<td class='text-center'>"+data[0].product.name+"</td>"
+                                +"<td class='text-center'>"+user_id+"</td>"
+                                +"<td class='text-center name_user'></td>"
+                                +"<td class='text-center'>"+data[0].auction_products[j].offer+"</td>"
+                                +"<td class='text-center'>"+data[0].auction_products[j].created_at+"</td>"  
+                            +"</tr>";
+                        }
+                        else{
+                            output = "<tr>"
+                                +"<td class='text-center' colspan='6'>No Data Found</td>"
+                           +"</tr>";
+                        }
+                    }
+                
+                
+                
+                $('#data_history').html(output);
+
+                console.log(output);
+            },
+            error: function(err){
+                alert('Error!');
+                console.log(err);
+            }
+
+        });
     });
     
 });

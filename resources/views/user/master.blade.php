@@ -14,9 +14,15 @@
 		<!-- meta character set -->
 		<meta charset="UTF-8">
 		<!-- Site Title -->
-		<title>Library</title>
+		<title>Auction</title>
 
 		<link href="https://fonts.googleapis.com/css?family=Poppins:100,200,400,300,500,600,700" rel="stylesheet">
+
+
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
 			<!--
 			CSS
 			============================================= -->
@@ -34,6 +40,43 @@
 
 			<!-- <script type="text/javascript" src="../js/Home.js"></script> -->
 
+			<style type="text/css">
+				.dropbtn {
+					  background-color: #4CAF50;
+					  color: white;
+					  padding: 16px;
+					  font-size: 16px;
+					  border: none;
+					}
+
+					.dropdown {
+					  position: relative;
+					  display: inline-block;
+					}
+
+					.dropdown-content {
+					  display: none;
+					  position: absolute;
+					  background-color: #f1f1f1;
+					  min-width: 160px;
+					  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+					  z-index: 1;
+					}
+
+					.dropdown-content a {
+					  color: black;
+					  padding: 12px 16px;
+					  text-decoration: none;
+					  display: block;
+					}
+
+					.dropdown-content a:hover {background-color: #ddd;}
+
+					.dropdown:hover .dropdown-content {display: block;}
+
+					.dropdown:hover .dropbtn {background-color: #3e8e41;}
+			</style>
+
 		</head>
 		<body>
 		  <header id="header" id="home">
@@ -44,16 +87,18 @@
 			<section class="banner-area relative" id="home">
 				<div class="overlay overlay-bg"></div>
 				<div class="container">
-					<div class="row fullscreen d-flex align-items-center justify-content-between">
+					<div class="row fullscreen d-flex align-items-center ">
 						<div class="banner-content col-lg-9 col-md-12">
 							<h1 class="text-uppercase">
-								Thư viện Đại học Bách Khoa Hà Nội
+								Web Auction online
 							</h1>
 							<p class="pt-10 pb-10">
-								aaaaaaaaaaaaaaaaaaaaaaaaaaaa
+								
 
 							</p>
-							<a href="#" class="primary-btn text-uppercase">Get Started</a>
+							@if(!Session::has('user_id'))
+							<a href="{{route('login')}}" class="primary-btn text-uppercase">Get Started</a>
+							@endif
 						</div>
 					</div>
 				</div>
@@ -82,27 +127,50 @@
 
 	                <!-- Modal content-->
 
-	                        <div class="modal-header">
+	                        <!-- <div class="modal-header">
 	                        	<h4 class="modal-title">Confirm</h4>
 	                            <button type="button" class="close" data-dismiss="modal">&times;</button>
 
-	                        </div>
-	                        <div class="modal-body">
+	                        </div> -->
+	                        <div class="modal-header" style="background: #FFFAFA;">
+			                	<h4 class="modal-title"> Register Card</h4>
+			                    <button type="button" class="close" data-dismiss="modal">&times;</button>
 
-	                            <!-- <span id="form_output"></span> -->
-	                            <!-- <div class="row" > -->
-	                                <div class="col-xs-12" style="text-align: center;">
-	                                    <!-- PAGE CONTENT BEGINS -->
-	                                    <h4>Bạn muốn đăng ký thẻ ?</h4>
+			                </div>
+			                <div class="modal-body">
+			                    <div class="row">
+			                        <div class="col-xs-12">
+			                            <!-- PAGE CONTENT BEGINS -->
+			                            <div class="col-sm-9" >
+			                                <div class="form-group" >
+			                                    <label class="col-sm-4 control-label no-padding-right" for="form-field-1" style="margin-top: 22px;"><b>Address:</b></label>
 
-	                                </div>
-	                            <!-- </div> -->
+			                                    <div class="col-sm-7">
+			                                        <input type="text" placeholder="Enter address ..." class="form-control"  name="quantity" id="address" style="width: 320px; margin-top: 15px; margin-left: -20px;"/>
+			                                    </div>
+			                                </div>
 
-	                        </div>
+			                            </div>
+			                            <div class="col-sm-9" >
+			                                <div class="form-group" >
+			                                    <label class="col-sm-4 control-label no-padding-right" for="form-field-1" style="margin-top: 22px;"><b>Phone:</b></label>
 
-	                        <div class="modal-footer">
+			                                    <div class="col-sm-7">
+			                                        <input type="text" placeholder="Enter phone number ..." class="form-control"  name="quantity" id="phone" style="width: 320px; margin-top: 15px; margin-left: -20px;"/>
+			                                    </div>
+			                                </div>
+
+			                            </div>
+
+			                        </div>
+			                    </div>
+
+			                </div>
+			                <br/>
+
+	                        <div class="modal-footer" style="background: #FFFAFA;">
 	                            <input type="hidden" id="card_user_id" value="" />
-	                            <input type="button" value="No" data-dismiss="modal" >
+	                            <input type="button" value="No" data-dismiss="modal" style="float: right;">
 
 	                            <input type="button" id="register_card" value="Yes">
 	                                <!-- <i class="ace-icon fa fa-trash-o bigger-120 orange"></i> -->
@@ -167,8 +235,8 @@
 			            {{csrf_field()}} -->
 			            <!-- Modal content-->
 			            <div class="modal-content">
-			                <div class="modal-header">
-			                	<h4 class="modal-title" style="text-align: center;"><b>Thay đổi mật khẩu</b></h4>
+			                <div class="modal-header" style="background: #FFFAFA;">
+			                	<h4 class="modal-title" >Change Password</h4>
 			                    <button type="button" class="close" data-dismiss="modal">&times;</button>
 
 			                </div>
@@ -177,52 +245,51 @@
 			                        <div class="col-xs-12">
 			                            <!-- PAGE CONTENT BEGINS -->
 
-			                            <div class="col-sm-11">
-			                                <div class="form-group">
-			                                    <label style="margin-top: 10px; float: left;">Mật khẩu hiện tại: </label>
+			                            <div class="col-sm-9" >
+			                                <div class="form-group" >
+			                                    <label class="col-sm-6 control-label no-padding-right" for="form-field-1" style="margin-top: 22px;"><b>Current password:</b></label>
 
-			                                    <span style="margin-top: -35px; margin-left: 150px; width: 200px; float: left;">
-			                                        <input type="password" id="current" placeholder="Enter current password ..." name="email-user"/>
-			                                    </span>
-			                                </div>
-
-			                            </div>
-			                            <div class="col-sm-11" style="margin-top: 10px;">
-			                                <div class="form-group">
-			                                    <label style="margin-top: 5px; clear: both; float: left;">Mật khẩu mới: </label>
-
-			                                    <span style="margin-top: -35px; margin-left: 150px; width: 200px; float: left;">
-			                                        <input type="password" id="new" placeholder="Enter new password ..." name="password-user"/>
-			                                    </span>
+			                                    <div class="col-sm-6">
+			                                        <input type="password" id="current" placeholder="Enter current password ..." style="width: 280px; margin-top: 15px; margin-left: 0px;"/>
+			                                    </div>
 			                                </div>
 
 			                            </div>
 
-			                            <div class="col-sm-11" style="margin-top: 10px;">
-			                                <div class="form-group">
-			                                    <label style="margin-top: 5px; clear: both; float: left;">Xác nhận mật khẩu: </label>
+			                            <div class="col-sm-9" >
+			                                <div class="form-group" >
+			                                    <label class="col-sm-6 control-label no-padding-right" for="form-field-1" style="margin-top: 22px;"><b>New password:</b></label>
 
-			                                    <span style="margin-top: -35px; margin-left: 150px; width: 200px; float: left;">
-			                                        <input type="password" id="confirm" placeholder="Enter confirm password ..." name="first-name"/>
-			                                    </span>
+			                                    <div class="col-sm-6">
+			                                        <input type="password" id="new" placeholder="Enter new password ..." style="width: 280px; margin-top: 15px; margin-left: 0px;"/>
+			                                    </div>
 			                                </div>
 
 			                            </div>
 
+			                            <div class="col-sm-9" >
+			                                <div class="form-group" >
+			                                    <label class="col-sm-6 control-label no-padding-right" for="form-field-1" style="margin-top: 22px;"><b>Confirm:</b></label>
 
+			                                    <div class="col-sm-6">
+			                                        <input type="password" id="confirm" placeholder="Enter current password ..." style="width: 280px; margin-top: 15px; margin-left: 0px;"/>
+			                                    </div>
+			                                </div>
+
+			                            </div>
 			                        </div>
 			                    </div>
 
 			                </div>
 			                <br/>
-			                <div class="modal-footer">
+			                <div class="modal-footer" style="background: #FFFAFA;">
 			                    <input type="hidden" id="change_user_id" name="user-id" value="{{Session::get('user_id')}}" />
 			                    <input type="hidden" id="current_pass" value="" />
 			                    <input type="hidden" id="new_pass" value="" />
 			                    <input type="hidden" id="confirm_pass" value="" />
 			                    <!-- <input type="hidden" id="role_id" value="" /> -->
 
-			                    <input type="button" value="Close" data-dismiss="modal" style="margin-left: -100px">
+			                    <input type="button" value="Close" data-dismiss="modal" class=" no-padding-right">
 			                    <input type="submit" value="Ok" id="change_password" >
 
 			                </div>

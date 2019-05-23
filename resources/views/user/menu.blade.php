@@ -1,4 +1,4 @@
-<ul class="nav-menu">
+<ul class="nav-menu" style="padding-left: 632px;">
   <li><a href="{{route('homePage')}}">Home</a></li>
   <li><a href="#">About</a></li>
 

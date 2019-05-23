@@ -135,7 +135,7 @@ Route::get('product/{id}',
 
 
 Route::get('detailProduct/{id}',
- 	['as'=>'detailProduct', 'uses'=>'UserController@getProductDetail']
+ 	['as'=>'detailProduct', 'uses'=>'UserController@getDetailProduct']
 );
 
 Route::get('listAuction',

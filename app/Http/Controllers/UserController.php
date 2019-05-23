@@ -10,7 +10,7 @@ class UserController extends Controller
     //
     public function getHome(){
     	
-        $data['list'] = DB::table('products')->join('producers', 'producers.id', '=', 'products.producer_id')->join('categories', 'categories.id', '=', 'products.category_id')->select('products.*', 'categories.type', 'producers.name')->get();
+        $data['list'] = DB::table('products')->join('producers', 'producers.id', '=', 'products.producer_id')->join('inventories', 'products.id', '=', 'inventories.product_id')->join('categories', 'categories.id', '=', 'products.category_id')->join('auction_product', 'products.id', '=', 'auction_product.product_id')->join('auctions', 'auctions.id', '=', 'auction_product.auction_id')->join('users', 'users.id', '=', 'auction_product.user_id')->join('images', 'products.image_id', '=', 'images.id')->select('auction_product.*', 'categories.type', 'producers.name as nameProducer', 'products.name as nameProduct', 'inventories.quantity', 'users.role_id', 'images.image_url', 'auctions.duration', 'products.id as id_product')->where('users.role_id', 2)->get();
     	return view('user.home', $data);
     	
     }
@@ -23,15 +23,11 @@ class UserController extends Controller
     	
     }
 
-    public function getBookDetail($id){
+    public function getDetailProduct($id){
 
-        $data['list'] = DB::table('publishers')->join('books', 'publishers.id', '=', 'books.publisher_id')->join('book_images', 'book_images.book_id', '=', 'books.id')->join('images', 'book_images.image_id', '=', 'images.id')->select('books.*', 'images.imageURL', 'publishers.publisherName')->where('books.id', '=', $id)->get();
+        $data['list'] = DB::table('products')->join('producers', 'producers.id', '=', 'products.producer_id')->join('inventories', 'products.id', '=', 'inventories.product_id')->join('categories', 'categories.id', '=', 'products.category_id')->join('auction_product', 'products.id', '=', 'auction_product.product_id')->join('auctions', 'auctions.id', '=', 'auction_product.auction_id')->join('users', 'users.id', '=', 'auction_product.user_id')->join('images', 'products.image_id', '=', 'images.id')->select('auction_product.*', 'categories.type', 'producers.name as nameProducer', 'products.name as nameProduct', 'inventories.quantity', 'users.role_id', 'images.image_url', 'auctions.duration', 'products.detail')->where('products.id', '=', $id)->where('users.role_id', 2)->get();
 
-        $data['listA'] = DB::table('books')->join('author_book', 'books.id', '=', 'author_book.book_id')->join('authors', 'author_book.author_id', '=', 'authors.id')->where('books.id', '=', $id)->get();
-
-        $data['listG'] = DB::table('books')->join('book_genre', 'books.id', '=', 'book_genre.book_id')->join('genres', 'book_genre.genre_id', '=', 'genres.id')->where('books.id', '=', $id)->get();
-    	
-    	return view('user.detailBook', $data);
+    	return view('user.detailProduct', $data);
     	
     }
 

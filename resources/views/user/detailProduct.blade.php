@@ -1,99 +1,137 @@
 @extends('user.master')
 @section('content')
 
-			<!-- start banner Area -->
-	<!-- 		<section class="banner-area relative about-banner" id="home">
-				<div class="overlay overlay-bg"></div>
-				<div class="container">
-					<div class="row d-flex align-items-center justify-content-center">
-						<div class="about-content col-lg-12">
-							<h1 class="text-white">
-								Popular Courses
-							</h1>
-							<p class="text-white link-nav"><a href="index.html">Home </a>  <span class="lnr lnr-arrow-right"></span>  <a href="courses.html"> Popular Courses</a></p>
-						</div>
-					</div>
+<section class="course-details-area pt-120">
+	<div class="container">
+		@foreach($list as $list)
+		<?php
+            $flag = 1;
+            if(strtotime(date('Y-m-d H:i:s')) 
+                - strtotime($list->created_at) 
+                - substr($list->duration, 0, 2)*3600
+                - substr($list->duration, 3, 2)*60
+                - substr($list->duration, 6, 8) 
+                > 0){
+                $flag = 0;
+            }
+        ?>
+		<div class="row">
+			<div class="col-lg-8 left-contents">
+				<div class="main-image">
+					<img class="img-fluid" src="{{$list->image_url}}" alt="">
 				</div>
-			</section> -->
-			<!-- End banner Area -->
+				<div class="jq-tab-wrapper" id="horizontalTab">
+                    <div class="jq-tab-menu">
+                        <div class="jq-tab-title active" data-tab="1">Describe</div>
+                        <div class="jq-tab-title" data-tab="2">Producer</div>
+                        <div class="jq-tab-title" data-tab="3">Category</div>
+                        <div class="jq-tab-title" data-tab="4" id="my_history" product_id="{{$list->product_id}}" auction_id="{{$list->auction_id}}" user_id="{{Session::get('user_id')}}">My History</div>
+                        @if($flag == 0)
+                        <div class="jq-tab-title" data-tab="5" id="winner" product_id="{{$list->product_id}}" auction_id="{{$list->auction_id}}" user_id="{{Session::get('user_id')}}">Winner</div>
+                        @endif
+                    </div>
+                    <div class="jq-tab-content-wrapper">
+                        <div class="jq-tab-content active" data-tab="1">
+                            {{$list->detail}}
+                        </div>
+                        <div class="jq-tab-content" data-tab="2">
+                            {{$list->nameProducer}}
+                        </div>
+                        <div class="jq-tab-content" data-tab="3">
+							{{$list->type}}
+                        </div>
+                        <div class="jq-tab-content comment-wrap" data-tab="4">
+			                <table id="example1" class="table table-bordered table-striped">
+				                <thead>
+				                    <tr>
+				                      <th class="text-center">ID Product</th>
+				                      <th class="text-center">Name Product</th>
+				                      <th class="text-center">ID User</th>
+				                      <!-- <th class="text-center">Password</th> -->
+				                      <th class="text-center">Name User</th>
+				                      <th class="text-center">Offer</th>
+				                      <th class="text-center">Time</th>
+				                    </tr>
+				                </thead>
+				                <tbody id="data_history">  
 
-			<!-- Start course-details Area -->
-			<br>
-			<br>
-			<br>
-			<h2 style="text-align: center; margin-left: 30px"><b style="color: black;">Chi tiết sách</b></h2>
-			<section class="course-details-area pt-120" style="margin-top: -50px;">
-				<div class="container">
-					<div class="row">
-						<div class="col-lg-8 left-contents">
-							@foreach($list as $book)
-							<div class="main-image">
-								<img class="img-fluid" src="{{$book->imageURL}}" alt="">
-							</div>
-							@endforeach
-							<div class="jq-tab-wrapper" id="horizontalTab">
-	                            <div class="jq-tab-menu">
-	                                <div class="jq-tab-title active" data-tab="1">Objectives</div>
-	                                <div class="jq-tab-title" data-tab="2">Eligibility</div>
-	                                <div class="jq-tab-title" data-tab="3">Course Outline</div>
-	                                <div class="jq-tab-title" data-tab="4">Comments</div>
-	                                <div class="jq-tab-title" data-tab="5">Reviews</div>
-	                            </div>
+				                </tbody>
+				            </table>           						                
+                        </div>
+                        <div class="jq-tab-content" data-tab="5">	
+                        	<table id="example1" class="table table-bordered table-striped">
+				                <thead>
+				                    <tr>
+				                      <th class="text-center">ID Product</th>
+				                      <th class="text-center">Name Product</th>
+				                      <th class="text-center">ID User</th>
+				                      <!-- <th class="text-center">Password</th> -->
+				                      <th class="text-center">Name User</th>
+				                      <th class="text-center">Offer</th>
+				                      <th class="text-center">Time</th>
+				                    </tr>
+				                </thead>
+				                <tbody id="data_winner">  
 
-	                        </div>
-						</div>
-						<div class="col-lg-4 right-contents">
-							<ul>
-								<li>
-									<a class="justify-content-between d-flex" href="#">
-										@foreach($list as $book)
-										<p id="{{$book->title}}"><b style="color: black;">Tên sách:</b></p>
-
-										<span class="or">{{$book->title}}</span>
-										@endforeach
-									</a>
-								</li>
-								<li>
-									<a class="justify-content-between d-flex" href="#">
-										<p><b style="color: black;">Tác giả:</b></p>
-										@foreach($listA as $author)
-											<span style="margin-left: 10px;"><a href="{{route('listBookOfAuthor', $author->id)}}" id="{{$author->id}}">{{$author->name}}</a></span>
-										@endforeach
-									</a>
-								</li>
-								<li>
-									<a class="justify-content-between d-flex" href="#">
-										<p><b style="color: black;">Thể loại:</b></p>
-										@foreach($listG as $genre)
-										<span style="margin-left: 10px;"><a id="{{$genre->id}}" href="{{route('listBookOfGenre', $genre->id)}}" >{{$genre->genreType}}</a></span>
-										@endforeach
-									</a>
-								</li>
-								<li>
-									<a class="justify-content-between d-flex" href="#">
-										<p><b style="color: black;">Nhà xuất bản:</b></p>
-										<span><a id="{{$book->publisher_id}}" href="{{route('book', $book->publisher_id)}}">{{$book->publisherName}}</a></span>
-									</a>
-								</li>
-								<li>
-									<a class="justify-content-between d-flex" href="#">
-										<p><b style="color: black;">Năm xuất bản:</b></p>
-										@foreach($list as $book)
-										<span>{{$book->publishedYear}}</span>
-										@endforeach
-									</a>
-								</li>
-							</ul>
-							@foreach($list as $book)
-
-							<input type="hidden" name="book_id" id="book_id" value="{{$book->id}}">
-							<a href="#" class="primary-btn text-uppercase borrow" book_id="{{$book->id}}" data-toggle="modal" user_id="{{Session::get('user_id')}}" role_id="{{Session::get('role_id')}}">Borrow</a>
-							@endforeach
-						</div>
-					</div>
-				</div>
-			</section>
-			<!-- End course-details Area -->
+				                </tbody>
+				            </table>           	
+                        </div>                                
+                    </div>
+                </div>
+			</div>
+			<div class="col-lg-4 right-contents">
+				<ul>
+					<li>
+						<a class="justify-content-between d-flex" href="#">
+							<p>Product</p> 
+							<span class="or">{{$list->nameProduct}}</span>
+						</a>
+					</li>
+					<li>
+						<a class="justify-content-between d-flex" href="#">
+							<p>Start offer </p>
+							<span>{{$list->offer}}</span>
+						</a>
+					</li>
+					<li>
+						<a class="justify-content-between d-flex" href="#">
+							<p>Quantity </p>
+							<span>{{$list->quantity}}</span>
+						</a>
+					</li>
+					<li>
+						<a class="justify-content-between d-flex" href="#">
+							<p>Start time </p>
+							<span>{{$list->created_at}}</span>
+						</a>
+					</li>
+					<li>
+						<a class="justify-content-between d-flex" href="#">
+							<p>Duration </p>
+							<span>{{$list->duration}}</span>
+						</a>
+					</li>
+					<li>
+						<a class="justify-content-between d-flex" href="#">
+							<p>State </p>
+							@if($flag == 0)
+							<span>Finished</span>
+							@else
+							<span>Happenning</span>
+							@endif
+						</a>
+					</li>
+				</ul>
+				@if($flag == 1)
+				<a href="#" data-toggle="modal" class="primary-btn text-uppercase borrow">Auction</a>
+				@else
+				<a href="#" data-toggle="modal" class="primary-btn text-uppercase">Can't bid now</a>
+				@endif
+			</div>
+		</div>
+		@endforeach
+	</div>	
+</section>
 
 <div class="modal fade" id="myModal-borrow" author="dialog">
     <div class="modal-dialog">
@@ -103,7 +141,7 @@
             <!-- Modal content-->
             <div class="modal-content">
                 <div class="modal-header" style="background: #FFFAFA;">
-                	<h4 class="modal-title"> Mượn sách</h4>
+                	<h3 class="modal-title text-center" style="text-align: center; color: black;"><b> Auction </b></h3>
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
 
                 </div>
@@ -113,10 +151,10 @@
                             <!-- PAGE CONTENT BEGINS -->
                             <div class="col-sm-9" >
                                 <div class="form-group" >
-                                    <label class="col-sm-4 control-label no-padding-right" for="form-field-1" style="margin-top: 22px;"><b>Quantity:</b></label>
+                                    <label class="col-sm-4 control-label no-padding-right" for="form-field-1" style="margin-top: 22px;"><b>Price:</b></label>
 
                                     <div class="col-sm-7">
-                                        <input type="text" placeholder="Enter quantity book ..." class="form-control"  name="quantity" id="quantity" style="width: 350px; margin-top: -40px; margin-left: 80px;"/>
+                                        <input type="text" placeholder="Enter price ..." class="form-control"  name="quantity" id="quantity" style="width: 350px; margin-top: -40px; margin-left: 80px;"/>
                                     </div>
                                 </div>
 

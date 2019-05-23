@@ -60,6 +60,78 @@
 			</a>
 		</div><!-- /.main-container -->
 
+<div class="modal fade" id="card" role="dialog">
+	            <div class="modal-dialog">
+
+	                <div class="modal-content">
+	                    <!-- <form > -->
+	                        <!-- <input type="hidden" name="_method" value="delete"> -->
+	                        <!-- {{csrf_field()}} -->
+
+	                <!-- Modal content-->
+
+	                        <!-- <div class="modal-header">
+	                        	<h4 class="modal-title">Confirm</h4>
+	                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+	                        </div> -->
+	                        <div class="modal-header" style="background: #FFFAFA;">
+	                        	<button type="button" class="close" data-dismiss="modal">&times;</button>
+
+			                	<h3 class="modal-title center"><b> Register Card</b></h3>
+			                    
+			                </div>
+			                <div class="modal-body">
+			                    <div class="row">
+			                        <div class="col-xs-12">
+			                            <!-- PAGE CONTENT BEGINS -->
+			                            <div class="col-sm-9" >
+			                                <div class="form-group" >
+			                                    <label class="col-sm-4 control-label no-padding-right" for="form-field-1" style="margin-top: 22px;"><b>Address:</b></label>
+
+			                                    <div class="col-sm-7">
+			                                        <input type="text" placeholder="Enter address ..." class="form-control"  name="quantity" id="address" style="width: 320px; margin-top: 15px; margin-left: -20px;"/>
+			                                    </div>
+			                                </div>
+
+			                            </div>
+			                            <div class="col-sm-9" >
+			                                <div class="form-group" >
+			                                    <label class="col-sm-4 control-label no-padding-right" for="form-field-1" style="margin-top: 22px;"><b>Phone:</b></label>
+
+			                                    <div class="col-sm-7">
+			                                        <input type="text" placeholder="Enter phone number ..." class="form-control"  name="quantity" id="phone" style="width: 320px; margin-top: 15px; margin-left: -20px;"/>
+			                                    </div>
+			                                </div>
+
+			                            </div>
+
+			                        </div>
+			                    </div>
+
+			                </div>
+			                <br/>
+
+	                        <div class="modal-footer" style="background: #FFFAFA;">
+	                            <input type="hidden" id="card_user_id" value="" />
+	                            
+	                                <button class="btn btn-white btn-round pull-left" data-dismiss="modal">
+				                        <i class="ace-icon fa fa-times red2"></i>
+				                        Close
+				                    </button>
+				                    <button class="btn btn-white btn-bold" type="submit" id="register_card">
+				                        <i class="ace-icon fa fa-check bigger-110 green"></i>
+				                        Register
+				                    </button>
+
+	                        </div>
+	                    <!-- </form> -->
+
+
+	                </div>
+	            </div>
+			</div>
+
 
 <div class="modal fade" id="confirm_logout" role="dialog">
     <div class="modal-dialog">

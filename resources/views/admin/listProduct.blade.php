@@ -262,7 +262,7 @@
                 <div class="col-sm-9" >
                                 <div class="form-group">
                                     <div class="clearfix" style="float: right; margin-top: -320px; height: 400px; width: 200px; margin-left: -100px;">
-                                        <h5 class="header blue"><b>Mo ta</b></h5>
+                                        <h5 class="header blue"><b>Describe</b></h5>
                                         <div class="widget-box widget-color-green" style="width: 400px;">
                                     <div class="widget-header widget-header-small"> <div class="wysiwyg-toolbar btn-toolbar center inline"> <div class="btn-group">  <a class="btn btn-sm btn-default active" data-edit="bold" title="" data-original-title="Bold (Ctrl/Cmd+B)"><i class=" ace-icon fa fa-bold"></i></a>  <a class="btn btn-sm btn-default" data-edit="italic" title="" data-original-title="Change Title!"><i class=" ace-icon ace-icon fa fa-leaf"></i></a>  <a class="btn btn-sm btn-default" data-edit="strikethrough" title="" data-original-title="Strikethrough"><i class=" ace-icon fa fa-strikethrough"></i></a>  </div> <div class="btn-group">  <a class="btn btn-sm btn-default" data-edit="insertunorderedlist" title="" data-original-title="Bullet list"><i class=" ace-icon fa fa-list-ul"></i></a>  <a class="btn btn-sm btn-default" data-edit="insertorderedlist" title="" data-original-title="Number list"><i class=" ace-icon fa fa-list-ol"></i></a>  </div> <div class="btn-group">  <a class="btn btn-sm btn-default active" data-edit="justifyleft" title="" data-original-title="Align Left (Ctrl/Cmd+L)"><i class=" ace-icon fa fa-align-left"></i></a>  <a class="btn btn-sm btn-default" data-edit="justifycenter" title="" data-original-title="Center (Ctrl/Cmd+E)"><i class=" ace-icon fa fa-align-center"></i></a>  <a class="btn btn-sm btn-default" data-edit="justifyright" title="" data-original-title="Align Right (Ctrl/Cmd+R)"><i class=" ace-icon fa fa-align-right"></i></a>  </div>  </div>   </div>
 
@@ -410,7 +410,7 @@
                 <div class="col-sm-9" >
                                 <div class="form-group">
                                     <div class="clearfix" style="float: right; margin-top: -320px; height: 200px; width: 200px; margin-left: -100px;">
-                                        <h5 class="header blue"><b>Mo ta</b></h5>
+                                        <h5 class="header blue"><b>Describe</b></h5>
                                         <div class="widget-box widget-color-green" style="width: 400px;">
                                     <div class="widget-header widget-header-small"> <div class="wysiwyg-toolbar btn-toolbar center inline"> <div class="btn-group">  <a class="btn btn-sm btn-default active" data-edit="bold" title="" data-original-title="Bold (Ctrl/Cmd+B)"><i class=" ace-icon fa fa-bold"></i></a>  <a class="btn btn-sm btn-default" data-edit="italic" title="" data-original-title="Change Title!"><i class=" ace-icon ace-icon fa fa-leaf"></i></a>  <a class="btn btn-sm btn-default" data-edit="strikethrough" title="" data-original-title="Strikethrough"><i class=" ace-icon fa fa-strikethrough"></i></a>  </div> <div class="btn-group">  <a class="btn btn-sm btn-default" data-edit="insertunorderedlist" title="" data-original-title="Bullet list"><i class=" ace-icon fa fa-list-ul"></i></a>  <a class="btn btn-sm btn-default" data-edit="insertorderedlist" title="" data-original-title="Number list"><i class=" ace-icon fa fa-list-ol"></i></a>  </div> <div class="btn-group">  <a class="btn btn-sm btn-default active" data-edit="justifyleft" title="" data-original-title="Align Left (Ctrl/Cmd+L)"><i class=" ace-icon fa fa-align-left"></i></a>  <a class="btn btn-sm btn-default" data-edit="justifycenter" title="" data-original-title="Center (Ctrl/Cmd+E)"><i class=" ace-icon fa fa-align-center"></i></a>  <a class="btn btn-sm btn-default" data-edit="justifyright" title="" data-original-title="Align Right (Ctrl/Cmd+R)"><i class=" ace-icon fa fa-align-right"></i></a>  </div>  </div>   </div>
 
@@ -426,8 +426,15 @@
                             </div>
                 <br/>
                 <div class="modal-footer">
-                    <input type="hidden" id="product-id" name="role-id" value="" />
-
+                    <input type="hidden" id="product-id"value="" />
+                    <input type="hidden" id="_name"  value="" />
+                    <input type="hidden" id="_price"  value="" />
+                    <input type="hidden" id="_detail"  value="" />
+                    <input type="hidden" id="_product_id"  value="" />
+                    <input type="hidden" id="_category_id"  value="" />
+                    <input type="hidden" id="_image_id"  value="" />
+                    <input type="hidden" id="_state"  value="" />
+                    <!-- <input type="hidden" id="_name"  value="" /> -->
                     <button class="btn btn-white btn-round pull-left" data-dismiss="modal">
                         <i class="ace-icon fa fa-times red2"></i>
                         Close

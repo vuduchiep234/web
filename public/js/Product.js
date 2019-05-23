@@ -86,11 +86,13 @@ jQuery(function($) {
 
         $('#_name').val(name);
         $('#_price').val(price);
-        $('#_detail').val(detail);
+        $('#_detail').text(detail);
         $('#_producer_id').val(producer_id);
         $('#_category_id').val(category_id);
         $('#_image_id').val(edit_image_url);
         $('#_state').val(state);
+
+        // alert(detail);
 
     	$('#editModal-product').modal('show');
     });
@@ -108,16 +110,14 @@ jQuery(function($) {
 
         var _name = $('#_name').val();
         var _price = $('#_price').val();
-        var _detail = $('#_detail').val();
+        var _detail = $('#_detail').text();
         var _producer_id = $('#_producer_id').val();
         var _category_id = $('#_category_id').val();
         var _image_url = $('#_image_id').val();
         var _state = $('#_state').val();
         
         var formData = new FormData();
-
-
-
+        
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -127,22 +127,22 @@ jQuery(function($) {
 
         formData.append('id', id);
 
-        if(name !== _name){
+        if(name != _name){
             formData.append('name', name);
         }
-        if(price !== _price){
+        if(price != _price){
             formData.append('price', price);
         }
 
-        if(detail !== _detail){
+        if(detail != _detail){
             formData.append('detail', detail);
         }
 
-        if(producer_id !== _producer_id){
+        if(producer_id != _producer_id){
             formData.append('producer_id', producer_id);
         }
 
-        if(category_id !== _category_id){
+        if(category_id != _category_id){
             formData.append('category_id', category_id);
         }
 
@@ -156,7 +156,7 @@ jQuery(function($) {
         if(state !== _state){
             formData.append('state', state);
         }
-        console.log(formData);
+        console.log("formData  "+  formData);
         $.ajax({
                 
             url: '/api/v1/products/'+id,

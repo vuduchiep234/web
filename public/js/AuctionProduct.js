@@ -76,7 +76,7 @@ jQuery(function($) {
  
                 $.ajax({
 
-                    url: 'api/v1/users?id='+user_id,
+                    url: 'api/v1/users?id='+user_id+'&relations[]=card',
                     type: 'get',
                     dataType: 'json',
                     success: function(data) {
@@ -204,10 +204,11 @@ jQuery(function($) {
                 auction_id: auction_id,
                 offer: offer
             },
-            success: function () {
+            success: function (data) {
                 alert('Success !');
+                console.log(data);
                 $('#myModal-auction_product').modal('hide');
-                // loaddata_auction_product(product_id, auction_id);
+                loaddata_auction_product(product_id, auction_id);
             },
             error: function(mess){
                 alert("Error! Please, try again.");
@@ -229,6 +230,7 @@ jQuery(function($) {
             success: function(data) {
                 var output = "";
                 var name_user = "";
+                var role_id = 2;
 
                 var user_id = data[0].auction_products[0].user_id;
  
@@ -239,7 +241,7 @@ jQuery(function($) {
                         dataType: 'json',
                         success: function(data) {
                             name_user = data.data.name;
-                            // alert(name_user);
+                            role_id = data.data.role_id;
                         },
                         error: function(err){
                             console.log(err);
@@ -253,34 +255,35 @@ jQuery(function($) {
                         ap = data[i].auction_products[j].id;
                         // alert(ap);
                     }
-                    // alert(name_user);
+                    if(role_id == 2){
                     
-                    output =   "<tr row_id_auction_product="+data[i].auction_products[j].id+">"
-                        +"<td class='text-center'>"+data[i].id+"</td>"
-                        +"<td class='text-center'>"+data[i].product.name+"</td>"
-                        +"<td class='text-center'>"+name_user+"</td>"
-                        +"<td class='text-center'>"+data[i].created_at+"</td>"
-                        +"<td class='text-center'>"+data[i].duration+"</td>"
-                        +"<td class='text-center'>"+data[i].auction_products[0].offer+"</td>"
-                 
-                        +"<td class='text-center'>"
-                            +"<a href='#' class='blue' id_edit_auction_product="+data[i].id+" product="+data[i].product.name+" duration="+data[i].duration+" user_id="+data[i].winner.user_id+" product_id="+data[i].winner.product_id+" auction_id="+data[i].winner.auction_id+" data-type='auction_product' data-toggle='modal'>"
-                                +"<i class='ace-icon fa fa-eye-slash bigger-130 brown'></i>"
-                            +"</a>"
-                        +"</td>"
-
-                            
-                            +"<td class='text-center'>happenning"
-                                
+                        output +=   "<tr row_id_auction_product="+data[i].auction_products[j].id+">"
+                            +"<td class='text-center'>"+data[i].id+"</td>"
+                            +"<td class='text-center'>"+data[i].product.name+"</td>"
+                            +"<td class='text-center'>"+name_user+"</td>"
+                            +"<td class='text-center'>"+data[i].created_at+"</td>"
+                            +"<td class='text-center'>"+data[i].duration+"</td>"
+                            +"<td class='text-center'>"+data[i].auction_products[0].offer+"</td>"
+                     
+                            +"<td class='text-center'>"
+                                +"<a href='#' class='blue' id_edit_auction_product="+data[i].id+" product="+data[i].product.name+" duration="+data[i].duration+" user_id="+data[i].winner.user_id+" product_id="+data[i].winner.product_id+" auction_id="+data[i].winner.auction_id+" data-type='auction_product' data-toggle='modal'>"
+                                    +"<i class='ace-icon fa fa-eye-slash bigger-130 brown'></i>"
+                                +"</a>"
                             +"</td>"
-                            
-                        +"</tr>"
 
-                    ;
+                                
+                                +"<td class='text-center'>happenning"
+                                    
+                                +"</td>"
+                                
+                            +"</tr>"
+
+                        ;
+                    }
 
                 }
                 alert(ap);
-                $("tr[row_id_auction_product="+ap+"]").after(output);
+                $("#body_list_auction_product").html(output);
                 
 
                 $('a[data-type=update-auction_product]').on('click', function(){
@@ -307,6 +310,7 @@ jQuery(function($) {
             },
             error: function(err){
                 alert("Fail !");
+                console.log(err);
             }
         });
     }

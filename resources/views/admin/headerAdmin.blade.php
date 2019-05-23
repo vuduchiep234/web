@@ -289,14 +289,14 @@
 
 							<ul class="user-menu dropdown-menu-right dropdown-menu dropdown-yellow dropdown-caret dropdown-close">
 								<li>
-									<a href="#">
+									<a href="#" id="_register_card" data_id="{{Session::get('user_id')}}" href="#" data-toggle="modal">
 										<i class="ace-icon fa fa-cog"></i>
-										Settings
+										Register Card
 									</a>
 								</li>
 
 								<li>
-									<a href="profile.html">
+									<a href="#">
 										<i class="ace-icon fa fa-user"></i>
 										Profile
 									</a>
@@ -305,7 +305,7 @@
 								<li class="divider"></li>
 
 								<li>
-									<a href="#" class="logout" data-id="{{Session::get('user_id')}}">
+									<a href="#" class="logout" data_id="{{Session::get('user_id')}}" data-toggle="modal">
 										<i class="ace-icon fa fa-power-off"></i>
 										Logout
 									</a>
