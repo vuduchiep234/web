@@ -8,8 +8,10 @@ class Card extends Model
 {
     //
     protected $fillable = [
-        'user_id', 'address', 'phone_number',
+        'user_id', 'address', 'phone',
     ];
+
+    protected $table= 'cards';
 
     public function user()
     {
