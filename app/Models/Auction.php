@@ -8,7 +8,7 @@ class Auction extends Model
 {
     //
     protected $fillable = [
-        'creator_id', 'duration'
+        'creator_id', 'duration',
     ];
 
     public function user()

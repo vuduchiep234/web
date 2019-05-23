@@ -25,6 +25,7 @@ class CheckAuctionDurationHandler extends EloquentAuctionHandler
 
         $auctionDuration = $auction['duration'];
         $createTime = $auction['created_at'];
+        $createTime = date("Y-m-d h:i:s", strtotime($createTime));
         $currentTime = date('Y-m-d h:i:s', time());
 
         try {
