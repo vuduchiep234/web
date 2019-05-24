@@ -133,6 +133,14 @@ Route::get('product/{id}',
  	['as'=>'product', 'uses'=>'UserController@getListProduct']
 );
 
+Route::get('listProductOfCategory/{id}',
+ 	['as'=>'listProductOfCategory', 'uses'=>'UserController@getProductOfCategory']
+);
+
+Route::get('listProductOfProducer/{id}',
+ 	['as'=>'listProductOfProducer', 'uses'=>'UserController@getProductOfProducer']
+);
+
 
 Route::get('detailProduct/{id}',
  	['as'=>'detailProduct', 'uses'=>'UserController@getDetailProduct']

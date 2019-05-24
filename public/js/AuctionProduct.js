@@ -83,13 +83,8 @@ jQuery(function($) {
                         // console.log(data);
                         $('#name_user').text(data.data.name);
                         $('#email').text(data.data.email);
-                        if(data.data.role_id == 2){
-                            $('#address').remove();
-                            $('#phone').remove();
-                            $('#_address').remove();
-                            $('#_phone').remove();
-                            $('#address_users').val("Ha Noi");
-                        }
+                        $('#address').text(data.data.card.address);
+                        $('#phone').text(data.data.card.phone);
 
                     },
                     error: function(err){
@@ -115,7 +110,7 @@ jQuery(function($) {
                 });
                 // alert(user_id);
                 $('#users_id').val(user_id); 
-                $('#address_users').val("Ha Noi");
+                // $('#address_users').val("Ha Noi");
                 $('#_products_id').val(id_product);
                 
                 $('#_price').val(data[0].winner.offer);
@@ -135,6 +130,7 @@ jQuery(function($) {
         var quantity = $('#_quantity').val();
         var price = $('#_price').val();
 
+        address = "Ha Noi";
         // alert(users_id);
         // alert(address);
         // alert(products_id);
@@ -159,8 +155,9 @@ jQuery(function($) {
                 $('#displayModal-winner').modal('hide');
                 (".modal-footer").html("");
             },
-            error: function(){
+            error: function(err){
                 alert("Error! Please, try again.");
+                console.log(err);
             }
         });
     });
@@ -309,7 +306,7 @@ jQuery(function($) {
                 });
             },
             error: function(err){
-                alert("Fail !");
+                // alert("Fail !");
                 console.log(err);
             }
         });

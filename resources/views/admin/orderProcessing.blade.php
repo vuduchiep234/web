@@ -72,9 +72,9 @@
                                                     <th class="center">
                                                         State
                                                     </th>
-                                                    <th class="center">
+                                                    <!-- <th class="center">
                                                         Detail
-                                                    </th>
+                                                    </th> -->
                                                     <th class="center">
                                                         Processing
                                                     </th>
@@ -83,7 +83,7 @@
                                                     </th>
                                                 </tr>
                                             </thead>
-                                            <tbody>
+                                            <tbody id="body_list_order">
 
                                              @foreach($list as $order)
                                             <tr row_id_order="<?php echo $order->id; ?>">
@@ -92,11 +92,11 @@
                                                 <td class="center" data-target="user_id" style="padding-top: 13px;">{{ $order->user_id }}</td>
                                                 <td class="center" data-target="shipper_id" style="padding-top: 13px;">{{ $order->shipper_id }}</td>
                                                 <td class="center" data-target="stateBill" style="padding-top: 13px;">{{ $order->state }}</td>
-                                                <td class="center" style="padding-top: 13px;">
+                                                <!-- <td class="center" style="padding-top: 13px;">
                                                     <a href="#" class="green edit-cate" data-toggle="modal" data-target="#displayModal-order">
                                                         <i class="ace-icon fa fa-eye  bigger-130"></i>
                                                     </a>
-                                                </td>
+                                                </td> -->
                                                 <td class="center">
                                                     
                                                    <div class="btn-group">

@@ -35,7 +35,8 @@ jQuery(function($) {
                 }
             },
             success: function (response) {
-            	console.log("success");
+            	alert("success");
+                $('#myModal-exportBill').modal('hide');
                 load_data_export();
             },
             error:function(err){
@@ -69,7 +70,7 @@ jQuery(function($) {
 
         var id = $(this).attr('data');
 
-        alert(id);
+        // alert(id);
         $('#doneModal').modal('show');
         $('#button-done').val(id);
     });
@@ -77,7 +78,7 @@ jQuery(function($) {
     $('#done-bill').on('click', function(){
 
         var id = $('#button-done').val();
-        alert(id);
+        // alert(id);
 
         $.ajax({
             url: '/api/v1/exportBills/confirm/'+id,

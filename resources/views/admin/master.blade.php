@@ -255,7 +255,8 @@
 
 		<!-- basic scripts -->
 
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+		<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> -->
+		<script src="backend/assets/js/h3.js"></script>
 
 
 		<!--[if !IE]> -->
@@ -305,8 +306,9 @@
 		<script src="backend/assets/js/ace.min.js"></script>
 
 		<!-- js -->
-		<script src="https://cdn.ckeditor.com/4.5.6/standard/ckeditor.js"></script>
-		<script src="https://cdn.ckeditor.com/4.10.0/standard/ckeditor.js"></script>
+		<script src="backend/assets/js/h2.js"></script>
+
+		<script src="backend/assets/js/h1.js"></script>
 
 
 		<!-- <script src="backend/assets/js/jquery.dataTables.min.js"></script>

@@ -411,4 +411,65 @@ class AdminController extends Controller
         }
     }
 
+    public function searchOrder(Request $request){
+        if($request->ajax()){
+
+            $result="";
+
+            $auction = Bill::where('state','LIKE','%'.$request->data_search.'%')->orWhere('id','LIKE','%'.$request->data_search.'%')->orWhere('billdetail_id','LIKE','%'.$request->data_search.'%')->get();
+            $total_row = $auction->count();
+            if($total_row > 0){
+                foreach ($auction as  $key => $data) {
+                    $result .= "<tr row_id_auction_product='$data->id'>"
+                                ."<td class='text-center'>".$data->id."</td>"
+                                ."<td class='text-center'>".$data->billdetail_id."</td>"
+                                ."<td class='text-center'>".$data->user_id."</td>"
+                                ."<td class='text-center'>".$data->shipper_id."</td>"
+                                ."<td class='text-center'>".$data->state."</td>"
+                                ."<td class='center' style='padding-top: 13px;'>"
+                                                    ."<a href='#' class='green edit-cate' data-toggle='modal' data-target='#displayModal-order'>"
+                                                        ."<i class='ace-icon fa fa-eye  bigger-130'></i>"
+                                                    ."</a>"
+                                                ."</td>"
+                                                ."<td class='center'>"
+                                                    
+                                                   ."<div class='btn-group'>"
+                                                        ."<button data-toggle='dropdown' class='btn btn-sm btn-danger dropdown-toggle' aria-expanded='false'>"
+                                                            ."Action"
+                                                            ."<i class='ace-icon fa fa-angle-down icon-on-right'></i>"
+                                                        ."</button>"
+                                                        ."<input type='hidden' name='order-id' id='order-id' value=".$data->id.">"
+                                                        ."<ul class='dropdown-menu'>"
+                                                            ."<li>"
+                                                                ."<a href='#' data=".$data->id." class='find-shipper' data-toggle='modal' >Active</a>"
+                                                            ."</li>"
+
+                                                            ."<li class='divider'></li>"
+
+                                                            ."<li>"
+                                                                ."<a href='#' class='cancel' data='<?php echo($data->id) ?>' data-toggle='modal'>Cancel</a>"
+                                                            ."</li>"
+                                                        ."</ul>"
+                                                    ."</div>"
+                                                ."</td>"
+                                                
+                                                ."<td class='center' style='padding-top: 13px;'>"
+
+                                                    ."<a class='red' href='#' id='<?php echo $data->id; ?>' data-order='delete-order' data-toggle='modal'>"
+                                                        ."<i class='ace-icon fa fa-trash-o bigger-130'></i>"
+                                                    ."</a>"
+
+                                                ."</td>"
+                            ."</tr>";
+                }
+            }
+            else{
+                $result = "<tr>"
+                                ."<td class='text-center' colspan='8'>No Data Found</td>"
+                           ."</tr>";
+            }
+            return Response($result);
+        }
+    }
+
 }

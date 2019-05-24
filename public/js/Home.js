@@ -224,7 +224,12 @@ jQuery(function($) {
                 offer: price
             },
             success: function(data){
-                alert(data["Message"]);
+                if(data["Message"]){
+                    alert(data["Message"]);
+                }
+                else if (data["Error Message"]) {
+                    alert(data["Error Message"]);
+                }
                 $('#myModal-auction').modal('hide');
                 console.log(data);
             },
@@ -346,6 +351,7 @@ jQuery(function($) {
         var user_id = $(this).attr('user_id');
         // alert(product_id);
         // alert(auction_id);
+        // alert(user_id);
         $.ajax({
 
             url: '/api/v1/auctions/productAll?productId='+product_id+'&auction_id='+auction_id,

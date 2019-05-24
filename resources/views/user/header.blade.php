@@ -61,10 +61,10 @@
 	<div class="container main-menu">
 	<div class="row align-items-center  d-flex">
       <div id="logo">
-        <a href="{{route('homePage')}}"><img style="height: 50px; width: 50px;" src="../frontend/img/logo1.png" alt="" title="" /><h3 style="color: white; margin-left: 70px; margin-top: -28px;">Library</h3></a>
+        <a href="{{route('homePage')}}"><img style="height: 50px; width: 50px;" src="../frontend/img/logo1.png" alt="" title="" /><h3 style="color: white; margin-left: 70px; margin-top: -28px;">Auction</h3></a>
       </div>
 
-      <nav id="nav-menu-container" style="margin-top: 28px; padding-left: 149px;">
+      <nav id="nav-menu-container" style="margin-top: -28px; padding-left: 140px;">
         @include('user.menu')
       </nav><!-- #nav-menu-container -->
 	</div>

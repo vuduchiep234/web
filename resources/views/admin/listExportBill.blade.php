@@ -62,7 +62,7 @@
                             </div>
                         </div>
                     </div> -->
-                    <form method="get" action="{{route('listExportBill/between')}}">
+                    <!-- <form method="get" action="{{route('listExportBill/between')}}">
                         {{csrf_field()}}
                         <div style="margin-left: 0px;">
                             <div style="margin-left: 80px; width: 1000px;">
@@ -104,7 +104,7 @@
                         </div>
                     </form>
                     
-                    <br>
+                    <br> -->
 
                     <div class="row">
                         <div class="col-xs-12">

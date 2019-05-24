@@ -123,6 +123,50 @@ jQuery(function($) {
 		});
 	});
 
+	$('#search_order').on('click',function(){
+        // alert(1);
+        var value=$('#data_search').val();
+        // alert(value);
+        $.ajax({
+            type : 'get',
+            url : '/searchOrder',
+            data: {'data_search':value},
+            success:function(data){
+                // console.log(data);
+                $('#body_list_order').html(data);
+                $('.find-shipper').click(function(){
+
+					var id = $(this).attr("data");
+					// alert(id);
+			        $('#myModal-findShipper').modal('show');
+			        $('#id_bill').val(id);
+			        // $('#form-member')[0].reset();
+			        
+			    });
+
+			    $('.cancel').on('click', function(){
+
+					var id = $(this).attr('data');
+
+					alert(id);
+					$('#cancelModal').modal('show');
+					$('#button-cancel').val(id);
+				});
+
+				$('a[data-order=delete-order]').on('click', function(){
+
+					var id = $(this).attr('id');
+					$('#order-delete').val(id);
+					$('#deleteModal-order').modal('show');
+				});
+            },
+            error: function(err){
+                // alert("fail");
+                console.log(err);
+            }
+        });
+    });
+
 	function load_data_order(id){
 		$.ajax({
                     
@@ -140,11 +184,11 @@ jQuery(function($) {
                                     +"<td class='text-center'>"+data.data.user_id+"</td>"
                                     +"<td class='text-center'>"+data.data.shipper_id+"</td>"
                                     +"<td class='text-center'>"+data.data.state+"</td>"
-                                    +"<td class='center' style='padding-top: 13px;'>"
-                                        +"<a href='#' class='green edit-cate' data-toggle='modal'>"
-                                            +"<i class='ace-icon fa fa-eye  bigger-130'></i>"
-                                        +"</a>"
-	                                +"</td>"
+                                 //    +"<td class='center' style='padding-top: 13px;'>"
+                                 //        +"<a href='#' class='green edit-cate' data-toggle='modal'>"
+                                 //            +"<i class='ace-icon fa fa-eye  bigger-130'></i>"
+                                 //        +"</a>"
+	                                // +"</td>"
 	                                +"<td class='center'>"
 	                                    
 	                                    +"<div class='btn-group'>"

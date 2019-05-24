@@ -91,9 +91,9 @@
                                                     <th class="center">
                                                         Quantity
                                                     </th>
-                                                     <th class="center">
+                                                     <!-- <th class="center">
                                                         Import
-                                                    </th>
+                                                    </th> -->
                                                     <th class="center">
                                                         Edit
                                                     </th><th class="center">
@@ -113,12 +113,12 @@
                                                     <td class="center">{{ $product->type }}</td>
                                                     <td class="center">{{ $product->image_url }}</td>
                                                     <td class="center">{{ $product->quantity }}</td>
-                                                    <td class="center">
+                                                    <!-- <td class="center">
                                                         <a class="orange" href="#" id_import_product="<?php echo $product->id; ?>" data-role="import-product" data-toggle="modal">
                                                             <i class="ace-icon fa fa-edit bigger-130"></i>
                                                         </a>
 
-                                                    </td>
+                                                    </td> -->
                                                     <td class="center">
                                                         <a href="#" class="blue edit-product" id_edit_product="<?php echo $product->id; ?>" product-name="{{$product->name}}" product-price="{{$product->price}}" product-detail="{{$product->detail}}" product-producer_id="{{$product->producer_id}}" product-category_id="{{$product->category_id}}" product_image="{{$product->image_url}}" product-state="{{$product->state}}" data-role="update-product" data-toggle="modal">
                                                             <i class="ace-icon fa fa-pencil bigger-130"></i>
